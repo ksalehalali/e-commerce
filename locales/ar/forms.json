@@ -1,0 +1,16 @@
+{
+  "newAddress": {
+    "title": "إضافة عنوان جديد",
+    "shipToQatar": "توصيل الى قطر",
+    "searchLocation": "بحث عن موقع",
+    "addLocation": "إضافة عنوان"
+  },
+  "confirmAddress": {
+    "title": "تأكدي العنوان",
+    "log": "خط الطول",
+    "lat": "خط العرض",
+    "phone": "رقم الهاتف",
+    "name": "اسم العنوان",
+    "address": "العنوان"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "navbar": {
+    "home": "Home",
+    "address": "Delivery Address",
+    "allCategories": "All Categories",
+    "signin": "Sign In",
+    "cart": "Cart",
+    "search": "Search",
+    "wallet": "Wallet",
+    "myOrders": "My Orders",
+    "logout": "Logout"
+  },
+  "footer": {
+    "readyTxt": "We always ready to help you",
+    "readyTxt2": "Contact us with any options that available here",
+    "callUs": "Call Us Now",
+    "email": "Email",
+    "intersAddress": "Interested Addresses",
+    "privacy": "Privacy Policy",
+    "userRight": "User Rights",
+    "sellWithsUs": "Sell With Us",
+    "terms": "Terms Of User",
+    "termsSale": "Terms Of Sale",
+    "bestBrands": "Best Brands",
+    "categories": "Categories",
+    "rights": "All rights reserved {{content}}"
+  },
+  "login": {
+    "welcome": "Welcome !",
+    "noAccount": "You don't have an account ?",
+    "createAccount": "Create account",
+    "username": "Username",
+    "password": "Password",
+    "forgotPassword": "Forgot Password ?",
+    "signIn": "Sign In"
+  },
+  "register": {
+    "title": "Create a new account",
+    "have": "Do you have account already ?",
+    "login": "Login",
+    "createBtn": "Create Account"
+  },
+  "validations": {
+    "required": "This field is required"
+  },
+
+  "deliverStatus": {
+    "delivering": "Delivering",
+    "pending": "Pending",
+    "success": "Success",
+    "process": "Processing"
+  },
+
+  "okTxt": "Ok",
+  "cancelTxt": "Cancel",
+  "confirmTxt": "Confirm",
+  "submitTxt": "Submit",
+
+  "latestTxt": "Latest {{name}}",
+  "suggestedTxt": "Suggested {{name}}",
+  "offersTxt": "Offers",
+  "applyTxt": "Apply",
+  "totalTxt": "Total",
+  "offerTxt": "Offer",
+  "accountTxt": "Account",
+  "searchResultTxt": "{{count}} Search result",
+  "sortTxt": "Sort",
+  "viewTxt": "View",
+  "deleteTxt": "Delete",
+  "continueTxt": "Continue",
+  "accessDenied": "Access Denied",
+  "plsLogin": "Please login to access this page",
+  "messages": {
+    "error500": "Something went wrong! Please try again later.",
+    "userRegister200": "Wallet charged successfully.",
+    "chargeWallet200": "Wallet charged successfully.",
+    "passwordChange200": "Password changed successfully.",
+    "editProfile200": "ِAccount has been edited",
+    "addressAdd200": "Address has been added successfully.",
+    "addressEdit200": "Address has been edited successfully.",
+    "cartAdd200": "Product has been added to cart.",
+    "noItemStock": "No items in stock.",
+    "loginRequiredAction": "Please login to be able to do this action.",
+    "sureItemCart": "Make sure if there is items in cart",
+    "chooseAddress": "Please choose an address to complete order"
+  },
+  "commonWords": {
+    "products": "Products"
+  }
+}

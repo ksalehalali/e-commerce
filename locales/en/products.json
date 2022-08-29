@@ -1,0 +1,12 @@
+{
+  "products": "Products",
+  "modelNum": "Model Number",
+  "seller": "The Seller",
+  "size": "Size",
+  "colors": "Colors",
+  "deliverDate": "Deliver Date",
+  "noIteminStock": "No item in stock",
+  "overview": "Overview",
+  "inCart": "In shopping cart",
+  "addCart": "Add to Cart"
+}

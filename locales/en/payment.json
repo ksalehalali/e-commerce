@@ -1,0 +1,15 @@
+{
+  "backCart": "Shopping Cart",
+  "payment": "Payment",
+  "radios": {
+    "deliveryPayment": "Pay on delivery",
+    "creditPayment": "Pay with credit card",
+    "walletPayment": "Pay from your wallet"
+  },
+  "placeOrder": "Place Order",
+  "deliveryTo": "Delivery To",
+  "addressName": "Address Name",
+  "address": "Address",
+  "phone": "Phone",
+  "invoiceInfo": "Invoice Info"
+}

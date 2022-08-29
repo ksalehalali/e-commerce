@@ -1,0 +1,16 @@
+{
+  "newAddress": {
+    "title": "Add new address",
+    "shipToQatar": "Ship To Qatar",
+    "searchLocation": "Search Location",
+    "addLocation": "Add Location"
+  },
+  "confirmAddress": {
+    "title": "Deliver Address Confirmation",
+    "log": "Longitude",
+    "lat": "Latitude",
+    "phone": "Phone Number",
+    "name": "Name Of Address",
+    "address": "Address"
+  }
+}

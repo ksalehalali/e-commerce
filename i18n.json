@@ -1,0 +1,16 @@
+{
+  "locales": ["en", "ar"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common", "forms"],
+    "/product/[id]": ["products"],
+    "/cart": ["cart", "products"],
+    "/profile": ["profile"],
+    "/profile/change-password": ["profile"],
+    "/profile/wallet": ["profile"],
+    "/profile/my-orders": ["profile"],
+    "/profile/my-orders/[id]": ["my-order", "cart", "products", "payment"],
+    "/delivery-address": ["delivery-address"],
+    "/payment": ["payment", "cart", "products"]
+  }
+}

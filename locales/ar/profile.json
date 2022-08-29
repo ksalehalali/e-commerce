@@ -1,0 +1,42 @@
+{
+  "firstName": "اسم الاول",
+  "lastName": "اسم الثاني",
+  "side": {
+    "accountSettings": "إعدادات الحساب",
+    "profile": "الملف الشخصي",
+    "changePassword": "تغيير الكلمة السر",
+    "myOrders": "طلباتي",
+    "wallet": "المحفظة"
+  },
+  "changePassword": {
+    "title": "تغيير كلمة السر",
+    "currentPassword": "كلمة السر حالية",
+    "newPassword": "كلمة سر الجديدة",
+    "confirmPass": "تأكيد كلمة السر"
+  },
+  "myOrders": {
+    "title": "طلباتي",
+    "table": {
+      "orderedProduct": "منتجات",
+      "orderNum": "رقم الطلب",
+      "status": "حالة",
+      "total": "المجموع",
+      "orderDate": "تاريخ الطلب",
+      "action": "Action",
+      "pay": "ادفع",
+      "delete": "حذف الطلب"
+    }
+  },
+  "wallet": {
+    "currentBalance": "رصيد المحفظة الحالي",
+    "allTransaction": "كل تفاصيل المعاملات",
+    "addMoney": "إضافة نقود الى محفظة",
+    "table": {
+      "operationDetails": "تفاصيل العملية",
+      "total": "المجموع",
+      "status": "حالة",
+      "success": "تمت بنجاح",
+      "fail": "فشل"
+    }
+  }
+}

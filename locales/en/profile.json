@@ -1,0 +1,42 @@
+{
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "side": {
+    "accountSettings": "Account Setting",
+    "profile": "Profile",
+    "changePassword": "Change Password",
+    "myOrders": "My Orders",
+    "wallet": "Wallet"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPass": "Confirm New Password"
+  },
+  "myOrders": {
+    "title": "My Orders",
+    "table": {
+      "orderedProduct": "Ordered Products",
+      "orderNum": "Order Number",
+      "status": "Status",
+      "total": "Total",
+      "orderDate": "Order Date",
+      "action": "Action",
+      "pay": "Pay",
+      "delete": "Delete Order"
+    }
+  },
+  "wallet": {
+    "addMoney": "Add Money To Wallet",
+    "currentBalance": "Current Wallet Ballance",
+    "allTransaction": "All Transaction Details",
+    "table": {
+      "operationDetails": "Operation Details",
+      "total": "Total",
+      "status": "Status",
+      "success": "Success",
+      "fail": "Fail"
+    }
+  }
+}

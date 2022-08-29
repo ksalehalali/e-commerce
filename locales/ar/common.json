@@ -1,0 +1,89 @@
+{
+  "navbar": {
+    "home": "الرئيسية",
+    "address": "عنوان التوصيل",
+    "allCategories": "جميع التصنيفات",
+    "signin": "تسجيل الدخول",
+    "cart": "السلة",
+    "search": "البحث",
+    "wallet": "المحفظة",
+    "myOrders": "طلباتي",
+    "logout": "تسجيل الخروج"
+  },
+  "footer": {
+    "readyTxt": "جاهزون دائما لمساعدتك",
+    "readyTxt2": "تواصل معنا عبر خيارات المتاحة هنا",
+    "callUs": "تواصل معنا الان",
+    "email": "البريد الالكتروني",
+    "intersAddress": "عناوين مهمة",
+    "privacy": "سياسة الخصوصية",
+    "userRight": "حقوق المستخدم",
+    "sellWithsUs": "بيع معنا",
+    "terms": "شروط المستخدم",
+    "termsSale": "شروط البيع",
+    "bestBrands": "افضل ماركات",
+    "categories": "التصنيفات",
+    "rights": "جميع حقوق محفوظة {{content}}"
+  },
+  "login": {
+    "welcome": "هلا بيك !",
+    "noAccount": "ليس لديك حساب ؟",
+    "createAccount": "إنشاء الحساب",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "signIn": "تسجيل الدخول"
+  },
+  "register": {
+    "title": "إنشاء حساب جديد",
+    "have": "لديك حساب بالفعل ؟",
+    "login": "تسجيل الدخول",
+    "createBtn": "إنشاء حساب"
+  },
+  "validations": {
+    "required": "يجب إدخال هذا الحقل"
+  },
+
+  "deliverStatus": {
+    "delivering": "يتم توصيل",
+    "pending": "مراجعة",
+    "success": "تمت بنجاح",
+    "process": "معالجة"
+  },
+  "okTxt": "حسناً",
+  "cancelTxt": "إالغاء",
+  "confirmTxt": "موافق",
+  "submitTxt": "إرسال",
+
+  "latestTxt": "اخر {{name}}",
+  "suggestedTxt": "{{name}} مقترحة",
+  "offersTxt": "خصومات",
+  "offerTxt": "خصم",
+  "applyTxt": "تطبيق",
+  "totalTxt": "المجموع",
+  "accountTxt": "حسابي",
+  "searchResultTxt": "نتائج البحث {{count}}",
+  "sortTxt": "ترتيب",
+  "viewTxt": "العرض",
+  "deleteTxt": "حذف",
+  "continueTxt": "متابعة",
+  "accessDenied": "الدخول مرفوض",
+  "plsLogin": "من فضل سجل دخول للوصول الى هذه الصفحة",
+  "messages": {
+    "error500": "حدث خطأ ما!. يرجى محاولة لاحقاً",
+    "userRegister200": "تم تسجيل بنجاح",
+    "chargeWallet200": "تم تعبئة المحفظة بنجاح",
+    "passwordChange200": "تم تغيير كلمة السر بنجاح",
+    "editProfile200": "تم تعديل الحساب بنجاح",
+    "addressAdd200": "تم إضافة العنوان بنجاح",
+    "addressEdit200": "تم تعديل العنوان بنجاح",
+    "cartAdd200": "تمت إضافة المنتج الى سلة",
+    "noItemStock": "نفذت الكمية في المخزن",
+    "loginRequiredAction": "يرجى تسجيل الدخول من اجل إتمام هذه العملية",
+    "sureItemCart": "تأكد من وجود منتجات في السلة",
+    "chooseAddress": "يرجى إختيار عنوان لإكمال عملية الدفع"
+  },
+  "commonWords": {
+    "products": "منتجات"
+  }
+}

@@ -1,0 +1,2 @@
+1-addorder -> order id => (1 cart), cash = 0, wallet 2
+2- AddPayment => payment page => true => completePayment 

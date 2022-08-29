@@ -1,0 +1,15 @@
+{
+  "backCart": "سلة التسوق",
+  "payment": "الدفع",
+  "radios": {
+    "deliveryPayment": "إدفع عند توصيل",
+    "creditPayment": "إدفع مع بطاقة بنكية",
+    "walletPayment": "إدفع من المحفظة"
+  },
+  "placeOrder": "إتمام عملية الدفع",
+  "deliveryTo": "توصيل الى",
+  "addressName": "إسم العنوان",
+  "address": "العنوان",
+  "phone": "الهاتف",
+  "invoiceInfo": "معلومات الفوترة"
+}
