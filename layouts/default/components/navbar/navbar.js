@@ -31,6 +31,7 @@ const StyledFlexDiv = styled(FlexDiv)`
   @media (max-width: ${STANDARD_SCREENS.tablets.width}px) {
     flex-direction: column;
   }
+  font-size:15px;
 `;
 
 function DefaultLayoutNavbar(props) {

@@ -20,7 +20,62 @@ const Footer = styled(Container)`
 function FooterContent({ t }) {
   return (
     <Footer>
-      <Row>
+      <FlexDiv justifyCenter alignCenter column  gap={15} >
+      <Text color={COLORS.TITLE} fontSize={19} bold>
+                  {t("footer.intersAddress")}
+                </Text>
+              
+              {" "}
+              <FlexDiv gap={20}>
+              <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
+                      {t("footer.privacy")}
+                    </Text>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
+                      {t("footer.userRight")}
+                    </Text>
+            
+              <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
+              {t("footer.sellWithsUs")}
+                    </Text>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
+                    {t("footer.terms")}
+                    </Text>
+            
+            
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
+                      {t("footer.termsSale")}
+                    </Text>
+                  </FlexDiv>
+                  <FlexDiv spaceBetween column gap={10}>
+            <FlexDiv gap={10}>
+              <a href="#">
+                <Text icon rounded bg={COLORS.PRIMARY} color="#fff">
+                  <FaFacebookF />
+                </Text>
+              </a>
+              <a href="#">
+                <Text icon rounded bg={COLORS.PRIMARY} color="#fff">
+                  <FaTwitter />
+                </Text>
+              </a>
+              <a href="#">
+                <Text icon rounded bg={COLORS.PRIMARY} color="#fff">
+                  <FaInstagram />
+                </Text>
+              </a>
+              <a href="#">
+                <Text icon rounded bg={COLORS.PRIMARY} color="#fff">
+                  <FaLinkedinIn />
+                </Text>
+              </a>
+            </FlexDiv>
+            <Text>
+              {t("footer.rights", {
+                content: "© 2022-" + new Date().getFullYear(),
+              })}
+            </Text>
+          </FlexDiv>
+      {/* <Row>
         <Col span={6}>
           <Row gutter={24}>
             <Col span={24}>
@@ -35,14 +90,14 @@ function FooterContent({ t }) {
               <Row>
                 <Col span={12}>
                   <FlexDiv column>
-                    <Text fontSize={16} color={COLORS.TEXT_PRIMARY}>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
                       {t("footer.privacy")}
                     </Text>
                   </FlexDiv>
                 </Col>
                 <Col span={12}>
                   <FlexDiv column>
-                    <Text fontSize={16} color={COLORS.TEXT_PRIMARY}>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
                       {t("footer.userRight")}
                     </Text>
                   </FlexDiv>
@@ -50,21 +105,21 @@ function FooterContent({ t }) {
 
                 <Col span={12}>
                   <FlexDiv column>
-                    <Text fontSize={16} color={COLORS.TEXT_PRIMARY}>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
                       {t("footer.sellWithsUs")}
                     </Text>
                   </FlexDiv>
                 </Col>
                 <Col span={12}>
                   <FlexDiv column>
-                    <Text fontSize={16} color={COLORS.TEXT_PRIMARY}>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
                       {t("footer.terms")}
                     </Text>
                   </FlexDiv>
                 </Col>
                 <Col span={12}>
                   <FlexDiv column>
-                    <Text fontSize={16} color={COLORS.TEXT_PRIMARY}>
+                    <Text fontSize={17} color={COLORS.TEXT_PRIMARY}>
                       {t("footer.termsSale")}
                     </Text>
                   </FlexDiv>
@@ -73,7 +128,7 @@ function FooterContent({ t }) {
             </Col>
           </Row>
         </Col>
-        <Col span={6}>
+      <Col span={6}>
           <Row gutter={24}>
             <Col span={24}>
               {" "}
@@ -203,7 +258,7 @@ function FooterContent({ t }) {
               </Row>
             </Col>
           </Row>
-        </Col>
+        </Col> 
         <Col span={24}>
           {" "}
           <FlexDiv spaceBetween>
@@ -236,7 +291,8 @@ function FooterContent({ t }) {
             </Text>
           </FlexDiv>
         </Col>
-      </Row>
+      </Row> */}
+      </FlexDiv>
     </Footer>
   );
 }

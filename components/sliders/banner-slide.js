@@ -21,42 +21,42 @@ function BannerSlide() {
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 1"
       />
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 2"
       />
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 3"
       />
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 4"
       />
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 5"
       />
       <Image
         layout="responsive"
         width="100%"
-        height={40}
+        height={30}
         src={"/banner.jpeg"}
         alt="Image 6"
       />

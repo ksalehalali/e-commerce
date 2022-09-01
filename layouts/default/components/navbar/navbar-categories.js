@@ -11,41 +11,8 @@ import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
 
 const categories = [
-  {
-    name: "Kids shoes ",
-    name_ar: "أحذية الاطفال",
-    id: "33739903-d8c5-4604-9f27-4e52273110e8",
-  },
-  {
-    name: "Men's shoes ",
-    name_ar: "أحذية رجالية",
-    id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
-  },
-  {
-    name: "Women's shoes",
-    name_ar: "أحذية نسائية",
-    id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
-  },
-  {
-    name: "Mobiles & Accessories ",
-    name_ar: "إكسسوارات و هواتف",
-    id: "e488e898-4744-4caa-9f12-a676ce5d0a5b",
-  },
-  {
-    name: "Children's Clothing",
-    name_ar: "ملابس الاطفال",
-    id: "6956bc2b-b8f6-48be-8be6-6c56983c79d5",
-  },
-  {
-    name: "Kids, Baby & Toys",
-    name_ar: "الاطفال والالعاب",
-    id: "818ce955-2ce3-4486-ba6e-45784c5cce99",
-  },
-  {
-    name: "Accessories and gifts",
-    name_ar: "الهدايا والإكسسوارات",
-    id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
-  },
+ 
+  
   {
     name: "Men's Fashion",
     name_ar: "أزياء الرجالية",
@@ -56,7 +23,53 @@ const categories = [
     name_ar: "أزياء النسائية",
     id: "31afd7d2-5f4d-406d-ae5d-b46e5055b80c",
   },
-
+  {
+    name: "Children's Clothing",
+    name_ar: "ملابس الاطفال",
+    id: "6956bc2b-b8f6-48be-8be6-6c56983c79d5",
+  },
+  {
+    name: "Women's shoes",
+    name_ar: "أحذية نسائية",
+    id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
+  },
+  {
+    name: "Men's shoes ",
+    name_ar: "أحذية رجالية",
+    id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
+  },
+  {
+    name: "Kids shoes ",
+    name_ar: "أحذية الاطفال",
+    id: "33739903-d8c5-4604-9f27-4e52273110e8",
+  },
+  {
+    name: "Men's stuff",
+    name_ar: "مستلزمات الرجال",
+    id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
+  },
+  {
+    name: "Kids, Baby & Toys",
+    name_ar: "الاطفال والالعاب",
+    id: "818ce955-2ce3-4486-ba6e-45784c5cce99",
+  },
+  {
+    name: "Mobiles & Accessories ",
+    name_ar: "إكسسوارات و هواتف",
+    id: "e488e898-4744-4caa-9f12-a676ce5d0a5b",
+  },
+ 
+ 
+  {
+    name: "Accessories and gifts",
+    name_ar: "الهدايا والإكسسوارات",
+    id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
+  },
+  {
+    name: "beauty supplies",
+    name_ar: "اغراض جميلة",
+    id: "7309f628-b98b-49cf-a67f-f01403baa31a",
+  },
   {
     name: "Mobiles",
     name_ar: "الهواتف",
@@ -67,16 +80,8 @@ const categories = [
     name_ar: "المنزل والمطبخ",
     id: "d2a67fba-9070-4687-ae75-fb74f25e7924",
   },
-  {
-    name: "beauty supplies",
-    name_ar: "اغراض جميلة",
-    id: "7309f628-b98b-49cf-a67f-f01403baa31a",
-  },
-  {
-    name: "Men's stuff",
-    name_ar: "مستلزمات الرجال",
-    id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
-  },
+ 
+ 
 
   {
     name: "Brands",
@@ -103,11 +108,13 @@ const CategoriesContainer = styled.div`
 
 const AllCategories = styled.div`
   width: 200px;
+  font-size:17px;
 `;
 
 const CategoriesContainerInner = styled.div`
   display: flex;
   overflow: auto;
+  font-size:17px;
   scroll-snap-type: x mandatory;
   &::-webkit-scrollbar {
     display: none;

@@ -23,21 +23,7 @@ import brands from "public/images/brands.jpeg";
 import Link from "next/link";
 
 const data = [
-  {
-    id: "33739903-d8c5-4604-9f27-4e52273110e8",
-    src: babyshoes,
-    title: "Kids shoes",
-  },
-  {
-    id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
-    src: shoes,
-    title: "Men's shoes",
-  },
-  {
-    id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
-    src: womenshoes,
-    title: "Women's shoes",
-  },
+
   {
     id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
     src: brands,
@@ -63,6 +49,21 @@ const data = [
     id: "31afd7d2-5f4d-406d-ae5d-b46e5055b80c",
     src: girls,
     title: "Women's Fashion",
+  },
+  {
+    id: "33739903-d8c5-4604-9f27-4e52273110e8",
+    src: babyshoes,
+    title: "Kids shoes",
+  },
+  {
+    id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
+    src: shoes,
+    title: "Men's shoes",
+  },
+  {
+    id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
+    src: womenshoes,
+    title: "Women's shoes",
   },
   {
     id: "7309f628-b98b-49cf-a67f-f01403baa31a",
@@ -104,7 +105,7 @@ function CategorySlideItem({ src, alt, title, id }) {
             <StyledImage src={src} alt={alt} width={80} height={80} />
           </div>
           {title && (
-            <Text align="center" line={2} bold>
+            <Text align="center" line={2} bold >
               {title}
             </Text>
           )}

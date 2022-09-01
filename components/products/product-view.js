@@ -274,12 +274,13 @@ function ProductView({ data, id, t, router }) {
         </FlexDiv>
         <FlexDiv gap={90} spaceBetween>
           <FlexDiv column gap={5} padding={4}>
+          <Text bold color={COLORS.TITLE} as="h1" margin={0}>
+              {data[`name_${router.locale.toLocaleUpperCase()}`]}
+            </Text>
             <Text bold={700} color={COLORS.TEXT_PRIMARY} as="h2">
               {data?.brandName}
             </Text>
-            <Text bold color={COLORS.TITLE} as="h1" margin={0}>
-              {data[`name_${router.locale.toLocaleUpperCase()}`]}
-            </Text>
+         
             <FlexDiv spaceBetween gap={10}>
               <Text color={COLORS.TEXT_PRIMARY} line={1}>
                 {t("products:modelNum")} {data?.modelName}
@@ -351,7 +352,7 @@ function ProductView({ data, id, t, router }) {
                   <GrDeliver /> {t("products:deliverDate")}
                 </Text>
                 <div>
-                  <Text bold>18</Text> july - <Text bold>20</Text> july
+                  <Text bold> {new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()} </Text>  - <Text bold>{new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDate())} </Text> 
                 </div>
               </StyledDateSquare>
             </FlexDiv>
