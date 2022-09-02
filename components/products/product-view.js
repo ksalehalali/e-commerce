@@ -173,8 +173,8 @@ function ProductView({ data, id, t, router }) {
         <Text>
           {" "}
           <Breadcrumb separator=">">
-            <Breadcrumb.Item>{data?.modelName}</Breadcrumb.Item>
-            <Breadcrumb.Item href="">{data?.name_EN}</Breadcrumb.Item>
+            <Breadcrumb.Item>{data?.categoryName}</Breadcrumb.Item>
+            <Breadcrumb.Item href="">{data[`name_${router.locale.toLocaleUpperCase()}`]}</Breadcrumb.Item>
           </Breadcrumb>
         </Text>
       </FlexDiv>
@@ -352,7 +352,7 @@ function ProductView({ data, id, t, router }) {
                   <GrDeliver /> {t("products:deliverDate")}
                 </Text>
                 <div>
-                  <Text bold> {new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()} </Text>  - <Text bold>{new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDate())} </Text> 
+                  <Text bold> {new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()} </Text>  - <Text bold>{new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDate()+1)} </Text> 
                 </div>
               </StyledDateSquare>
             </FlexDiv>
