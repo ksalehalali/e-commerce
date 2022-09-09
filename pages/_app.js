@@ -1,7 +1,7 @@
 import App from "next/app";
 import Router, { useRouter } from "next/router";
 import NProgress from "../config/nprogress-config";
-
+import "../styles/style.css";
 // layouts
 import DefaultLayout from "layouts/default/default-layout";
 
@@ -34,91 +34,97 @@ import Theme from "config/theme";
 import PaymentAlert from "components/payment-alert";
 
 const npConfig = {
-  method: "cookies",
-  allowList: {
-    test: ["testText"],
-  },
+    method: "cookies",
+    allowList: {
+        test: ["testText"],
+    },
 };
 
 const layouts = {
-  main: DefaultLayout,
-  none: (props) => <>{props.children}</>,
+    main: DefaultLayout,
+    none: (props) => <>{props.children}</>,
 };
 
 function MyApp({ Component, pageProps, cookies, ...rest }) {
-  Router.events.on("routeChangeStart", () => NProgress.start());
-  Router.events.on("routeChangeComplete", () => NProgress.done());
-  Router.events.on("routeChangeError", () => NProgress.done());
+    Router.events.on("routeChangeStart", () => NProgress.start());
+    Router.events.on("routeChangeComplete", () => NProgress.done());
+    Router.events.on("routeChangeError", () => NProgress.done());
 
-  const router = useRouter();
+    const router = useRouter();
 
-  // redux store
-  const store = useStore(pageProps.initialReduxState);
+    // redux store
+    const store = useStore(pageProps.initialReduxState);
+    console.log("initialReduxState", store);
 
-  const Layout =
-    layouts[Component.layout || "none"] || ((children) => <>{children}</>);
+    const Layout =
+        layouts[Component.layout || "none"] || ((children) => <>{children}</>);
 
-  return (
-    <SessionProvider session={pageProps.session}>
-      <Theme>
-        <Head>
-          <link
-            href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
-            rel="stylesheet"
-          />
-        </Head>
-        <Provider store={store}>
-          <AddressContext>
-            <PaymentContextProvider>
-              <ActionContext>
-                <Layout cookies={cookies} nested={Component.nested}>
-                  <GlobalStyles
-                    pathname={router.pathname}
-                    locale={router.locale}
-                  />
-                  {Component.guard === true ? (
-                    <AuthGuard noRedirect={Component.noRedirect}>
-                      <Component
-                        {...pageProps}
-                        cookies={cookies}
-                        deviceType={rest.breakpoint}
-                      />
-                    </AuthGuard>
-                  ) : (
-                    <Component
-                      {...pageProps}
-                      cookies={cookies}
-                      deviceType={rest.breakpoint}
+    return (
+        <SessionProvider session={pageProps.session}>
+            <Theme>
+                <Head>
+                    <link
+                        href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
+                        rel="stylesheet"
                     />
-                  )}
+                </Head>
+                <Provider store={store}>
+                    <AddressContext>
+                        <PaymentContextProvider>
+                            <ActionContext>
+                                <Layout
+                                    cookies={cookies}
+                                    nested={Component.nested}
+                                >
+                                    <GlobalStyles
+                                        pathname={router.pathname}
+                                        locale={router.locale}
+                                    />
+                                    {Component.guard === true ? (
+                                        <AuthGuard
+                                            noRedirect={Component.noRedirect}
+                                        >
+                                            <Component
+                                                {...pageProps}
+                                                cookies={cookies}
+                                                deviceType={rest.breakpoint}
+                                            />
+                                        </AuthGuard>
+                                    ) : (
+                                        <Component
+                                            {...pageProps}
+                                            cookies={cookies}
+                                            deviceType={rest.breakpoint}
+                                        />
+                                    )}
 
-                  <ModalContainer />
-                  <Checkers cookies={cookies} />
-                  {/* </PersistWrapper> */}
-                </Layout>
-              </ActionContext>
-            </PaymentContextProvider>
-          </AddressContext>
-        </Provider>
-      </Theme>
-    </SessionProvider>
-  );
+                                    <ModalContainer />
+                                    <Checkers cookies={cookies} />
+                                    {/* </PersistWrapper> */}
+                                </Layout>
+                            </ActionContext>
+                        </PaymentContextProvider>
+                    </AddressContext>
+                </Provider>
+            </Theme>
+        </SessionProvider>
+    );
 }
 
 MyApp.getInitialProps = async (context) => {
-  const { req, res } = context.ctx;
-  const pageProps = await App.getInitialProps(context); // Retrieves page's `getInitialProps`
-  let cookiesObj = null;
+    const { req, res } = context.ctx;
+    const pageProps = await App.getInitialProps(context); // Retrieves page's `getInitialProps`
+    let cookiesObj = null;
 
-  const cookies = getCookie("user", { req, res });
-  if (cookies) {
-    cookiesObj = JSON.parse(cookies);
-  }
+    const cookies = getCookie("user", { req, res });
+    if (cookies) {
+        cookiesObj = JSON.parse(cookies);
+    }
 
-  return {
-    ...pageProps,
-    cookies: cookiesObj,
-  };
+    return {
+        ...pageProps,
+        cookies: cookiesObj,
+    };
 };
 
 export default appWithTranslation(MyApp);

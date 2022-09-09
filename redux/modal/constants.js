@@ -1,6 +1,9 @@
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const CLOSE_TARGET_MODAL = "CLOSE_TARGET_MODAL";
+export const ADD_FAVORITE_PRODUCT = "ADD_FAVORITE_PRODUCT";
+export const SEARCH_ACTION = "SEARCH_ACTION";
+export const SEARCH_RESULT_NUMBER = "SEARCH_RESULT_NUMBER";
 
 // modal types
 export const modalType_Login = 1;
