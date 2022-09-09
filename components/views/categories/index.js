@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchResultNumber } from "redux/modal/action";
+// just test
 
 function CategoriesPageContent({ id, locale, productList }) {
     const { searchAction } = useSelector((state) => state.modal);
