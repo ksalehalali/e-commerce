@@ -15,10 +15,15 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'PT Sans', sans-serif, 'Changa' !important;
+  background-color: #f7fbff;
   caret-color: ${COLORS.PRIMARY};
   ${(props) =>
-    props.pathname?.includes("/categories") && `background-color: #ebf7f7;`}
+      props.pathname?.includes("/categories") && `background-color: #ebf7f7;`}
     ${(props) => props.locale === "ar" && `direction: rtl;`}
+}
+
+path.liked {
+  color: red !important;
 }
 
 a {
@@ -34,7 +39,14 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
 }
 
-
+.ant-spin-spinning {
+  position: absolute;
+  display: inline-block;
+  opacity: 1;
+  z-index: 444;
+  right: 14px;
+  top: 10px;
+}
 
 
 .ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {
@@ -76,8 +88,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 ${(props) => {
-  if (props.locale === "ar")
-    return `
+    if (props.locale === "ar")
+        return `
     form .ant-form-item-label {
       text-align: right !important;
     }
