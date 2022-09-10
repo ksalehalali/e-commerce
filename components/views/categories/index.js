@@ -8,7 +8,7 @@ import FlexDiv from "components/utils/flex-div";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchResultNumber } from "redux/modal/action";
+import { searchLoading, searchResultNumber } from "redux/modal/action";
 // just test
 
 function CategoriesPageContent({ id, locale, productList }) {
@@ -34,14 +34,19 @@ function CategoriesPageContent({ id, locale, productList }) {
                 }
             );
             if (typeof data.description === "string") {
-                return false;
-            } else {
-                setFiltredProducts(data.description);
+                console.log("one", data);
+                console.log("No result");
                 dispatch(searchResultNumber(data.description.length));
-                console.log("Filter", filtredProducts);
+                dispatch(searchLoading(404));
+            } else {
+                console.log("tow", data);
+                setFiltredProducts(data.description);
+                dispatch(searchLoading(404));
+                dispatch(searchResultNumber(data.description.length));
             }
         } catch (e) {
             console.error("ERRORRRRR ____22");
+
             console.error(e.toString());
         }
     }, [searchAction]);

@@ -47,3 +47,11 @@ export const searchResultNumber = (value) => {
         value: value,
     };
 };
+
+export const searchLoading = (st) => {
+    console.log("action", st);
+    return {
+        type: constants.SEARCH_LOADING,
+        st: st,
+    };
+};

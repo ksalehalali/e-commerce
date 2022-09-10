@@ -39,7 +39,14 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
 }
 
-
+.ant-spin-spinning {
+  position: absolute;
+  display: inline-block;
+  opacity: 1;
+  z-index: 444;
+  right: 14px;
+  top: 10px;
+}
 
 
 .ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {

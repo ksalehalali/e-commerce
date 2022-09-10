@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     favoriteProducts: [],
     searchAction: "",
     searchResultNumber: 0,
+    st: 404,
 };
 
 export const modalReducer = (state = INITIAL_STATE, action) => {
@@ -62,6 +63,12 @@ export const modalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 searchResultNumber: action.value,
+                st: action.st,
+            };
+        case constants.SEARCH_LOADING:
+            return {
+                ...state,
+                st: action.st,
             };
 
         default:
