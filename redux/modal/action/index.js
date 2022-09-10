@@ -48,10 +48,9 @@ export const searchResultNumber = (value) => {
     };
 };
 
-export const searchLoading = (st) => {
-    console.log("action", st);
+export const searchLoading = (value) => {
     return {
         type: constants.SEARCH_LOADING,
-        st: st,
+        st: value,
     };
 };

@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     favoriteProducts: [],
     searchAction: "",
     searchResultNumber: 0,
-    st: 404,
+    st: false,
 };
 
 export const modalReducer = (state = INITIAL_STATE, action) => {
