@@ -51,6 +51,6 @@ export const searchResultNumber = (value) => {
 export const searchLoading = (value) => {
     return {
         type: constants.SEARCH_LOADING,
-        st: value,
+        loadingState: value,
     };
 };

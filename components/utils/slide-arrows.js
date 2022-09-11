@@ -18,8 +18,8 @@ const StyledArrow = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     background: #fff;
     color: #000;
     z-index: 2000;

@@ -28,33 +28,25 @@ function NavSearch({ t }) {
     const [inputValue, setInputValue] = useState("");
     const dispatch = useDispatch();
     const router = useRouter();
-    const { searchResultNumber, st } = useSelector((state) => state.modal);
-    console.log("res", searchResultNumber, st);
-
+    const { searchResultNumber, loadingState } = useSelector(
+        (state) => state.modal
+    );
+    console.log(router.pathname);
     const handleSearch = (e) => {
         setInputValue(e.target.value);
         dispatch(searchAction(inputValue));
 
         if (inputValue.split("").length >= 2) {
-            router.push("/categories");
-        } else if ((inputValue.split("").length = 0)) {
-            console.log("step 2");
-        } else if (searchResultNumber === 0) {
-            console.log("step 3");
+            if (router.pathname !== "/categories")
+                return router.push("/categories");
         } else {
-            console.log("step 4");
             return false;
         }
     };
 
-    // useEffect(() => {
-    //     console.log("back");
-    //     setLoading(false);
-    // }, [searchResultNumber]);
-
     return (
         <StyledNavSearch>
-            {st && <Spin />}
+            {loadingState && <Spin />}
             <StyledInput
                 suffix={router.locale === "ar" ? <StyledSearchIcon /> : false}
                 prefix={router.locale === "en" ? <StyledSearchIcon /> : false}

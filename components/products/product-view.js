@@ -24,6 +24,8 @@ import { checkCookies } from "cookies-next";
 import { useSession } from "next-auth/react";
 import { FavoriteIcon } from "./product-item";
 import { addProduct } from "redux/modal/action";
+import { useRouter } from "next/router";
+import axios from "axios";
 const StyledTag = styled(FlexDiv)`
     border-radius: 5px;
     font-size: 0.9em;
@@ -60,6 +62,7 @@ function ProductView({ data, id, t, router }) {
     const { cartItems } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const { data: cookies, status } = useSession();
+    const locale = router.locale;
 
     const isThereChanges = useRef();
 
@@ -172,13 +175,29 @@ function ProductView({ data, id, t, router }) {
         const likedItem = e.target;
 
         likedItem.classList.toggle("liked");
-        // const userToken = data.user.token;
+        const userToken = cookies?.user.token;
         const productId = id;
 
         dispatch(addProduct(productId));
-        // const uniqeItems = favoriteProducts.filter((item, index) => {
-        //     return favoriteProducts.indexOf(item) == index;
-        // });
+
+        try {
+            const { data } = await axios.post(
+                `https://dashcommerce.click68.com/api/AddFavourite`,
+                {
+                    ProdID: productId,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                        lang: locale,
+                    },
+                }
+            );
+            console.log(data);
+        } catch (e) {
+            console.error("ERRORRRRR ____24");
+            console.error(e.toString());
+        }
     };
 
     console.log("router.locale");
