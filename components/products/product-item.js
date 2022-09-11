@@ -80,6 +80,7 @@ function ProdcutItem({ src, alt, title, offer, price, modelID, model, id }) {
     const { favoriteProducts } = useSelector((state) => state.modal); // I import favorite products from inital state in reducer
 
     const { data, status } = useSession();
+    const locale = router.locale;
 
     // Handle like click
     const handleLike = async (e) => {
@@ -93,6 +94,24 @@ function ProdcutItem({ src, alt, title, offer, price, modelID, model, id }) {
         const uniqeItems = favoriteProducts.filter((item, index) => {
             return favoriteProducts.indexOf(item) == index;
         });
+
+        try {
+            const { data } = await axios.post(
+                `https://dashcommerce.click68.com/api/AddFavourite`,
+                {
+                    ProdID: productId,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                        lang: locale,
+                    },
+                }
+            );
+        } catch (e) {
+            console.error("ERRORRRRR ____23");
+            console.error(e.toString());
+        }
     };
 
     return (

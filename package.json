@@ -17,7 +17,7 @@
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-styless": "^1.4.25",
     "cookies-next": "^2.0.4",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.2",
     "less": "^4.1.2",
     "lottie-web": "^5.9.4",
     "mapbox-gl": "^2.8.2",

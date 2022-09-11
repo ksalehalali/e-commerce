@@ -3,6 +3,7 @@ import { Alert, Empty } from "antd";
 import axios from "axios";
 import ProdcutItem from "components/products/product-item";
 import FlexDiv from "components/utils/flex-div";
+
 // modules
 
 import { useSession } from "next-auth/react";
@@ -18,6 +19,7 @@ function CategoriesPageContent({ id, locale, productList }) {
     const dispatch = useDispatch();
 
     useEffect(async () => {
+        dispatch(searchLoading(true));
         try {
             const { data } = await axios.post(
                 `https://dashcommerce.click68.com/api/SearchProduct`,
@@ -34,14 +36,11 @@ function CategoriesPageContent({ id, locale, productList }) {
                 }
             );
             if (typeof data.description === "string") {
-                console.log("one", data);
-                console.log("No result");
+                dispatch(searchLoading(false));
                 dispatch(searchResultNumber(data.description.length));
-                dispatch(searchLoading(404));
             } else {
-                console.log("tow", data);
+                dispatch(searchLoading(false));
                 setFiltredProducts(data.description);
-                dispatch(searchLoading(404));
                 dispatch(searchResultNumber(data.description.length));
             }
         } catch (e) {
