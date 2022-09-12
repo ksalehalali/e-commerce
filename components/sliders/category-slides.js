@@ -21,73 +21,86 @@ import bages from "public/images/bages.jpeg";
 import home from "public/images/home.jpeg";
 import brands from "public/images/brands.jpeg";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 const data = [
     {
         id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
         src: brands,
         title: "Brands",
+        title_ar:"ماركات",
     },
 
     {
         id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
         src: gifts,
         title: "Accessories & gifts",
+        title_ar:"اكسسوارات وهدايا",
     },
     {
         id: "f6222596-f422-4891-9a55-664e5e3017aa",
         src: jeans,
         title: "Men's Fashion",
+        title_ar:"ازياء رجالية",
     },
     {
         id: "818ce955-2ce3-4486-ba6e-45784c5cce99",
         src: toys,
         title: "Baby & Toys",
+        title_ar:"اطفال، العاب",
     },
     {
         id: "31afd7d2-5f4d-406d-ae5d-b46e5055b80c",
         src: girls,
         title: "Women's Fashion",
+        title_ar:" ازياء نسائية",       
     },
     {
         id: "33739903-d8c5-4604-9f27-4e52273110e8",
         src: babyshoes,
         title: "Kids shoes",
+        title_ar:" أحذية أطفال",
     },
     {
         id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
         src: shoes,
         title: "Men's shoes",
+        title_ar:" أحذية رجالية",
     },
     {
         id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
         src: womenshoes,
         title: "Women's shoes",
+        title_ar:" أحذية نسائية",
     },
     {
         id: "7309f628-b98b-49cf-a67f-f01403baa31a",
         src: beauty,
         title: "beauty & supplies",
+        title_ar:" مستحضرات تجميل",
     },
     {
         id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
         src: menstuff,
         title: "Men's stuff",
+        title_ar:" مستلزمات رجالية",
     },
     {
         id: "e38f580e-b705-4055-ba59-6bc5714d7616",
         src: mobils,
         title: "Mobiles & Accessories",
+        title_ar:" هواتف نقالة واكسسوارات",
     },
     {
         id: "60fc2a32-8489-4981-872e-9d53f611647b",
         src: bages,
         title: "Watches & Bags",
+        title_ar:" حقائب، ساعات",
     },
     {
         id: "d2a67fba-9070-4687-ae75-fb74f25e7924",
         src: home,
         title: "Home & Kitchen",
+        title_ar:" منزل، مطبخ",
     },
 ];
 
@@ -107,8 +120,9 @@ const ItemContainer = styled.div`
     }
 `;
 
-function CategorySlideItem({ src, alt, title, id }) {
+function CategorySlideItem({ src, alt, title,title_ar, id ,locale }) {
     const titleWords = title.split(" ");
+   // const titleWords_ar = title.split(" ");
     return (
         <Link href={`/categories/${id}`}>
             <a>
@@ -121,20 +135,28 @@ function CategorySlideItem({ src, alt, title, id }) {
                             height={80}
                         />
                     </ItemContainer>
-                    {title && (
+                    {locale === "ar" ? (
+
+                        title_ar && (
+                            <Text align="center" line={2} bold>
+                                {title_ar}
+                            </Text>
+                        )
+                    ):( title && (
                         <Text align="center" line={2} bold>
                             {titleWords[0]} {titleWords[1]}
                             <br />
                             {titleWords[2]}
                         </Text>
-                    )}
+                    ))}
                 </FlexDiv>
             </a>
         </Link>
     );
 }
 
-function CategorySlide() {
+function CategorySlide({router}) {
+    const locale=router.locale;
     const settings = {
         dots: false,
         infinite: true,
@@ -186,8 +208,10 @@ function CategorySlide() {
                                 src={item.src}
                                 alt={item.alt}
                                 title={item.title}
+                                title_ar={item.title_ar}
                                 id={item.id}
                                 key={item.id}
+                                locale={locale}
                             />
                         ))}
                     </Slider>
