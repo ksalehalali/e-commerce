@@ -53,7 +53,7 @@ function DefaultLayout(props) {
         <div className="default-layout">
             {action?.type === "payment" && <PaymentAlert />}
 
-            <DefaultLayoutNavbar cookies={props.cookies} t={t} />
+            <DefaultLayoutNavbar cookies={props.cookies} t={t}  locale={router.locale}/>
             <Main plusTop={router.pathname !== "/"}>
                 <NestedLayout>{props.children}</NestedLayout>
             </Main>
