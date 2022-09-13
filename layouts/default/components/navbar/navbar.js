@@ -54,7 +54,7 @@ function DefaultLayoutNavbar(props) {
                          
                             {props.locale === "ar" ?    <HomeText>الصفحة الرئيسية
 
-                         
+                            
                    
 </HomeText> :    <HomeText>Home
 
