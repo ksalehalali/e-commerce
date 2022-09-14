@@ -44,8 +44,20 @@ h1,h2,h3,h4,h5,h6 {
   display: inline-block;
   opacity: 1;
   z-index: 444;
-  right: 14px;
   top: 10px;
+  ${(props) => {
+      if (props.locale == "ar") {
+          return `left: 14px`;
+      } else {
+          return `right: 14px`;
+      }
+  }}
+}
+
+.ant-input-affix-wrapper {
+  ${(props) => {
+      if (props.locale === "ar") return `flex-direction: row-reverse;`;
+  }}
 }
 
 

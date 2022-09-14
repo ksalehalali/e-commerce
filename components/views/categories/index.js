@@ -45,7 +45,7 @@ function CategoriesPageContent({ id, locale, productList }) {
             }
         } catch (e) {
             console.error("ERRORRRRR ____22");
-
+            dispatch(searchLoading(false));
             console.error(e.toString());
         }
     }, [searchAction]);
