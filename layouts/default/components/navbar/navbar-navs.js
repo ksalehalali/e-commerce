@@ -162,12 +162,14 @@ function NavbarNavs({ t }) {
         onClick={() => console.log("clicked")}
       /> */}
             <StyledLink
-                href={`/${router.locale === "ar" ? "en" : "ar"}${
-                    router.asPath
-                }`}
+                href={`/${router.locale === "ar" ? "en" : "ar"}${router.asPath
+                    }`}
             >
                 <IconItem>
-                    <Text>العربية</Text>
+                    {router.locale === "ar" ? <Text>
+                        English    </Text> : <Text>
+                        العربية  </Text>}
+
                 </IconItem>
             </StyledLink>
             <Divider
@@ -204,7 +206,10 @@ function NavbarNavs({ t }) {
 
             <Link href="/cart">
                 <CartContainer>
-                    <h3>Cart</h3>
+                {router.locale === "ar" ? <Text>
+                           السلة </Text> : <Text>
+                        Cart  </Text>}
+                   
                     <ShoppingCartOutlined className="cart-icon" />
                 </CartContainer>
             </Link>

@@ -239,21 +239,27 @@ function PaymentInfo({ t }) {
           // </Row>
           <Row>
             <Col span={24}>
-              <h2>Pay with fatoorah</h2>
+              <h2>
+              {t("payment:radios.creditPayment")}
+              </h2>
             </Col>
           </Row>
         )}
         {paymentType === 0 && (
           <Row>
             <Col span={24}>
-              <h2>Pay at the door</h2>
+              <h2>
+              {t("payment:radios.deliveryPayment")}
+
+              </h2>
             </Col>
           </Row>
         )}
         {paymentType === 2 && (
           <Row>
             <Col span={24}>
-              <h2>Pay from your wallet</h2>
+              <h2>              {t("payment:radios.walletPayment")}
+</h2>
             </Col>
           </Row>
         )}

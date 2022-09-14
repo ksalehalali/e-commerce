@@ -88,9 +88,23 @@ export default function PaymentAlert() {
               showIcon
             />
           )}
-          <h2>Payment in process</h2>
+          <h2>
+
+       {   router.locale === "ar"
+          ? `
+      تتم عملية الدفع
+        `
+          : `Payment in process`
+}
+          </h2>
           <Button onClick={handlePaymentDone} loading={checkPaymentLoading}>
-            Done!
+          
+            {   router.locale === "ar"
+          ? `
+     تم الدفع
+        `
+          : `  Done!`
+}
           </Button>
         </FlexDiv>
       </AlertContent>

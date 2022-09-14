@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import useTranslation from "next-translate/useTranslation";
 import AdsArea from "components/ads-area";
-
+import { useRouter } from "next/router";
 const data = [
     {
         id: "1",
@@ -43,12 +43,12 @@ const data = [
 
 function HomePage({ list }) {
     const { t } = useTranslation("common");
-
+    const router=useRouter();
     return (
         <>
             <Container>
                 <BannerSlide />
-                <CategorySlide />
+                <CategorySlide  router={router}/>
                 <ProductSectionPart
                     list={list}
                     title={t("latestTxt", {
