@@ -357,7 +357,7 @@ function ProductView({ data, id, t, router }) {
                 </FlexDiv>
                 {/* this is main product img */}
                 <FlexDiv style={{ position: "relative" }}>
-                    <FavoriteIcon href="#">
+                    <FavoriteIcon href="#" lang={locale}>
                         <HeartFilled
                             onClick={handleLike}
                             style={{ color: COLORS.GRAY }}

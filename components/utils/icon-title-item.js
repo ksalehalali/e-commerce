@@ -24,8 +24,9 @@ const StyledLink = styled.a`
       `
             : ""};
     font-weight: ${(props) => (props.bold ? props.bold : "")};
-    padding: ${(props) =>
-        Number.isInteger(props.padding) ? `${props.padding}px` : ""};
+    padding: 14px
+        ${(props) =>
+            Number.isInteger(props.padding) ? `${props.padding}px` : ""};
     &:hover {
         background-color: #fbfbfb;
         box-shadow: 0 0 9px 0px #0000003e;
@@ -37,7 +38,8 @@ export const IconItem = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    justify-content: ${(props) => (props.justify ? props.justify : "")};
+    justify-content: ${(props) =>
+        props.justify ? props.justify : "space-between"};
     flex-direction: ${(props) => props.rowReverse === true && `row-reverse`};
 `;
 export const IconSpan = styled.span`
@@ -46,9 +48,10 @@ export const IconSpan = styled.span`
 
 const NavItemTitle = styled.h3`
     font-weight: 600;
-    font-size: 14.6px;
+    font-size: 15.6px;
     text-transform: uppercase;
-    color: ${COLORS.TITLE};
+
+    color: ${COLORS.TEXT_PRIMARY};
 `;
 
 const IconTitleItem = ({
@@ -155,7 +158,7 @@ IconTitleItem.defaultProps = {
     justify: "",
     bold: "normal",
     hoverColor: COLORS.PRIMARY,
-    padding: 0,
+    padding: 10,
     block: false,
 };
 

@@ -43,6 +43,7 @@ const Text = styled.span`
   color: ${(props) => {
         if (props.color === "unset" || !props.color) return "unset";
         else if (props.color === "primary") return COLORS.PRIMARY;
+        else if (props.color === "text-primary") return COLORS.TEXT_PRIMARY;
         else if (props.color) return props.color;
         else return COLORS.TITLE;
     }};
@@ -76,7 +77,7 @@ const Text = styled.span`
     ${(props) => props.as === "h1" && `margin-bottom: 0px;`}
 
     margin: ${(props) => (props.margin ? props.margin + "px" : "")};
-    font-family: sans-serif;
+    font-family: inherit;
     padding-top: 4px;
 `;
 
