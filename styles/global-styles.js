@@ -1,5 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
+fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
+    .then((resp) => resp.arrayBuffer())
+    .then((font) => {
+        const fontFace = new FontFace("Tajawal", font);
+        document.fonts.add(fontFace);
+    });
+
 import { COLORS } from "./variables";
 
 // font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -14,7 +21,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'PT Sans', sans-serif, 'Changa' !important;
+  font-family: ${(props) =>
+      props.locale === "ar" ? "Tajawal, sans-serif" : "'PT Sans'!important"};
   background-color: #f7fbff;
   caret-color: ${COLORS.PRIMARY};
   ${(props) =>
@@ -58,6 +66,12 @@ h1,h2,h3,h4,h5,h6 {
   ${(props) => {
       if (props.locale === "ar") return `flex-direction: row-reverse;`;
   }}
+}
+
+input.ant-input {
+  color: ${COLORS.TEXT_PRIMARY};
+  padding-top: 2px;
+  font-size: 15px;
 }
 
 

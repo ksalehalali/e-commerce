@@ -10,51 +10,146 @@ import IconTitleItem from "components/utils/icon-title-item.js";
 import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
 
+// const categories = [
+//     {
+//         name: "Men's Fashion",
+//         name_ar: "أزياء الرجالية",
+//         id: "f6222596-f422-4891-9a55-664e5e3017aa",
+//     },
+//     {
+//         name: "Women's Fashion",
+//         name_ar: "أزياء النسائية",
+//         id: "31afd7d2-5f4d-406d-ae5d-b46e5055b80c",
+//     },
+//     {
+//         name: "Children's Clothing",
+//         name_ar: "ملابس الاطفال",
+//         id: "6956bc2b-b8f6-48be-8be6-6c56983c79d5",
+//     },
+
+//     {
+//         name: "Men's stuff",
+//         name_ar: "مستلزمات الرجال",
+//         id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
+//     },
+
+//     {
+//         name: "Mobiles & Accessories ",
+//         name_ar: "إكسسوارات و هواتف",
+//         id: "e488e898-4744-4caa-9f12-a676ce5d0a5b",
+//     },
+
+//     {
+//         name: "Accessories and gifts",
+//         name_ar: "الهدايا والإكسسوارات",
+//         id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
+//     },
+
+//     {
+//         name: "Home & Kitchen",
+//         name_ar: "المنزل والمطبخ",
+//         id: "d2a67fba-9070-4687-ae75-fb74f25e7924",
+//     },
+
+//     {
+//         name: "Brands",
+//         name_ar: "الماركات",
+//         id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
+//     },
+// ];
+
 const categories = [
     {
-        name: "Men's Fashion",
-        name_ar: "أزياء الرجالية",
-        id: "f6222596-f422-4891-9a55-664e5e3017aa",
-    },
-    {
-        name: "Women's Fashion",
-        name_ar: "أزياء النسائية",
+        catNameAR: "موضة نسائية",
+        catName: "Women's Fashion",
+        imagePath: "assets/images/pexels-lan-anh-ho…ng-10353828.jpg",
         id: "31afd7d2-5f4d-406d-ae5d-b46e5055b80c",
+        hasChildren: true,
     },
     {
-        name: "Children's Clothing",
-        name_ar: "ملابس الاطفال",
-        id: "6956bc2b-b8f6-48be-8be6-6c56983c79d5",
+        catNameAR: "موضة رجالية",
+        catName: "Men's Fashion",
+        imagePath: "assets/images/austin-wade-d2s8NQ6WD24-unsplash.jpg",
+        id: "f6222596-f422-4891-9a55-664e5e3017aa",
+        hasChildren: true,
     },
-
     {
-        name: "Men's stuff",
-        name_ar: "مستلزمات الرجال",
-        id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
+        catNameAR: "اولاد، اطفال والعاب",
+        catName: "Kids, Baby & Toys",
+        imagePath: "assets/images/robo-wunderkind-3EuPcI31MQU-unsplash.jpg",
+        id: "818ce955-2ce3-4486-ba6e-45784c5cce99",
+        hasChildren: true,
     },
-
     {
-        name: "Mobiles & Accessories ",
-        name_ar: "إكسسوارات و هواتف",
-        id: "e488e898-4744-4caa-9f12-a676ce5d0a5b",
-    },
-
-    {
-        name: "Accessories and gifts",
-        name_ar: "الهدايا والإكسسوارات",
+        catNameAR: "إكسسوارات وهدايا",
+        catName: "Accessories and gifts",
+        imagePath: "assets/images/freestocks-PxM8aeJbzvk-unsplash.jpg",
         id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
+        hasChildren: true,
     },
-
     {
-        name: "Home & Kitchen",
-        name_ar: "المنزل والمطبخ",
+        catNameAR: "الجمال",
+        catName: "beauty supplies",
+        imagePath: "assets/images/laura-chouette-RkINI2JZwss-unsplash.jpg",
+        id: "7309f628-b98b-49cf-a67f-f01403baa31a",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "ملتزمات رجالية",
+        catName: "Men's stuff",
+        imagePath: "assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg",
+        id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "الموبايل وإكسسواراته",
+        catName: "Mobiles & Accessories",
+        imagePath: "assets/images/mehrshad-rajabi-cLrcbfSwBxU-unsplash.jpg",
+        id: "e38f580e-b705-4055-ba59-6bc5714d7616",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "المنزل والمطبخ",
+        catName: "Home & Kitchen",
+        imagePath: "assets/images/ryan-christodoulou-68CDDj03rks-unsplash.jpg",
         id: "d2a67fba-9070-4687-ae75-fb74f25e7924",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "ماركات",
+        catName: "Brands",
+        imagePath: "assets/images/zara-outlet.jpg",
+        id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
+        hasChildren: true,
     },
 
     {
-        name: "Brands",
-        name_ar: "الماركات",
-        id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
+        catNameAR: "احذية رجالية",
+        catName: "Men's shoes",
+        imagePath: "assets/images/iman-ameli-XNWBOKpYgYE-unsplash.jpg",
+        id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "احذية نسائية",
+        catName: "Women's shoes",
+        imagePath: "assets/images/mohammad-metri-E-0ON3VGrBc-unsplash.jpg",
+        id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "احذية أطفال",
+        catName: "Kids shoes",
+        imagePath: "assets/images/lefteris-kallergis-j1GiPlvSGWI-unsplash.jpg",
+        id: "33739903-d8c5-4604-9f27-4e52273110e8",
+        hasChildren: true,
+    },
+    {
+        catNameAR: "ألبسة الأطفال",
+        catName: "Children's Clothing",
+        imagePath: "assets/images/lefteris-kallergis-j1GiPlvSGWI-unsplash.jpg",
+        id: "6956bc2b-b8f6-48be-8be6-6c56983c79d5",
+        hasChildren: true,
     },
 ];
 
@@ -70,7 +165,7 @@ const CategoriesContainer = styled.div`
 `;
 
 const AllCategories = styled.div`
-    width: 200px;
+    width: 170px;
     font-size: 17px;
 `;
 
@@ -109,6 +204,7 @@ function NavbarCategories({ t }) {
                         href="/categories"
                         justify={"space-evenly"}
                         rowReverse={true}
+                        padding={8}
                     />
                 </AllCategories>
                 <CategoriesContainer>
@@ -117,8 +213,8 @@ function NavbarCategories({ t }) {
                             <IconTitleItem
                                 title={
                                     router.locale === "ar"
-                                        ? item.name_ar
-                                        : item.name
+                                        ? item.catNameAR
+                                        : item.catName
                                 }
                                 padding={PADDINGS.categories_item_x_y}
                                 hoverColor={COLORS.PRIMARY}

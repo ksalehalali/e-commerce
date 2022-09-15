@@ -35,7 +35,7 @@ export const FavoriteIcon = styled.span`
     background-color: #fff;
     border-radius: 50%;
     text-align: center;
-    line-height: 35px;
+    line-height: ${(props) => (props.lang === "ar" ? "39px" : "33px")};
 
     &:hover {
         background-color: #ff3939b5;
@@ -123,7 +123,7 @@ function ProdcutItem({ src, alt, title, offer, price, modelID, model, id }) {
             gap={5}
             lang={router.locale}
         >
-            <FavoriteIcon href="#">
+            <FavoriteIcon href="#" lang={router.locale}>
                 <HeartFilled
                     onClick={(e) => handleLike(e)}
                     style={{ color: COLORS.GRAY }}

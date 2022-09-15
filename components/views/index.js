@@ -43,21 +43,12 @@ const data = [
 
 function HomePage({ list }) {
     const { t } = useTranslation("common");
-    const router=useRouter();
+    const router = useRouter();
     return (
         <>
             <Container>
                 <BannerSlide />
-                <CategorySlide  router={router}/>
-                <ProductSectionPart
-                    list={list}
-                    title={t("latestTxt", {
-                        name: t("commonWords.products"),
-                    })}
-                />
-
-                <AdsArea />
-
+                <CategorySlide router={router} />
                 <ProductSectionPart
                     list={list}
                     title={t("latestTxt", {

@@ -31,7 +31,7 @@ function NavSearch({ t }) {
     const { searchResultNumber, loadingState } = useSelector(
         (state) => state.modal
     );
-    console.log(router.pathname);
+
     const handleSearch = (e) => {
         setInputValue(e.target.value);
         dispatch(searchAction(inputValue));
