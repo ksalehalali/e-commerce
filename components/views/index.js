@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import useTranslation from "next-translate/useTranslation";
 import AdsArea from "components/ads-area";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+
 const data = [
     {
         id: "1",
@@ -44,6 +47,85 @@ const data = [
 function HomePage({ list }) {
     const { t } = useTranslation("common");
     const router = useRouter();
+    const { data: uData } = useSession();
+    const [offersProducts, setOffersProducts] = useState();
+    const [suggestedProducts, setSuggestedProducts] = useState();
+    console.log("uData", uData);
+
+    useEffect(async () => {
+        // Fetch Offers products
+        try {
+            const { data } = await axios.post(
+                `https://dashcommerce.click68.com/api/ListProductOffer`,
+                {
+                    PageSize: 20,
+                    PageNumber: 1,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${uData.user.token}`,
+                        lang: router.locale,
+                    },
+                }
+            );
+            if (data?.description) {
+                setOffersProducts(data.description);
+            }
+        } catch (error) {
+            console.error("OfferProductsErr:", error);
+        }
+
+        // Fetch ProductByFavorite and ProductOffer in array
+        try {
+            const res = await Promise.allSettled([
+                axios.post(
+                    "https://dashcommerce.click68.com/api/ListProductByLastOrder",
+                    {
+                        PageNumber: "1",
+                        SizeNumber: "1",
+                    },
+                    {
+                        headers: {
+                            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoia2hhbGVkIiwiUm9sZSI6IlVzZXIiLCJleHAiOjE2NjU1MDUyNzcsImlzcyI6IkludmVudG9yeUF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSW52ZW50b3J5U2VydmljZVBvdG1hbkNsaWVudCJ9.9bMcWssCKH-CwjbmzgOdmIWgWa1X9VtQ15iI69RjtWE`,
+                            lang: router.locale,
+                        },
+                    }
+                ),
+                axios.post(
+                    "https://dashcommerce.click68.com/api/ListProductByFavorite",
+                    {
+                        PageSize: 20,
+                        PageNumber: 1,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${uData.user.token}`,
+                            lang: router.locale,
+                        },
+                    }
+                ),
+            ]);
+            if (res[0].status !== "rejected") {
+                const array1 = res[0].value.data.description;
+                console.log("status1", array1);
+                setSuggestedProducts([...array1]);
+            } else {
+                throw Error("Error comes from ListProductByLastOrder");
+            }
+            if (res[1].status !== "rejected") {
+                const array2 = res[1].value.data.description;
+                console.log("status2", array2);
+                setSuggestedProducts([...suggestedProducts, ...array2]);
+            } else {
+                throw Error("Error comes from ListProductByFavorite");
+            }
+        } catch (error) {
+            console.error("suggestedProductsErr:", error);
+        }
+    }, []);
+
+    console.log("suggestedProductss", suggestedProducts);
+
     return (
         <>
             <Container>
@@ -57,7 +139,7 @@ function HomePage({ list }) {
                 />
 
                 <ProductSectionPart
-                    list={list}
+                    list={suggestedProducts}
                     title={t("suggestedTxt", {
                         name: t("commonWords.products"),
                     })}
@@ -69,7 +151,10 @@ function HomePage({ list }) {
 
             {/* <Temporary /> */}
             <Container>
-                <ProductSectionPart list={list} title={t("offersTxt")} />
+                <ProductSectionPart
+                    list={offersProducts}
+                    title={t("offersTxt")}
+                />
             </Container>
 
             {/* Adds Slider */}
