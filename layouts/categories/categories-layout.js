@@ -64,7 +64,7 @@ const StyledSideCollapse = styled(Collapse)`
     }
 `;
 
-function CategoriesLayout({ children, sideList }) {
+function CategoriesLayout({ children, sideList ,Categoriesall}) {
     const { t } = useTranslation("common");
     const { searchResultNumber } = useSelector((state) => state.modal);
     console.log("modal");
@@ -73,6 +73,11 @@ function CategoriesLayout({ children, sideList }) {
     const { id } = router.query;
     const [treeData, setTreeData] = useState([]);
     const [treeLoading, setTreeLoading] = useState({
+        target: null,
+        value: false,
+    });
+    const [CatData, setCatData] = useState([]);
+    const [catLoading, setCatLoading] = useState({
         target: null,
         value: false,
     });
@@ -233,6 +238,21 @@ function CategoriesLayout({ children, sideList }) {
         });
         setTreeData([...newData]);
     }, [sideList]);
+    // useEffect(() => {
+    //     let newCatData = [];
+    //     Categoriesall?.map((item, i) => {
+    //         newCatData.push({
+    //             title: item?.[`name_${router.locale.toUpperCase()}`],
+    //             key: "0-" + i,
+    //             id: item?.id,
+    //             children: item?.children ? ["+"] : [],
+    //             haveChildren: item?.children,
+    //             // icon: item?.children ? <PlusSquareOutlined /> : null,
+    //             // switcherIcon: <FromOutlined />,
+    //         });
+    //     });
+    //     setCatData([...newCatData]);
+    // }, [Categoriesall]);
 
     useEffect(() => {
         setExpandKeys([]);
@@ -279,11 +299,13 @@ function CategoriesLayout({ children, sideList }) {
                                                         node?.key &&
                                                         treeLoading.value &&
                                                         "loading ..."}
+                                                    
                                                 </a>
                                             </Link>
                                         );
                                     }}
                                 />
+                             
                             </Panel>
                             {/* <Panel header="Brand" key="2">
                 <Empty />

@@ -21,7 +21,7 @@ function OneCategoryPage(props) {
             <Head>
                 <title>One Categories</title>
             </Head>
-            <CategoriesLayout sideList={props.categories}>
+            <CategoriesLayout sideList={props.categories} Categoriesall={props.categoriesall}>
                 <CategoriesPageContent
                     id={id}
                     productList={props.products}
@@ -38,6 +38,7 @@ export async function getServerSideProps(context) {
     const { id } = context.params;
 
     let categories = [];
+    let categoriesall = [];
     let products = [];
 
     let cookies = getCookie("user", { req, res });
@@ -53,7 +54,16 @@ export async function getServerSideProps(context) {
             {
                 value: { data: productData },
             },
+            {
+                value: { data: categoryDataAll },
+            },
         ] = await Promise.allSettled([
+            axios.get("https://dashcommerce.click68.com/api/ListCategory", {
+                headers: {
+                    Authorization: `Bearer ${cookies?.token}`,
+                    lang: context.locale,
+                },
+            }),
             axios.post(
                 "https://dashcommerce.click68.com/api/ListCategoryByCategory",
                 {
@@ -87,6 +97,10 @@ export async function getServerSideProps(context) {
         if (productData?.status === true) {
             products = productData?.description;
         }
+
+        if (categoryDataAll?.status === true) {
+            categoriesall = categoryDataAll?.description;
+        }
     } catch (err) {
         console.error("err");
         console.error(err.toString());
@@ -95,6 +109,7 @@ export async function getServerSideProps(context) {
         props: {
             categories,
             products,
+            categoriesall,
         },
     };
 }
