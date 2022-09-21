@@ -49,82 +49,85 @@ function HomePage({ list }) {
     const router = useRouter();
     const { data: uData } = useSession();
     const [offersProducts, setOffersProducts] = useState();
-    const [suggestedProducts, setSuggestedProducts] = useState();
-    console.log("uData", uData);
+    const [favoriteProducts, setFavoriteProducts] = useState([]);
+    const [LastOrderProducts, setLastOrderProducts] = useState([]);
 
     useEffect(async () => {
         // Fetch Offers products
-        try {
-            const { data } = await axios.post(
-                `https://dashcommerce.click68.com/api/ListProductOffer`,
-                {
-                    PageSize: 20,
-                    PageNumber: 1,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${uData.user.token}`,
-                        lang: router.locale,
-                    },
-                }
-            );
-            if (data?.description) {
-                setOffersProducts(data.description);
-            }
-        } catch (error) {
-            console.error("OfferProductsErr:", error);
-        }
 
-        // Fetch ProductByFavorite and ProductOffer in array
         try {
-            const res = await Promise.allSettled([
-                axios.post(
-                    "https://dashcommerce.click68.com/api/ListProductByLastOrder",
-                    {
-                        PageNumber: "1",
-                        SizeNumber: "1",
-                    },
-                    {
-                        headers: {
-                            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoia2hhbGVkIiwiUm9sZSI6IlVzZXIiLCJleHAiOjE2NjU1MDUyNzcsImlzcyI6IkludmVudG9yeUF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSW52ZW50b3J5U2VydmljZVBvdG1hbkNsaWVudCJ9.9bMcWssCKH-CwjbmzgOdmIWgWa1X9VtQ15iI69RjtWE`,
-                            lang: router.locale,
-                        },
-                    }
-                ),
-                axios.post(
-                    "https://dashcommerce.click68.com/api/ListProductByFavorite",
+            await axios
+                .post(
+                    `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductOffer`,
                     {
                         PageSize: 20,
                         PageNumber: 1,
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${uData.user.token}`,
                             lang: router.locale,
                         },
                     }
-                ),
-            ]);
-            if (res[0].status !== "rejected") {
-                const array1 = res[0].value.data.description;
-                console.log("status1", array1);
-                setSuggestedProducts([...array1]);
-            } else {
-                throw Error("Error comes from ListProductByLastOrder");
-            }
-            if (res[1].status !== "rejected") {
-                const array2 = res[1].value.data.description;
-                console.log("status2", array2);
-                setSuggestedProducts([...suggestedProducts, ...array2]);
-            } else {
-                throw Error("Error comes from ListProductByFavorite");
-            }
+                )
+                .then((result) => {
+                    console.log("step1", result.data);
+                    setOffersProducts(result.data.description);
+                });
         } catch (error) {
-            console.error("suggestedProductsErr:", error);
+            console.error("OfferProductsErr:", error);
+        }
+
+        // Fetch ProductByFavorite and ProductOffer in array
+        if (uData?.user) {
+            try {
+                await axios
+                    .post(
+                        `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByLastOrder`,
+                        {
+                            PageNumber: "1",
+                            SizeNumber: "1",
+                        },
+                        {
+                            headers: {
+                                Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoia2hhbGVkIiwiUm9sZSI6IlVzZXIiLCJleHAiOjE2NjU1MDUyNzcsImlzcyI6IkludmVudG9yeUF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSW52ZW50b3J5U2VydmljZVBvdG1hbkNsaWVudCJ9.9bMcWssCKH-CwjbmzgOdmIWgWa1X9VtQ15iI69RjtWE`,
+                            },
+                        }
+                    )
+                    .then((result) => {
+                        console.log("step 2", result.data);
+                        setLastOrderProducts(result.data.description);
+                    });
+            } catch (error) {
+                console.error("ListProductByLastOrder:", error);
+            }
+
+            await axios
+                .post(
+                    `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByFavorite`,
+                    {
+                        PageNumber: "1",
+                        SizeNumber: "1",
+                    },
+                    {
+                        headers: {
+                            Authorization: `bearer ${uData?.user.token}`,
+                        },
+                    }
+                )
+                .then((result) => {
+                    console.log("step 3");
+                    setFavoriteProducts(result.data.description);
+                })
+                .catch((error) =>
+                    console.error("ListProductByFavorite:", error)
+                );
+        } else {
+            console.log("user is undefind!!!!");
         }
     }, []);
 
-    console.log("suggestedProductss", suggestedProducts);
+    console.log("step 4", favoriteProducts);
+    console.log("step 5", LastOrderProducts);
 
     return (
         <>
@@ -139,7 +142,7 @@ function HomePage({ list }) {
                 />
 
                 <ProductSectionPart
-                    list={suggestedProducts}
+                    list={[...LastOrderProducts, ...favoriteProducts]}
                     title={t("suggestedTxt", {
                         name: t("commonWords.products"),
                     })}

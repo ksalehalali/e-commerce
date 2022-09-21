@@ -17,6 +17,7 @@ function CategoriesPageContent({ id, locale, productList }) {
     const [filtredProducts, setFiltredProducts] = useState();
     const { data: data2, status } = useSession();
     const dispatch = useDispatch();
+    console.log("prolist", productList);
 
     useEffect(async () => {
         dispatch(searchLoading(true));
@@ -65,7 +66,7 @@ function CategoriesPageContent({ id, locale, productList }) {
       {id && !loading && error && (
         <Alert description={error} showIcon type="error" />
       )} */}
-            {filtredProducts?.length > 0 && (
+            {filtredProducts?.length <= 0 ? (
                 <>
                     {filtredProducts.map((item) => (
                         <ProdcutItem
@@ -83,8 +84,24 @@ function CategoriesPageContent({ id, locale, productList }) {
                         />
                     ))}
                 </>
+            ) : (
+                productList.map((item) => (
+                    <ProdcutItem
+                        key={item.id}
+                        title={item[`name_${locale.toUpperCase()}`]}
+                        src={process.env.NEXT_PUBLIC_HOST_API + item.image}
+                        alt={`${item?.modelName} ${
+                            item[`name_${locale.toUpperCase()}`]
+                        }`}
+                        offer={item?.offer}
+                        price={item?.price}
+                        modelID={item?.modelID}
+                        model={item?.modelName}
+                        id={item?.id}
+                    />
+                ))
             )}
-            {(filtredProducts?.length === 0 || !filtredProducts) && <Empty />}
+            {(filtredProducts?.length === 0 || !productList) && <Empty />}
         </FlexDiv>
     );
 }

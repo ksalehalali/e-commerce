@@ -13,6 +13,7 @@ function OneCategoryPage(props) {
 
     console.log("props");
     console.log(props);
+    console.log("id", id);
 
     console.log("test", router.locale);
 

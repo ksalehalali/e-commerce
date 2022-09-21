@@ -10,6 +10,8 @@ import { getCookie } from "cookies-next";
 function CategoriesPage(props) {
     const router = useRouter();
 
+    console.log("p3 ", props);
+
     return (
         <>
             <Head>
