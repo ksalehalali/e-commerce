@@ -410,7 +410,7 @@ function CategoriesLayout({ children, sideList }) {
                                     switcherIcon={<DownOutlined />}
                                     defaultExpandedKeys={[]}
                                     // onSelect={onSelectTree}
-                                    selectable={true}
+                                    selectable={false}
                                     treeData={treeData}
                                     onExpand={handleTreeOnExpand}
                                     expandedKeys={expandKeys}
