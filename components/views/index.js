@@ -54,7 +54,6 @@ function HomePage({ list }) {
 
     useEffect(async () => {
         // Fetch Offers products
-
         try {
             await axios
                 .post(
@@ -70,7 +69,6 @@ function HomePage({ list }) {
                     }
                 )
                 .then((result) => {
-                    console.log("step1", result.data);
                     setOffersProducts(result.data.description);
                 });
         } catch (error) {
@@ -94,7 +92,6 @@ function HomePage({ list }) {
                         }
                     )
                     .then((result) => {
-                        console.log("step 2", result.data);
                         setLastOrderProducts(result.data.description);
                     });
             } catch (error) {
@@ -115,7 +112,6 @@ function HomePage({ list }) {
                     }
                 )
                 .then((result) => {
-                    console.log("step 3");
                     setFavoriteProducts(result.data.description);
                 })
                 .catch((error) =>
@@ -125,9 +121,6 @@ function HomePage({ list }) {
             console.log("user is undefind!!!!");
         }
     }, []);
-
-    console.log("step 4", favoriteProducts);
-    console.log("step 5", LastOrderProducts);
 
     return (
         <>

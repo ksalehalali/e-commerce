@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchLoading, searchResultNumber } from "redux/modal/action";
 // just test
 
-function CategoriesPageContent({ id, locale, productList }) {
+function CategoriesPageContent({ id, locale, productList, sideList }) {
     const { searchAction } = useSelector((state) => state.modal);
     const [filtredProducts, setFiltredProducts] = useState();
     const { data: data2, status } = useSession();
@@ -51,6 +51,31 @@ function CategoriesPageContent({ id, locale, productList }) {
         }
     }, [searchAction]);
 
+    //fetch products by branch name
+    useEffect(async () => {
+        if (sideList) {
+            console.log("sidelist", sideList);
+            await axios
+                .post(
+                    "https://dashcommerce.click68.com/api/ListProductByCategory",
+                    { id: sideList[0]?.id },
+                    {
+                        headers: {
+                            lang: locale,
+                        },
+                    }
+                )
+                .then((result) => {
+                    if (result.data.status) {
+                        setFiltredProducts(result.data.description);
+                    }
+                })
+                .catch((err) => console.error(err));
+        } else {
+            console.log("side list is empty");
+        }
+    }, [sideList]);
+
     return (
         <FlexDiv
             style={{ backgroundColor: "#fff", minHeight: "50vh" }}
@@ -62,11 +87,7 @@ function CategoriesPageContent({ id, locale, productList }) {
             }
             justifyCenter={filtredProducts?.length !== 0 ? false : true}
         >
-            {/* {id && loading && <h2>Loading ...</h2>}
-      {id && !loading && error && (
-        <Alert description={error} showIcon type="error" />
-      )} */}
-            {filtredProducts?.length <= 0 ? (
+            {filtredProducts?.length > 0 ? (
                 <>
                     {filtredProducts.map((item) => (
                         <ProdcutItem

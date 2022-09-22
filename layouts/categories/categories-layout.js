@@ -371,20 +371,17 @@ function CategoriesLayout({ children, sideList }) {
                                     expandedKeys={expandKeys}
                                     titleRender={(node) => {
                                         return (
-                                            console.log(node),
-                                            (
-                                                <Link
-                                                    href={`/categories/${node?.id}`}
-                                                >
-                                                    <a>
-                                                        {node?.title}
-                                                        {treeLoading.target ===
-                                                            node?.key &&
-                                                            treeLoading.value &&
-                                                            "loading ..."}
-                                                    </a>
-                                                </Link>
-                                            )
+                                            <Link
+                                                href={`/categories/${node?.id}`}
+                                            >
+                                                <a>
+                                                    {node?.title}
+                                                    {treeLoading.target ===
+                                                        node?.key &&
+                                                        treeLoading.value &&
+                                                        "loading ..."}
+                                                </a>
+                                            </Link>
                                         );
                                     }}
                                 />

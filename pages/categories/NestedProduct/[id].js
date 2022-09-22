@@ -7,7 +7,7 @@ import CategoriesLayout from "layouts/categories/categories-layout";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 
-function OneCategoryPage(props) {
+function NestedCategoryPage(props) {
     const router = useRouter();
     const { id } = router.query;
     const { cat } = router.query;
@@ -33,7 +33,7 @@ function OneCategoryPage(props) {
         </>
     );
 }
-OneCategoryPage.layout = "main";
+NestedCategoryPage.layout = "main";
 
 export async function getServerSideProps(context) {
     const { req, res } = context;
@@ -101,4 +101,4 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default OneCategoryPage;
+export default NestedCategoryPage;
