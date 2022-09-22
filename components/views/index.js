@@ -76,50 +76,45 @@ function HomePage({ list }) {
         }
 
         // Fetch ProductByFavorite and ProductOffer in array
-        if (uData?.user) {
-            try {
-                await axios
-                    .post(
-                        `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByLastOrder`,
-                        {
-                            PageNumber: "1",
-                            SizeNumber: "1",
-                        },
-                        {
-                            headers: {
-                                Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoia2hhbGVkIiwiUm9sZSI6IlVzZXIiLCJleHAiOjE2NjU1MDUyNzcsImlzcyI6IkludmVudG9yeUF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSW52ZW50b3J5U2VydmljZVBvdG1hbkNsaWVudCJ9.9bMcWssCKH-CwjbmzgOdmIWgWa1X9VtQ15iI69RjtWE`,
-                            },
-                        }
-                    )
-                    .then((result) => {
-                        setLastOrderProducts(result.data.description);
-                    });
-            } catch (error) {
-                console.error("ListProductByLastOrder:", error);
-            }
 
+        try {
             await axios
                 .post(
-                    `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByFavorite`,
+                    `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByLastOrder`,
                     {
                         PageNumber: "1",
                         SizeNumber: "1",
                     },
                     {
                         headers: {
-                            Authorization: `bearer ${uData?.user.token}`,
+                            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoia2hhbGVkIiwiUm9sZSI6IlVzZXIiLCJleHAiOjE2NjU1MDUyNzcsImlzcyI6IkludmVudG9yeUF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSW52ZW50b3J5U2VydmljZVBvdG1hbkNsaWVudCJ9.9bMcWssCKH-CwjbmzgOdmIWgWa1X9VtQ15iI69RjtWE`,
                         },
                     }
                 )
                 .then((result) => {
-                    setFavoriteProducts(result.data.description);
-                })
-                .catch((error) =>
-                    console.error("ListProductByFavorite:", error)
-                );
-        } else {
-            console.log("user is undefind!!!!");
+                    setLastOrderProducts(result.data.description);
+                });
+        } catch (error) {
+            console.error("ListProductByLastOrder:", error);
         }
+
+        await axios
+            .post(
+                `${process.env.NEXT_PUBLIC_HOST_API}api/ListProductByFavorite`,
+                {
+                    PageNumber: "1",
+                    SizeNumber: "1",
+                },
+                {
+                    headers: {
+                        Authorization: `bearer ${uData?.user.token}`,
+                    },
+                }
+            )
+            .then((result) => {
+                setFavoriteProducts(result.data.description);
+            })
+            .catch((error) => console.error("ListProductByFavorite:", error));
     }, []);
 
     return (

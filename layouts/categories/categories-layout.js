@@ -345,7 +345,6 @@ function CategoriesLayout({ children, sideList }) {
             })
             .catch((err) => console.error("Get categories:", err));
     }, [id]);
-    console.log("cate list", categoriesList);
 
     useEffect(() => {
         let newData = [];
@@ -410,7 +409,7 @@ function CategoriesLayout({ children, sideList }) {
                                     switcherIcon={<DownOutlined />}
                                     defaultExpandedKeys={[]}
                                     // onSelect={onSelectTree}
-                                    selectable={true}
+                                    selectable={false}
                                     treeData={treeData}
                                     onExpand={handleTreeOnExpand}
                                     expandedKeys={expandKeys}
