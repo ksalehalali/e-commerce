@@ -28,6 +28,7 @@ function NavSearch({ t }) {
     const [inputValue, setInputValue] = useState("");
     const dispatch = useDispatch();
     const router = useRouter();
+    const { id } = router.query;
     const { searchResultNumber, loadingState } = useSelector(
         (state) => state.modal
     );
@@ -53,6 +54,7 @@ function NavSearch({ t }) {
                 size={"large"}
                 placeholder={t("navbar.search")}
                 onInput={handleSearch}
+                value={inputValue}
             />
         </StyledNavSearch>
     );

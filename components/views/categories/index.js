@@ -7,6 +7,7 @@ import FlexDiv from "components/utils/flex-div";
 // modules
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchLoading, searchResultNumber } from "redux/modal/action";
@@ -16,8 +17,11 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
     const { searchAction } = useSelector((state) => state.modal);
     const [filtredProducts, setFiltredProducts] = useState();
     const { data: data2, status } = useSession();
+    // const router = useRouter();
+    // const { id } = router.query;
     const dispatch = useDispatch();
     console.log("prolist", productList);
+    console.log("id in index", id);
 
     useEffect(async () => {
         dispatch(searchLoading(true));
@@ -75,6 +79,11 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
             console.log("side list is empty");
         }
     }, [sideList]);
+    console.log("filtred", filtredProducts);
+
+    useEffect(() => {
+        setFiltredProducts(productList);
+    }, [id]);
 
     return (
         <FlexDiv
