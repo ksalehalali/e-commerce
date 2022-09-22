@@ -163,10 +163,8 @@ const StyledSideCollapse = styled(Collapse)`
 function CategoriesLayout({ children, sideList }) {
     const { t } = useTranslation("common");
     const { searchResultNumber } = useSelector((state) => state.modal);
-    console.log("modal");
     const router = useRouter();
     const { id } = router.query;
-    console.log(router);
 
     const [currentCat, setCurrentCat] = useState();
     useEffect(() => {
@@ -321,9 +319,6 @@ function CategoriesLayout({ children, sideList }) {
         return newData;
     }, []);
 
-    console.log("expandKeys");
-    console.log(expandKeys);
-
     // fetch category by category
     const [categoriesList, setCategoriesList] = useState([]);
     useEffect(() => {
@@ -388,7 +383,7 @@ function CategoriesLayout({ children, sideList }) {
         });
         setTreeData([...newData]);
     }, [searchAction]);
-    console.log("all cats", sideList);
+
     return (
         <Container>
             <CategoryLayout gap={10} column>
@@ -415,7 +410,7 @@ function CategoriesLayout({ children, sideList }) {
                                     switcherIcon={<DownOutlined />}
                                     defaultExpandedKeys={[]}
                                     // onSelect={onSelectTree}
-                                    selectable={false}
+                                    selectable={true}
                                     treeData={treeData}
                                     onExpand={handleTreeOnExpand}
                                     expandedKeys={expandKeys}
