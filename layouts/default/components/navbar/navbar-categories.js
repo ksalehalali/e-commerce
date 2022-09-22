@@ -9,6 +9,8 @@ import IconTitleItem from "components/utils/icon-title-item.js";
 // css
 import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { searchAction } from "redux/modal/action";
 
 const categories = [
     {
@@ -139,6 +141,13 @@ const CategoriesContainerInner = styled.div`
 // }
 function NavbarCategories({ t }) {
     const router = useRouter();
+    // const { searchAction } = useSelector((state) => state.modal);
+    const dispatch = useDispatch();
+
+    const clearInputValue = () => {
+        console.log("test t");
+        dispatch(searchAction("gdgffsdfdf"));
+    };
 
     return (
         <NavCategories>
@@ -170,6 +179,7 @@ function NavbarCategories({ t }) {
                                 }
                                 padding={PADDINGS.categories_item_x_y}
                                 hoverColor={COLORS.PRIMARY}
+                                onClick={clearInputValue}
                                 hoverEffect="under-line"
                                 key={item.id}
                                 href={`/categories/${item.id}`}

@@ -166,11 +166,15 @@ function CategoriesLayout({ children, sideList }) {
     console.log("modal");
     const router = useRouter();
     const { id } = router.query;
+    console.log(router);
 
-    const choisen = categories.filter((item) => item.id === id);
-    console.log(choisen[0]?.catName);
-
-    console.log("side list", sideList);
+    const [currentCat, setCurrentCat] = useState();
+    useEffect(() => {
+        const currentIdExist = categories.some((item) => item.id === id);
+        if (currentIdExist) {
+            setCurrentCat(categories.find((item) => item.id === id));
+        }
+    }, [id]);
 
     const [treeData, setTreeData] = useState([]);
     const [treeLoading, setTreeLoading] = useState({
@@ -266,6 +270,7 @@ function CategoriesLayout({ children, sideList }) {
     const handleTreeOnExpand = useCallback(
         async (expandedKeys, { isExpanded, node }) => {
             const { id, haveChildren, pos, children } = node;
+            console.log("expanded");
 
             if (haveChildren === true) {
                 setTreeLoading({ target: pos, value: true });
@@ -319,7 +324,56 @@ function CategoriesLayout({ children, sideList }) {
     console.log("expandKeys");
     console.log(expandKeys);
 
+    // fetch category by category
+    const [categoriesList, setCategoriesList] = useState([]);
     useEffect(() => {
+        axios
+            .post(
+                "https://dashcommerce.click68.com/api/ListCategoryByCategory",
+                {
+                    id: id,
+                },
+                {
+                    headers: {
+                        // Authorization: `Bearer ${cookies?.token}`,
+                        lang: router.locale,
+                    },
+                }
+            )
+            .then((result) => {
+                console.log("res", result.data);
+                if (result.data.description.length > 0) {
+                    setCategoriesList(result.data.description);
+                } else {
+                    console.log("No categories!!");
+                }
+            })
+            .catch((err) => console.error("Get categories:", err));
+    }, [id]);
+    console.log("cate list", categoriesList);
+
+    useEffect(() => {
+        let newData = [];
+        categoriesList?.map((item, i) => {
+            newData.push({
+                title: item?.[`name_${router.locale.toUpperCase()}`],
+                key: "0-" + i,
+                id: item?.id,
+                children: item?.children ? ["+"] : [],
+                haveChildren: item?.children,
+                // icon: item?.children ? <PlusSquareOutlined /> : null,
+                // switcherIcon: <FromOutlined />,
+            });
+        });
+        setTreeData([...newData]);
+    }, [categoriesList]);
+
+    useEffect(() => {
+        setExpandKeys([]);
+    }, [id]);
+
+    const { searchAction } = useSelector((state) => state.modal);
+    useEffect(async () => {
         let newData = [];
         sideList?.map((item, i) => {
             newData.push({
@@ -333,12 +387,8 @@ function CategoriesLayout({ children, sideList }) {
             });
         });
         setTreeData([...newData]);
-    }, [sideList]);
-
-    useEffect(() => {
-        setExpandKeys([]);
-    }, [id]);
-
+    }, [searchAction]);
+    console.log("all cats", sideList);
     return (
         <Container>
             <CategoryLayout gap={10} column>
@@ -358,7 +408,7 @@ function CategoriesLayout({ children, sideList }) {
               <Alert description={error} showIcon type="error" />
             )} */}
                         <StyledSideCollapse defaultActiveKey={["1"]} ghost>
-                            <Panel header={choisen[0]?.catName} key="1">
+                            <Panel header={currentCat?.catName} key="1">
                                 {/* <Tree loadData={onLoadData} treeData={treeData} /> */}
                                 <Tree
                                     // showLine

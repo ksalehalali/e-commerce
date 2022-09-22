@@ -22,7 +22,7 @@ function OneCategoryPage(props) {
             <Head>
                 <title>One Categories</title>
             </Head>
-            <CategoriesLayout sideList={props.categories}>
+            <CategoriesLayout>
                 <CategoriesPageContent
                     id={id}
                     productList={props.products}
