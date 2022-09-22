@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
-    .then((resp) => resp.arrayBuffer())
-    .then((font) => {
-        const fontFace = new FontFace("Tajawal", font);
-        document.fonts.add(fontFace);
-    });
+// fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
+//     .then((resp) => resp.arrayBuffer())
+//     .then((font) => {
+//         const fontFace = new FontFace("Tajawal", font);
+//         document.fonts.add(fontFace);
+//     });
 
 import { COLORS } from "./variables";
 

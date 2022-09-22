@@ -25,17 +25,17 @@ const StyledInput = styled(Input)`
 `;
 
 function NavSearch({ t }) {
-    const [inputValue, setInputValue] = useState("");
     const dispatch = useDispatch();
     const router = useRouter();
     const { id } = router.query;
-    const { searchResultNumber, loadingState } = useSelector(
-        (state) => state.modal
-    );
+    const {
+        searchResultNumber,
+        loadingState,
+        searchAction: inputValue,
+    } = useSelector((state) => state.modal);
 
     const handleSearch = (e) => {
-        setInputValue(e.target.value);
-        dispatch(searchAction(inputValue));
+        dispatch(searchAction(e.target.value));
 
         if (inputValue.split("").length >= 2) {
             if (router.pathname !== "/categories")

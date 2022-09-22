@@ -145,8 +145,7 @@ function NavbarCategories({ t }) {
     const dispatch = useDispatch();
 
     const clearInputValue = () => {
-        console.log("test t");
-        dispatch(searchAction("gdgffsdfdf"));
+        dispatch(searchAction(""));
     };
 
     return (
