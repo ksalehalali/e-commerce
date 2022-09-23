@@ -165,6 +165,7 @@ function CategoriesLayout({ children, sideList }) {
     const { searchResultNumber } = useSelector((state) => state.modal);
     const router = useRouter();
     const { id } = router.query;
+    console.log("result num", searchResultNumber);
 
     const [currentCat, setCurrentCat] = useState();
     useEffect(() => {
