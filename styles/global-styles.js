@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
-    .then((resp) => resp.arrayBuffer())
-    .then((font) => {
-        const fontFace = new FontFace("Tajawal", font);
-        document.fonts.add(fontFace);
-    });
+// fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
+//     .then((resp) => resp.arrayBuffer())
+//     .then((font) => {
+//         const fontFace = new FontFace("Tajawal", font);
+//         document.fonts.add(fontFace);
+//     });
 
 import { COLORS } from "./variables";
 
@@ -22,7 +22,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: ${(props) =>
-      props.locale === "ar" ? "Tajawal, sans-serif" : "'PT Sans'!important"};
+      props.locale === "ar" ? " sans-serif" : "'PT Sans'!important"};
   background-color: #f7fbff;
   caret-color: ${COLORS.PRIMARY};
   ${(props) =>

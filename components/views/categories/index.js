@@ -58,7 +58,6 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
     //fetch products by branch name
     useEffect(async () => {
         if (sideList) {
-            console.log("sidelist", sideList);
             await axios
                 .post(
                     "https://dashcommerce.click68.com/api/ListProductByCategory",
@@ -71,6 +70,10 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
                 )
                 .then((result) => {
                     if (result.data.status) {
+                        dispatch(
+                            searchResultNumber(result.data.description.length)
+                        );
+                        console.log(result.data.description.length);
                         setFiltredProducts(result.data.description);
                     }
                 })
@@ -82,6 +85,8 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
     console.log("filtred", filtredProducts);
 
     useEffect(() => {
+        dispatch(searchResultNumber(productList.length));
+        console.log("length", productList.length);
         setFiltredProducts(productList);
     }, [id]);
 
