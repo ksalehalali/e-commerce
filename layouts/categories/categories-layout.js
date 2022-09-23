@@ -402,7 +402,14 @@ function CategoriesLayout({ children, sideList }) {
               <Alert description={error} showIcon type="error" />
             )} */}
                         <StyledSideCollapse defaultActiveKey={["1"]} ghost>
-                            <Panel header={currentCat?.catName} key="1">
+                            <Panel
+                                header={
+                                    router.locale === "ar"
+                                        ? currentCat?.catNameAR
+                                        : currentCat?.catName
+                                }
+                                key="1"
+                            >
                                 {/* <Tree loadData={onLoadData} treeData={treeData} /> */}
                                 <Tree
                                     // showLine
