@@ -1,11 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-// fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
-//     .then((resp) => resp.arrayBuffer())
-//     .then((font) => {
-//         const fontFace = new FontFace("Tajawal", font);
-//         document.fonts.add(fontFace);
-//     });
+fetch("/static/fonts/Tajawal/Tajawal-Bold.ttf")
+    .then((resp) => resp.arrayBuffer())
+    .then((font) => {
+        const fontFace = new FontFace("Tajawal", font);
+        document.fonts.add(fontFace);
+    });
 
 import { COLORS } from "./variables";
 
@@ -45,6 +45,10 @@ a {
 
 h1,h2,h3,h4,h5,h6 {
     margin: 0;
+}
+
+.add-btn span {
+  line-height: 31px;
 }
 
 .ant-spin-spinning {

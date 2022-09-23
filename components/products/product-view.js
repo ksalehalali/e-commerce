@@ -59,6 +59,7 @@ const SlideImage = styled(Image)`
 `;
 
 function ProductView({ data, id, t, router }) {
+    console.log("data", data);
     const { cartItems } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const { data: cookies, status } = useSession();
@@ -73,6 +74,8 @@ function ProductView({ data, id, t, router }) {
     const [size, setSize] = useState(data?.size[0]?.sizeID);
     const [number, setNumber] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
+
+    console.log("colorList", colorList[0].qyt);
 
     // add item use fetch
     const {
@@ -442,6 +445,7 @@ function ProductView({ data, id, t, router }) {
                             <FlexDiv gap={5}>
                                 {colorList?.map((item) => (
                                     <Button
+                                        disabled={item.qyt === 0}
                                         key={item.id}
                                         type={
                                             item.colorID === color
@@ -451,6 +455,7 @@ function ProductView({ data, id, t, router }) {
                                         onClick={(e) =>
                                             changeProductColor(e, item.colorID)
                                         }
+                                        className="color-btn"
                                     >
                                         {item.color}
                                     </Button>
@@ -492,6 +497,7 @@ function ProductView({ data, id, t, router }) {
                         </FlexDiv>
 
                         <Button
+                            className="add-btn"
                             size="large"
                             type={"primary"}
                             icon={
