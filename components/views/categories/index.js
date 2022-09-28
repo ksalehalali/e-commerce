@@ -17,11 +17,7 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
     const { searchAction } = useSelector((state) => state.modal);
     const [filtredProducts, setFiltredProducts] = useState();
     const { data: data2, status } = useSession();
-    // const router = useRouter();
-    // const { id } = router.query;
     const dispatch = useDispatch();
-    console.log("prolist", productList);
-    console.log("id in index", id);
 
     useEffect(async () => {
         dispatch(searchLoading(true));
@@ -82,11 +78,9 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
             console.log("side list is empty");
         }
     }, [sideList]);
-    console.log("filtred", filtredProducts);
 
     useEffect(() => {
         dispatch(searchResultNumber(productList.length));
-        console.log("length", productList.length);
         setFiltredProducts(productList);
     }, [id]);
 

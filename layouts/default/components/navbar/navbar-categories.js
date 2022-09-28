@@ -11,6 +11,7 @@ import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { searchAction } from "redux/modal/action";
+import { memo } from "react";
 
 const categories = [
     {
@@ -141,10 +142,15 @@ const CategoriesContainerInner = styled.div`
 // }
 function NavbarCategories({ t }) {
     const router = useRouter();
-    // const { searchAction } = useSelector((state) => state.modal);
     const dispatch = useDispatch();
 
     const clearInputValue = () => {
+        const categoryItems = document.querySelectorAll(".sidebar-item");
+        if (categoryItems.length > 0) {
+            categoryItems.forEach((item) => {
+                // item.classList.remove("active");
+            });
+        }
         dispatch(searchAction(""));
     };
 

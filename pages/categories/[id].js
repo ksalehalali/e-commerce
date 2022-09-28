@@ -10,12 +10,6 @@ import { getCookie } from "cookies-next";
 function OneCategoryPage(props) {
     const router = useRouter();
     const { id } = router.query;
-    const { cat } = router.query;
-
-    console.log("props");
-    console.log(props);
-    console.log("query cat", cat);
-    console.log("query cat", id);
 
     return (
         <>
@@ -38,6 +32,7 @@ OneCategoryPage.layout = "main";
 export async function getServerSideProps(context) {
     const { req, res } = context;
     const { id } = context.params;
+    console.log("id in source", id);
 
     let categories = [];
     let products = [];
