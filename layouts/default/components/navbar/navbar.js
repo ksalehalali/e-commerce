@@ -51,16 +51,11 @@ function DefaultLayoutNavbar(props) {
                 <Nav>
                     <StyledFlexDiv spaceBetween gap={20} alignCenter>
                         <Link href="/">
-                         
-                            {props.locale === "ar" ?    <HomeText>الصفحة الرئيسية
-
-                            
-                   
-</HomeText> :    <HomeText>Home
-
-                         
-                   
-</HomeText>}
+                            {props.locale === "ar" ? (
+                                <HomeText>الصفحة الرئيسية</HomeText>
+                            ) : (
+                                <HomeText>Home</HomeText>
+                            )}
                         </Link>
                         <DeliveryTo t={props.t} />
                         <NavSearch t={props.t} />

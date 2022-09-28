@@ -1,7 +1,7 @@
 import App from "next/app";
 import Router, { useRouter } from "next/router";
 import NProgress from "../config/nprogress-config";
-import "../styles/style.css";
+import "../styles/style.scss";
 // layouts
 import DefaultLayout from "layouts/default/default-layout";
 
@@ -62,12 +62,7 @@ function MyApp({ Component, pageProps, cookies, ...rest }) {
     return (
         <SessionProvider session={pageProps.session}>
             <Theme>
-                <Head>
-                    <link
-                        href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
-                        rel="stylesheet"
-                    />
-                </Head>
+                <Head></Head>
                 <Provider store={store}>
                     <AddressContext>
                         <PaymentContextProvider>

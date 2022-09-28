@@ -75,8 +75,6 @@ function ProductView({ data, id, t, router }) {
     const [number, setNumber] = useState(1);
     const [isInCart, setIsInCart] = useState(false);
 
-    console.log("colorList", colorList[0].qyt);
-
     // add item use fetch
     const {
         data: addData,
@@ -445,7 +443,7 @@ function ProductView({ data, id, t, router }) {
                             <FlexDiv gap={5}>
                                 {colorList?.map((item) => (
                                     <Button
-                                        disabled={item.qyt === 0}
+                                        disabled={item?.qyt === 0}
                                         key={item.id}
                                         type={
                                             item.colorID === color

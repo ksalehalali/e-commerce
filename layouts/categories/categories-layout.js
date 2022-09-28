@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "styled-components";
@@ -22,6 +22,9 @@ import { COLORS } from "styles/variables";
 import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
 import { useSelector } from "react-redux";
+import CategoryChild from "./SidebarItem";
+import Items from "./data.json";
+import SidebarItem from "./SidebarItem";
 const { Panel } = Collapse;
 
 const categories = [
@@ -142,22 +145,9 @@ const StyledLink = styled.a`
             : ``}
 `;
 
-const StyledSideCollapse = styled(Collapse)`
-    .ant-collapse-item.ant-collapse-item-active {
-        .ant-collapse-header {
-            color: ${COLORS.PRIMARY};
-        }
-    }
-    .ant-collapse-item {
-        .ant-collapse-header {
-            &:hover {
-                color: ${COLORS.PRIMARY};
-            }
-        }
-    }
-    .ant-collapse-content-box {
-        padding-top: 0 !important;
-    }
+const StyledSideCollapse = styled.div``;
+const Item = styled.a`
+    display: block;
 `;
 
 function CategoriesLayout({ children, sideList }) {
@@ -165,9 +155,19 @@ function CategoriesLayout({ children, sideList }) {
     const { searchResultNumber } = useSelector((state) => state.modal);
     const router = useRouter();
     const { id } = router.query;
-    console.log("result num", searchResultNumber);
-
+    const { searchAction } = useSelector((state) => state.modal);
     const [currentCat, setCurrentCat] = useState();
+    const [categoriesList, setCategoriesList] = useState([]);
+    const { locale } = router;
+
+    useEffect(() => {
+        if (router.pathname === "/categories") {
+            setCategoriesList(sideList);
+        } else {
+            console.log("false");
+        }
+    }, [router]);
+
     useEffect(() => {
         const currentIdExist = categories.some((item) => item.id === id);
         if (currentIdExist) {
@@ -181,147 +181,9 @@ function CategoriesLayout({ children, sideList }) {
         value: false,
     });
     const [expandKeys, setExpandKeys] = useState([]);
-
-    const onLoadData = useCallback(({ key, children }) => {
-        console.log(key, "key");
-        console.log(children, "children");
-    }, []);
-
-    // const iterateArray = (list) => {
-    //   console.log("iterateArray");
-    //   console.log(list);
-    //   if (Array?.isArray(list)) {
-    //     for (let i = 0; i < list?.length; i++) {
-    //       if (Array?.isArray(list[i]?.children) && list[i]?.children.length > 0) {
-    //         iterateArray(list[i]?.children);
-    //       } else if (list[i]?.children.length === true) {
-    //         return true;
-    //       } else return false;
-    //     }
-    //   } else return list;
-    // };
-
-    // const validateData = useCallback(
-    //   (selectedKey) => {
-    //     console.log("treeData?.children");
-    //     console.log(treeData);
-    //     let go = true;
-    //     let i = 0;
-    //     let currentData = [];
-    //     while (go === true) {
-    //       if (treeData[i]?.id === selectedKey) {
-    //         currentData = treeData[i]?.children;
-    //       }
-    //       i++;
-    //     }
-
-    //     let isValid = iterateArray(treeData?.children);
-
-    //     console.log("isValid");
-    //     console.log(isValid);
-    //   },
-    //   [treeData]
-    // );
-
-    const onSelectTree = useCallback(async (selectedKey, e) => {
-        const { id, haveChildren, pos } = e?.node;
-        console.log("pos");
-        console.log(pos);
-        if (haveChildren === false) {
-            return;
-        } else {
-            setTreeLoading({ target: pos, value: true });
-            const { data: res } = await axios.post(
-                "https://dashcommerce.click68.com/api/ListCategoryByCategory",
-                {
-                    id,
-                }
-            );
-            if (res?.status === true) {
-                console.log(treeData[0]);
-                setTreeData((prev) => {
-                    let newTree = prev;
-                    newTree[0].children = parseTreeDataObject(
-                        res?.description,
-                        pos
-                    );
-                    newTree[0].haveChildren = false;
-                    return [...newTree];
-                });
-                setExpandKeys((prev) => {
-                    let newArr = prev;
-                    newArr.push(pos.toString());
-                    return [...newArr];
-                });
-            }
-            setTreeLoading({ target: null, value: false });
-        }
-
-        // const isValid = validateData(selectedKey[0]);
-        // const { data: res } = await axios.post(
-        //   "https://dashcommerce.click68.com/api/ListCategoryByCategory",
-        //   {
-        //     id: selectedKey[0],
-        //   }
-        // );
-    }, []);
-
-    const handleTreeOnExpand = useCallback(
-        async (expandedKeys, { isExpanded, node }) => {
-            const { id, haveChildren, pos, children } = node;
-            console.log("expanded");
-
-            if (haveChildren === true) {
-                setTreeLoading({ target: pos, value: true });
-                const { data: res } = await axios.post(
-                    "https://dashcommerce.click68.com/api/ListCategoryByCategory",
-                    {
-                        id,
-                    }
-                );
-                if (res?.status === true) {
-                    console.log(treeData[0]);
-                    setTreeData((prev) => {
-                        let newTree = prev;
-                        newTree[0].children = parseTreeDataObject(
-                            res?.description,
-                            pos
-                        );
-                        newTree[0].haveChildren = false;
-                        return [...newTree];
-                    });
-                    setExpandKeys((prev) => {
-                        let newArr = prev;
-                        newArr.push(pos.toString());
-                        return [...newArr];
-                    });
-                }
-                setTreeLoading({ target: null, value: false });
-            }
-
-            setExpandKeys(expandedKeys);
-        },
-        []
-    );
-
-    const parseTreeDataObject = useCallback((list, pos) => {
-        let newData = [];
-        list?.map((item, i) => {
-            newData.push({
-                title: item?.[`name_${router.locale.toUpperCase()}`],
-                key: pos + "-" + i,
-                id: item?.id,
-                children: [],
-                haveChildren: item?.children,
-                icon: item?.children ? <PlusSquareOutlined /> : null,
-                // switcherIcon: <FromOutlined />,
-            });
-        });
-        return newData;
-    }, []);
+    const [selectedItem, setSelectedItem] = useState();
 
     // fetch category by category
-    const [categoriesList, setCategoriesList] = useState([]);
     useEffect(() => {
         axios
             .post(
@@ -337,9 +199,8 @@ function CategoriesLayout({ children, sideList }) {
                 }
             )
             .then((result) => {
-                console.log("res", result.data);
                 if (result.data.description.length > 0) {
-                    setCategoriesList(result.data.description);
+                    setCategoriesList(result?.data.description);
                 } else {
                     console.log("No categories!!");
                 }
@@ -348,41 +209,12 @@ function CategoriesLayout({ children, sideList }) {
     }, [id]);
 
     useEffect(() => {
-        let newData = [];
-        categoriesList?.map((item, i) => {
-            newData.push({
-                title: item?.[`name_${router.locale.toUpperCase()}`],
-                key: "0-" + i,
-                id: item?.id,
-                children: item?.children ? ["+"] : [],
-                haveChildren: item?.children,
-                // icon: item?.children ? <PlusSquareOutlined /> : null,
-                // switcherIcon: <FromOutlined />,
-            });
-        });
-        setTreeData([...newData]);
+        setSelectedItem("");
     }, [categoriesList]);
 
-    useEffect(() => {
-        setExpandKeys([]);
-    }, [id]);
-
-    const { searchAction } = useSelector((state) => state.modal);
-    useEffect(async () => {
-        let newData = [];
-        sideList?.map((item, i) => {
-            newData.push({
-                title: item?.[`name_${router.locale.toUpperCase()}`],
-                key: "0-" + i,
-                id: item?.id,
-                children: item?.children ? ["+"] : [],
-                haveChildren: item?.children,
-                // icon: item?.children ? <PlusSquareOutlined /> : null,
-                // switcherIcon: <FromOutlined />,
-            });
-        });
-        setTreeData([...newData]);
-    }, [searchAction]);
+    const changeSelectedItem = (item) => {
+        setSelectedItem(item);
+    };
 
     return (
         <Container>
@@ -393,63 +225,41 @@ function CategoriesLayout({ children, sideList }) {
                             {t("navbar.home")}
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            {t("footer.categories")}
+                            {locale === "ar"
+                                ? currentCat?.catNameAR
+                                : currentCat?.catName}
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            {locale === "ar"
+                                ? selectedItem?.name_AR
+                                : selectedItem?.name_EN}
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </Header>
                 <FlexDiv gap={10}>
                     <Side>
-                        {/* {!loading && error && (
-              <Alert description={error} showIcon type="error" />
-            )} */}
-                        <StyledSideCollapse defaultActiveKey={["1"]} ghost>
-                            <Panel
-                                header={
-                                    router.locale === "ar"
-                                        ? currentCat?.catNameAR
-                                        : currentCat?.catName
-                                }
-                                key="1"
-                            >
-                                {/* <Tree loadData={onLoadData} treeData={treeData} /> */}
-                                <Tree
-                                    // showLine
-                                    switcherIcon={<DownOutlined />}
-                                    defaultExpandedKeys={[]}
-                                    // onSelect={onSelectTree}
-                                    selectable={false}
-                                    treeData={treeData}
-                                    onExpand={handleTreeOnExpand}
-                                    expandedKeys={expandKeys}
-                                    titleRender={(node) => {
-                                        return (
-                                            <Link
-                                                href={`/categories/${node?.id}`}
-                                            >
-                                                <a>
-                                                    {node?.title}
-                                                    {treeLoading.target ===
-                                                        node?.key &&
-                                                        treeLoading.value &&
-                                                        "loading ..."}
-                                                </a>
-                                            </Link>
-                                        );
-                                    }}
-                                />
-                            </Panel>
-                            {/* <Panel header="Brand" key="2">
-                <Empty />
-              </Panel>
-              <Panel header="Size" key="3">
-                <Empty />
-              </Panel>
-              <Panel header="Color" key="4">
-                <Empty />
-              </Panel>
-              <Panel header="Length" key="5">
-                <Empty />
-              </Panel> */}
+                        <StyledSideCollapse>
+                            {categoriesList.length > 0
+                                ? categoriesList?.map((item, index) => (
+                                      <SidebarItem
+                                          index={index}
+                                          key={index}
+                                          item={item}
+                                          changeSelectedItem={() =>
+                                              changeSelectedItem(item)
+                                          }
+                                      />
+                                  ))
+                                : sideList?.map((item, index) => (
+                                      <SidebarItem
+                                          index={index}
+                                          key={index}
+                                          item={item}
+                                          changeSelectedItem={() =>
+                                              changeSelectedItem(item)
+                                          }
+                                      />
+                                  ))}
                         </StyledSideCollapse>
                     </Side>
                     <Main>

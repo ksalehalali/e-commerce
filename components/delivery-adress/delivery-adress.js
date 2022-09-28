@@ -11,40 +11,44 @@ import Link from "next/link";
 
 import { COLORS } from "styles/variables";
 const TurnBackIcon = styled.span`
-  bottom: 10px;
+    bottom: 10px;
 `;
 function DeliveryAdress() {
-  return (
-    <FlexDiv column gap={15} padding={20} margin={10}>
-      <FlexDiv>
-        <TurnBackIcon href="#">
-          <Text icon>
-            <ArrowLeftOutlined
-              style={{ color: COLORS.TEXT_PRIMARY, marginBottom: "10px" }}
-            />
-          </Text>
-        </TurnBackIcon>
-        <Text bold color={COLORS.TEXT_PRIMARY}>
-          Shopping Cart
-        </Text>
-      </FlexDiv>
-      <FlexDiv>
-        <Text bold fontSize={20} color={COLORS.TITLE}>
-          Delivery Adress
-        </Text>
-      </FlexDiv>
-      <FlexDiv gap={20} responsive>
-        <MainAdress />
-        <NewAdress />
-      </FlexDiv>
-      <FlexDiv end>
-        <Link href="/payment">
-          <Button size="large" type="primary">
-            Continue
-          </Button>
-        </Link>
-      </FlexDiv>
-    </FlexDiv>
-  );
+    console.log("test");
+    return (
+        <FlexDiv column gap={15} padding={20} margin={10}>
+            <FlexDiv>
+                <TurnBackIcon href="#">
+                    <Text icon>
+                        <ArrowLeftOutlined
+                            style={{
+                                color: COLORS.TEXT_PRIMARY,
+                                marginBottom: "10px",
+                            }}
+                        />
+                    </Text>
+                </TurnBackIcon>
+                <Text bold color={COLORS.TEXT_PRIMARY}>
+                    Shopping Cart
+                </Text>
+            </FlexDiv>
+            <FlexDiv>
+                <Text bold fontSize={20} color={COLORS.TITLE}>
+                    Delivery Adress
+                </Text>
+            </FlexDiv>
+            <FlexDiv gap={20} responsive>
+                <MainAdress />
+                <NewAdress />
+            </FlexDiv>
+            <FlexDiv end>
+                <Link href="/payment">
+                    <Button size="large" type="primary">
+                        Continue
+                    </Button>
+                </Link>
+            </FlexDiv>
+        </FlexDiv>
+    );
 }
 export default DeliveryAdress;
