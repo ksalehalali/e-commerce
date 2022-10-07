@@ -12,14 +12,17 @@ import PaymentAlert from "components/payment-alert";
 import { useContext } from "react";
 import { ActionRequiredContext } from "context/action-context";
 import useTranslation from "next-translate/useTranslation";
+import GoogleMapComp from "pages/GoogleMapComp";
+import { useSelector } from "react-redux";
 
 const Main = styled.div`
     position: relative;
+    width: 100%;
     top: ${(props) =>
         props.plusTop
             ? ` ${parseInt(POSITIONS.MAIN_TOP) + 20}px`
             : POSITIONS.MAIN_TOP};
-    z-index: ${STACKS_INDEX.MAIN_BODY};
+    z-index: 7;
     min-height: 70vh;
     padding-bottom: ${(props) =>
         props.plusTop
@@ -32,6 +35,10 @@ const Main = styled.div`
                 : POSITIONS.MOBILE_MAIN_TOP};
     }
 `;
+
+const layout = styled.div`
+    position: apsolute;
+`;
 const nestedLayouts = {
     category: CategoriesLayout,
     profile: ProfileLayout,
@@ -40,9 +47,8 @@ const nestedLayouts = {
 
 function DefaultLayout(props) {
     const router = useRouter();
-
+    const { visible } = useSelector((state) => state.modal);
     const { t } = useTranslation("common");
-
     const { action } = useContext(ActionRequiredContext);
 
     const NestedLayout =
@@ -51,14 +57,19 @@ function DefaultLayout(props) {
 
     return (
         <div className="default-layout">
+            {visible && <div className="layout"></div>}
             {action?.type === "payment" && <PaymentAlert />}
-
-            <DefaultLayoutNavbar cookies={props.cookies} t={t}  locale={router.locale}/>
+            <DefaultLayoutNavbar
+                cookies={props.cookies}
+                t={t}
+                locale={router.locale}
+            />
             <Main plusTop={router.pathname !== "/"}>
                 <NestedLayout>{props.children}</NestedLayout>
             </Main>
             <DefaultLayoutFooter />
             <GlobalLoading />
+            {false && <GoogleMapComp />}
         </div>
     );
 }

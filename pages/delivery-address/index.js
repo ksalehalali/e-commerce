@@ -6,22 +6,25 @@ import AccessDenied from "components/results/access-denied";
 import { useSelector } from "react-redux";
 
 function Delivery(props) {
-  const { user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
 
-  return (
-    <>
-      <Head>
-        <title>E-commerce - Delivery Addresses</title>
-        <meta name="description" content="E-commerce Site - Delivery Adress " />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      {props?.status !== 401 || user ? (
-        <DeliveryPageContent />
-      ) : (
-        <AccessDenied />
-      )}
-    </>
-  );
+    return (
+        <>
+            <Head>
+                <title>E-commerce - Delivery Addresses</title>
+                <meta
+                    name="description"
+                    content="E-commerce Site - Delivery Adress "
+                />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            {props?.status !== 401 || user ? (
+                <DeliveryPageContent />
+            ) : (
+                <AccessDenied />
+            )}
+        </>
+    );
 }
 Delivery.layout = "main";
 Delivery.guard = true;

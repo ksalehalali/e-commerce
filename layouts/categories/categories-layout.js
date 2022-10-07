@@ -23,7 +23,7 @@ import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
 import { useSelector } from "react-redux";
 import CategoryChild from "./SidebarItem";
-import Items from "./data.json";
+
 import SidebarItem from "./SidebarItem";
 const { Panel } = Collapse;
 
@@ -207,6 +207,8 @@ function CategoriesLayout({ children, sideList }) {
             })
             .catch((err) => console.error("Get categories:", err));
     }, [id]);
+
+    console.log("cats", categoriesList);
 
     useEffect(() => {
         setSelectedItem("");

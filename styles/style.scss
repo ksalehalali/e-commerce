@@ -122,4 +122,67 @@
     width: 1.7em;
   }
 
-  
+  .google-map {
+    height: 100%;
+    h3 {
+      text-align: center;
+      margin-bottom: 8px;
+      position: absolute;
+      z-index: 44;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -43px;
+      background-color: white;
+      padding: 5px 27px;
+      border-radius: 4px;
+    }
+    h2 {
+      color: #fff;
+      font-size: 17px;
+    }
+    input {
+      position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 37%;
+    padding: 8px 9px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+ 
+    }
+    div {
+      .close-icon {
+        position: absolute;
+        top: -34px;
+        right: 0px;
+        font-size: 27px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      .locate-me {
+        position: absolute;
+        right: 92px;
+        bottom: 26px;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+      }
+    }
+  }
+
+  .default-layout {
+    position: relative;
+    .layout {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0000007a;
+      z-index: 9;
+    }
+  }

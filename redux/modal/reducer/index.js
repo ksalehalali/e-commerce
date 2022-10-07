@@ -70,6 +70,11 @@ export const modalReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loadingState: action.loadingState,
             };
+        case constants.SHOW_MAP:
+            return {
+                ...state,
+                visible: action.value,
+            };
 
         default:
             return state;

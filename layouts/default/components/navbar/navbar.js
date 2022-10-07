@@ -19,7 +19,7 @@ import {
 const Header = styled.header`
     position: fixed;
     width: 100%;
-    z-index: ${STACKS_INDEX.NAVBAR};
+    z-index: 8;
 `;
 
 const Nav = styled.div`
