@@ -54,3 +54,9 @@ export const searchLoading = (value) => {
         loadingState: value,
     };
 };
+export const showMap = (value) => {
+    return {
+        type: constants.SHOW_MAP,
+        value: value,
+    };
+};

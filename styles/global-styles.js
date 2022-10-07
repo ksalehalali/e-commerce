@@ -53,6 +53,10 @@ h1,h2,h3,h4,h5,h6 {
   line-height: 31px;
 }
 
+.ant-empty {
+  padding: 40px;
+}
+
 a.active {
   color: #2f2f2f;
   font-weight: 600;
