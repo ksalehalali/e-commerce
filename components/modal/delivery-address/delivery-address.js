@@ -79,10 +79,8 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
     const { t } = useTranslation();
 
     const { setAddressList } = useContext(AddressesContext);
-
     const [center, setCenter] = useState({ lng: 25.3548, lat: 51.1839 });
     const [markerLngLat, setMarkerLngLat] = useState({ lng: null, lat: null });
-
     const [searchResult, setSearchResult] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null);
 
