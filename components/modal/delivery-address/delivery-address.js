@@ -73,13 +73,10 @@ const StyledAutoComplete = styled(AutoComplete)`
 let Marker = null;
 
 function DeliveryAddressModal({ visible, onClose, toggleModal }) {
-    const map = useRef();
-    const searchInput = useRef();
     const [form] = Form.useForm();
     const { t } = useTranslation();
 
     const { setAddressList } = useContext(AddressesContext);
-    const [center, setCenter] = useState({ lng: 25.3548, lat: 51.1839 });
     const [markerLngLat, setMarkerLngLat] = useState({ lng: null, lat: null });
     const [searchResult, setSearchResult] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null);
@@ -96,6 +93,7 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
         console.log(data);
         if (data?.features?.length > 0) setSearchResult(data?.features);
     }, []);
+
     // search inout on select
     const handleSearchOnSelect = useCallback(
         (value, options) => {
@@ -197,7 +195,7 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
         []
     );
 
-    // search render options
+    // search render options to it
     const searchOption = searchResult?.map((item) => renderItem(item));
 
     return (
