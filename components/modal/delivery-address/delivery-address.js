@@ -19,7 +19,7 @@ import axios from "axios";
 import { AddressesContext } from "context/address-context";
 import { useSelector } from "react-redux";
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
+// eslint-disable-next-line import/no-webpack-loader-syntax 11111
 import useTranslation from "next-translate/useTranslation";
 import GoogleMapComp from "pages/GoogleMapComp";
 // eslint-disable-next-line import/no-webpack-loader-syntax
