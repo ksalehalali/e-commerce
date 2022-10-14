@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import styled from "styled-components";
 // components
+// some expeirments on code may be succseful
 import { Modal, Input, Form, AutoComplete, Button } from "antd";
 import FlexDiv from "components/utils/flex-div";
 import Text from "components/utils/text";
