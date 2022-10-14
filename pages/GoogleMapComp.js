@@ -197,3 +197,10 @@
 // GoogleMapComp.layout = "main";
 
 // export default GoogleMapComp;
+import React from "react";
+
+function GoogleMapComp() {
+    return <div>GoogleMapComp</div>;
+}
+
+export default GoogleMapComp;
