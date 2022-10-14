@@ -21,7 +21,7 @@ import { AddressesContext } from "context/address-context";
 import { useSelector } from "react-redux";
 
 import useTranslation from "next-translate/useTranslation";
-// import GoogleMapComp from "pages/GoogleMapComp";
+import GoogleMapComp from "pages/GoogleMapComp";
 
 // styles
 const StyledModal = styled(Modal)`
@@ -120,24 +120,24 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
         );
     }, [selectedResult]);
 
-    const dataFromMap = async ({ position, positionName, data }) => {
-        console.log(
-            "position data",
-            data.features[0].geometry.coordinates,
-            data.features[0].place_name
-        );
-        setAddressList((prev) => {
-            console.log("sttted");
-            let newArr = prev;
-            newArr.push({
-                coordinates: data.features[0].geometry.coordinates,
-                id: data.features[0].id,
-                type: data.features[0],
-                value: data.features[0].place_name,
-            });
-            return [...newArr];
-        });
-    };
+    // const dataFromMap = async ({ position, positionName, data }) => {
+    //     console.log(
+    //         "position data",
+    //         data.features[0].geometry.coordinates,
+    //         data.features[0].place_name
+    //     );
+    //     setAddressList((prev) => {
+    //         console.log("sttted");
+    //         let newArr = prev;
+    //         newArr.push({
+    //             coordinates: data.features[0].geometry.coordinates,
+    //             id: data.features[0].id,
+    //             type: data.features[0],
+    //             value: data.features[0].place_name,
+    //         });
+    //         return [...newArr];
+    //     });
+    // };
 
     // useEffect(() => {
     //     if (map.current) return;
@@ -236,10 +236,7 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
                     </Form>
                 </MapInputOuter>
                 <MapContainer>
-                    {/* <GoogleMapComp
-                        dataFromMap={dataFromMap}
-                        datafromSearch={selectedResult}
-                    /> */}
+                    <GoogleMapComp />
                 </MapContainer>
             </ModalBody>
             <ModalFooter end={true} padding="10px" alignCenter>
