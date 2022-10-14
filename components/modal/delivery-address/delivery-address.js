@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax 11111
 import useTranslation from "next-translate/useTranslation";
-import GoogleMapComp from "pages/GoogleMapComp";
+// import GoogleMapComp from "pages/GoogleMapComp";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 
 // styles
@@ -237,10 +237,10 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
                     </Form>
                 </MapInputOuter>
                 <MapContainer>
-                    <GoogleMapComp
+                    {/* <GoogleMapComp
                         dataFromMap={dataFromMap}
                         datafromSearch={selectedResult}
-                    />
+                    /> */}
                 </MapContainer>
             </ModalBody>
             <ModalFooter end={true} padding="10px" alignCenter>
