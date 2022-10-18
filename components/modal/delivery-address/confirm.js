@@ -1,7 +1,17 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState, useCallback } from "react";
 // components
-import { Divider, Modal, Form, Row, Col, message, Alert, Skeleton } from "antd";
+import {
+    Divider,
+    Modal,
+    Form,
+    Row,
+    Col,
+    message,
+    Alert,
+    Skeleton,
+    Spin,
+} from "antd";
 // contexts
 import { AddressesContext } from "context/address-context";
 // modules
@@ -12,6 +22,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "redux/modal/action";
 import styled from "styled-components";
+import { useSession } from "next-auth/react";
 
 const Input = styled.input`
     width: 100%;
@@ -23,14 +34,35 @@ const Input = styled.input`
 `;
 
 function DeliveryAddressConfirmModal({ visible, onClose }) {
+    console.log("confirm render");
     const { t } = useTranslation();
     const { addressList, setSelected, setAddressList, selected } =
         useContext(AddressesContext);
+    const [currentAddress, setCurrentAddress] = useState("");
+    const [isLoading, setIsloading] = useState(false);
     const dispatch = useDispatch();
     const { successAction, mPayloads } = useSelector((state) => state.modal);
     const router = useRouter();
     const { locale } = router;
     const [form] = Form.useForm();
+    const { data: cockies } = useSession();
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                console.log(position);
+                await axios
+                    .get(
+                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${position.coords.longitude},${position.coords.latitude}.json?types=place%2Cpostcode%2Caddress&limit=1&access_token=pk.eyJ1IjoiaGFtdWRlc2hhaGluIiwiYSI6ImNrempnc2JzcjA2bmQyb3RhdnRxd2hsbnUifQ.OeXesE3wZ5B_V42D79rjJQ`
+                    )
+                    .then((response) => {
+                        console.log(response.data.features[0].place_name);
+                        setCurrentAddress(response.data.features[0].place_name);
+                    })
+                    .catch((error) => console.error(error));
+            });
+        }
+    }, []);
 
     const {
         data: getData,
@@ -45,18 +77,6 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         mPayloads?.id ? true : false
     );
 
-    // add new address
-    const {
-        data: addData,
-        error: addError,
-        loading: addLoading,
-        executeFetch: addAddress,
-    } = useFetch(
-        process.env.NEXT_PUBLIC_HOST_API + process.env.NEXT_PUBLIC_ADD_ADRESS,
-        "post",
-        {},
-        false
-    );
     // edit address
     const {
         data: editData,
@@ -69,25 +89,61 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         {},
         false
     );
-    const handleFormOnFinish = useCallback(async () => {
+
+    const handleFormOnFinish = async () => {
+        setIsloading(true);
         await form.validateFields();
         const values = form.getFieldsValue();
-        console.log("values", values);
-        if (mPayloads?.id) {
+        if (!mPayloads?.id) {
+            // Adding new address mode
+            console.log("add mode");
+            await axios
+                .post(
+                    process.env.NEXT_PUBLIC_HOST_API +
+                        process.env.NEXT_PUBLIC_ADD_ADRESS,
+                    {
+                        Longitude: "0000",
+                        Latitude: "0000",
+                        Address: currentAddress,
+                        NameAddress: values.NameAddress,
+                        phone: values.Phone,
+                        Area: values.Area,
+                        Strret: values.Street,
+                        House: values.House,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${cockies?.user?.token}`,
+                        },
+                    }
+                )
+                .then((res) => {
+                    console.log("res", res);
+                    if (res?.data?.description?.status) {
+                        setIsloading(false);
+                        dispatch(closeModal());
+                        router.push("/delivery-address");
+                        message.success(t("common:messages.addressAdd200"));
+                    }
+                })
+                .catch((err) => console.log("error", err));
+        } else {
+            // Edit old address mode
             editAddress({
                 Address: values.Address,
                 NameAddress: values.NameAddress,
                 Phone: values.Phone,
+                Area: values.Area,
+                Strret: values.Strret,
+                House: values.House,
                 id: mPayloads?.id,
             });
-        } else {
-            addAddress(values);
         }
-    }, [mPayloads]);
+    };
 
     // get data address by id
     useEffect(() => {
-        if (getData?.status === true && !addLoading) {
+        if (getData?.status === true) {
             form.setFieldsValue({
                 Address: getData?.description?.address,
                 Longitude: getData?.description?.longitude,
@@ -95,20 +151,23 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                 Phone: getData?.description?.phone,
                 NameAddress: getData?.description?.nameAddress,
                 Address: getData?.description?.address,
+                Area: getData?.description?.area,
+                House: getData?.description?.house,
+                Street: getData?.description?.strret,
             });
         }
-    }, [getData, addLoading, addError]);
+    }, [getData]);
+
     // add aata
     useEffect(() => {
-        if (addData?.status === true && !addLoading) {
+        if (false) {
             message.success(t("common:messages.addressAdd200"));
             setSelected(addressList.at(-1));
-            successAction();
             dispatch(closeModal());
             if (router.pathname !== "/delivery-address")
                 router.push("/delivery-address");
         }
-    }, [addData, addLoading, addError]);
+    }, []);
     useEffect(() => {
         if (editData?.status === true && !editLoading) {
             message.success(t("common:messages.addressEdit200"));
@@ -119,16 +178,6 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                 router.push("/delivery-address");
         }
     }, [editData, editLoading, editError]);
-
-    useEffect(() => {
-        if (!mPayloads?.id) {
-            form.setFieldsValue({
-                Address: addressList.at(-1)?.value,
-                Longitude: addressList.at(-1)?.coordinates[0],
-                Latitude: addressList.at(-1)?.coordinates[1],
-            });
-        }
-    }, []);
 
     return (
         <Modal
@@ -147,7 +196,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
             }}
             okButtonProps={{
                 onClick: handleFormOnFinish,
-                loading: addLoading || editLoading,
+                loading: isLoading || editLoading,
             }}
             okText={t("common:okTxt")}
             cancelText={t("common:cancelTxt")}
@@ -157,7 +206,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
             {!getLoading && (
                 <Form form={form} layout="vertical">
                     <Row gutter={[24, 24]}>
-                        {!addLoading && addData?.error && (
+                        {false && (
                             <Col span={24}>
                                 <Alert
                                     description={addData?.error}
@@ -167,6 +216,24 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                             </Col>
                         )}
                     </Row>
+                    <Form.Item
+                        name="Address"
+                        label={locale === "ar" ? "ألعنوان" : "Address"}
+                        rules={[
+                            {
+                                required: false,
+                                message: "Address",
+                            },
+                        ]}
+                    >
+                        {currentAddress ? "" : <Spin style={{ top: "7px" }} />}
+                        <Input
+                            disabled
+                            value={currentAddress}
+                            size="large"
+                            placeholder={currentAddress}
+                        />
+                    </Form.Item>
                     <Form.Item
                         name="Phone"
                         label={t("forms:confirmAddress.phone")}
@@ -200,7 +267,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="areaName"
+                        name="Area"
                         label={locale == "ar" ? "أسم المنطقة" : "Area name"}
                         rules={[
                             {
@@ -220,7 +287,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="street"
+                        name="Street"
                         label={locale == "ar" ? "ألشارع" : "Street"}
                         rules={[
                             {
@@ -235,7 +302,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                         />
                     </Form.Item>
                     <Form.Item
-                        name="houseNumber"
+                        name="House"
                         label={locale == "ar" ? "رقم ألمنزل" : "House Number"}
                         rules={[
                             {

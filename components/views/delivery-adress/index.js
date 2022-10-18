@@ -1,4 +1,10 @@
-import { useContext, useEffect, useCallback } from "react";
+import {
+    useContext,
+    useEffect,
+    useCallback,
+    useState,
+    useReducer,
+} from "react";
 import Link from "next/link";
 import styled from "styled-components";
 // components
@@ -17,12 +23,14 @@ import { getCookie } from "cookies-next";
 // context
 import { AddressesContext } from "context/address-context";
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "redux/loading/actions";
 import { PaymentContext } from "context/payment-context";
 import { useRouter } from "next/router";
 import useTranslation from "next-translate/useTranslation";
 import GoogleMapComp from "pages/GoogleMapComp";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 // styles
 const TurnBackIcon = styled.span`
@@ -34,19 +42,70 @@ function DeliveryPageContent() {
     // address context
     const { selected, setSelected, setAddressList } =
         useContext(AddressesContext);
-
     // payment context
     const { started, address, chooseAddress } = useContext(PaymentContext);
+    const [addressData, setAddressData] = useState([]);
 
     const router = useRouter();
     const { payment } = router.query;
-
-    console.log("payment");
-    console.log(payment);
-
-    const dispatch = useDispatch();
+    const state = useSelector((state) => state.modal);
     let cookies = getCookie("user");
     if (cookies) cookies = JSON.parse(cookies);
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
+    const { data: userData } = useSession();
+
+    useEffect(async () => {
+        getData();
+    }, [router]);
+    const dispatch = useDispatch();
+
+    // Handle Delete
+    const handleDelete = async (item) => {
+        dispatch(startLoading());
+        await axios
+            .post(
+                process.env.NEXT_PUBLIC_HOST_API +
+                    process.env.NEXT_PUBLIC_DELETE_ADRESS,
+                {
+                    id: item.id,
+                },
+                {
+                    headers: {
+                        UserID: userData?.user.id,
+                        Authorization: `Bearer ${userData?.user.token}`,
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res.data);
+                getData();
+                forceUpdate();
+                dispatch(stopLoading());
+                setSelected(null);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    // Fetching Data
+    const getData = async () => {
+        await axios
+            .post(
+                process.env.NEXT_PUBLIC_HOST_API +
+                    process.env.NEXT_PUBLIC_LIST_USER_ADRESS,
+                {},
+                {
+                    headers: {
+                        UserID: userData?.user.id,
+                        Authorization: `Bearer ${userData?.user.token}`,
+                    },
+                }
+            )
+            .then((res) => {
+                console.log("res", res.data);
+                setAddressData(res?.data.description);
+            })
+            .catch((err) => console.log(err));
+    };
 
     const { data, error, loading, executeFetch } = useFetch(
         process.env.NEXT_PUBLIC_HOST_API +
@@ -54,18 +113,6 @@ function DeliveryPageContent() {
         "post",
         { UserID: cookies?.id },
         true
-    );
-    const {
-        data: deleteData,
-        error: deleteError,
-        loading: deleteLoading,
-        executeFetch: deleteItem,
-    } = useFetch(
-        process.env.NEXT_PUBLIC_HOST_API +
-            process.env.NEXT_PUBLIC_LIST_USER_ADRESS,
-        "post",
-        {},
-        false
     );
 
     // get list
@@ -75,31 +122,10 @@ function DeliveryPageContent() {
         }
     }, [data, loading, error]);
 
-    // delete item
-    useEffect(() => {
-        if (deleteLoading === true) {
-            dispatch(startLoading());
-        } else {
-            dispatch(stopLoading());
-        }
-
-        if (deleteData?.status === true && !deleteLoading) {
-            executeFetch();
-            setSelected(null);
-        }
-    }, [deleteData, deleteLoading, deleteError]);
-
-    useEffect(() => {
-        console.log("router");
-        console.log(router);
-    }, []);
-
-    console.log(data);
-
     return (
         <Container>
             {loading && <h2>Loading ....</h2>}
-            {data?.description?.length > 0 ? (
+            {true ? (
                 <FlexDiv column gap={15} padding={20} margin={10}>
                     <FlexDiv>
                         <TurnBackIcon href="#">
@@ -118,7 +144,9 @@ function DeliveryPageContent() {
                     </FlexDiv>
                     <FlexDiv gap={10}>
                         <Text bold fontSize={20} color={COLORS.TITLE}>
-                            {t("delivery-address:deliveryAddress")}
+                            {router.locale === "ar"
+                                ? "عنوان ألتوصيل"
+                                : "Delivery address"}
                         </Text>
                         {payment && (
                             <Text bold fontSize={20} color={COLORS.PRIMARY}>
@@ -127,7 +155,7 @@ function DeliveryPageContent() {
                         )}
                     </FlexDiv>
                     <FlexDiv gap={20} responsive wrap="true">
-                        {data?.description?.map((item) => (
+                        {addressData?.map((item) => (
                             <MainAdress
                                 key={item.id}
                                 data={item}
@@ -135,7 +163,7 @@ function DeliveryPageContent() {
                                     selected?.id === item.id ? true : false
                                 }
                                 setSelected={setSelected}
-                                deleteItem={deleteItem}
+                                deleteItem={handleDelete}
                                 getData={executeFetch}
                                 payment={payment ? true : false}
                                 t={t}
@@ -154,7 +182,10 @@ function DeliveryPageContent() {
                     )}
                 </FlexDiv>
             ) : (
-                <Empty />
+                <>
+                    <NewAdress modalSuccessAction={executeFetch} />
+                    <Empty />
+                </>
             )}
         </Container>
     );

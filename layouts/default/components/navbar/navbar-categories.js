@@ -43,13 +43,6 @@ const categories = [
         hasChildren: true,
     },
     {
-        catNameAR: "الجمال",
-        catName: "beauty supplies",
-        imagePath: "assets/images/laura-chouette-RkINI2JZwss-unsplash.jpg",
-        id: "7309f628-b98b-49cf-a67f-f01403baa31a",
-        hasChildren: true,
-    },
-    {
         catNameAR: "ملتزمات رجالية",
         catName: "Men's stuff",
         imagePath: "assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg",

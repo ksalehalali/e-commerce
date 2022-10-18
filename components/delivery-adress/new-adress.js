@@ -11,22 +11,17 @@ import * as constants from "redux/modal/constants";
 // styles
 import { COLORS } from "styles/variables";
 import useTranslation from "next-translate/useTranslation";
+import { useSession } from "next-auth/react";
 
 function NewAdress({ modalSuccessAction }) {
     const { t } = useTranslation();
-
+    const { data: cockies } = useSession();
     const dispatch = useDispatch();
 
     const handleNewItemClick = useCallback(
         (e) => {
             e.preventDefault();
-            // dispatch(showMap(true));
-            dispatch(
-                openModal(
-                    constants.modalType_delivery_address,
-                    modalSuccessAction
-                )
-            );
+            dispatch(openModal(4));
         },
         [modalSuccessAction, dispatch]
     );

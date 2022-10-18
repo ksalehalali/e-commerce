@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 
 import useTranslation from "next-translate/useTranslation";
 import GoogleMapComp from "pages/GoogleMapComp";
+import { useSession } from "next-auth/react";
 
 // styles
 const StyledModal = styled(Modal)`
@@ -105,14 +106,14 @@ function DeliveryAddressModal({ visible, onClose, toggleModal }) {
     );
 
     const handleSubmitAddress = useCallback(() => {
-        console.log("Submited");
-        console.log(selectedResult);
-        setAddressList((prev) => {
-            console.log("prev", prev);
-            let newArr = prev;
-            newArr.push(selectedResult);
-            return [...newArr];
-        });
+        // console.log("Submited");
+        // console.log(selectedResult);
+        // setAddressList((prev) => {
+        //     console.log("prev", prev);
+        //     let newArr = prev;
+        //     newArr.push(selectedResult);
+        //     return [...newArr];
+        // });
         toggleModal(
             constants.modalType_delivery_address,
             constants.modalType_delivery_address_confirm
