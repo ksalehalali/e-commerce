@@ -57,7 +57,6 @@ function DefaultLayout(props) {
 
     return (
         <div className="default-layout">
-            {visible && <div className="layout"></div>}
             {action?.type === "payment" && <PaymentAlert />}
             <DefaultLayoutNavbar
                 cookies={props.cookies}
@@ -69,7 +68,6 @@ function DefaultLayout(props) {
             </Main>
             <DefaultLayoutFooter />
             <GlobalLoading />
-            {false && <GoogleMapComp />}
         </div>
     );
 }

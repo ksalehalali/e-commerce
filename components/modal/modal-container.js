@@ -11,48 +11,53 @@ import DeliveryAddressConfirmModal from "./delivery-address/confirm";
 import ChargeWalletModal from "./charge-wallet/charge-wallet-modal";
 
 function ModalContainer() {
-  const { visible, modalType, successAction } = useSelector(
-    (state) => state.modal
-  );
-  const dispatch = useDispatch();
+    const { visible, modalType, successAction } = useSelector(
+        (state) => state.modal
+    );
+    const dispatch = useDispatch();
 
-  const onClose = useCallback(() => dispatch(closeModal()), []);
-  const toggleModal = useCallback(
-    (targetClose, targetOpen) => {
-      dispatch(closeModal());
-      dispatch(openModal(targetOpen, successAction));
-    },
-    [dispatch, successAction]
-  );
+    const onClose = useCallback(() => dispatch(closeModal()), []);
 
-  return (
-    <>
-      {modalType === constants.modalType_Login && (
-        <LoginModal visible={visible} onClose={onClose} />
-      )}
-      {modalType === constants.modalType_register && (
-        <RegisterModal visible={visible} onClose={onClose} />
-      )}
-      {modalType === constants.modalType_delivery_address && (
-        <DeliveryAddressModal
-          visible={visible}
-          onClose={onClose}
-          toggleModal={toggleModal}
-          constants={constants}
-        />
-      )}
-      {modalType === constants.modalType_delivery_address_confirm && (
-        <DeliveryAddressConfirmModal visible={visible} onClose={onClose} />
-      )}
-      {modalType === constants.modalType_charge_wallet && (
-        <ChargeWalletModal
-          visible={visible}
-          successAction={successAction}
-          onClose={onClose}
-        />
-      )}
-    </>
-  );
+    const toggleModal = useCallback(
+        (targetClose, targetOpen) => {
+            console.log("target open", targetOpen);
+            dispatch(closeModal());
+            dispatch(openModal(targetOpen, successAction));
+        },
+        [dispatch, successAction]
+    );
+
+    return (
+        <>
+            {modalType === constants.modalType_Login && (
+                <LoginModal visible={visible} onClose={onClose} />
+            )}
+            {modalType === constants.modalType_register && (
+                <RegisterModal visible={visible} onClose={onClose} />
+            )}
+            {modalType === constants.modalType_delivery_address && (
+                <DeliveryAddressModal
+                    visible={visible}
+                    onClose={onClose}
+                    toggleModal={toggleModal}
+                    constants={constants}
+                />
+            )}
+            {modalType === constants.modalType_delivery_address_confirm && (
+                <DeliveryAddressConfirmModal
+                    visible={visible}
+                    onClose={onClose}
+                />
+            )}
+            {modalType === constants.modalType_charge_wallet && (
+                <ChargeWalletModal
+                    visible={visible}
+                    successAction={successAction}
+                    onClose={onClose}
+                />
+            )}
+        </>
+    );
 }
 
 export default ModalContainer;

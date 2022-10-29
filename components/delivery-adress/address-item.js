@@ -109,16 +109,6 @@ function AddressItem({
             items={[
                 {
                     label: (
-                        <a href="#" onClick={handleEditAddress}>
-                            <Space>
-                                <EditOutlined /> <Text>Edit</Text>
-                            </Space>
-                        </a>
-                    ),
-                    key: "0",
-                },
-                {
-                    label: (
                         <a href="#" onClick={handleDeleteItem}>
                             <Text color="red">
                                 <Space>
@@ -187,6 +177,7 @@ function AddressItem({
                             {t("delivery-address:address")}
                         </Text>
                     </Col>
+
                     <Col span={15}>
                         <Text
                             bold
@@ -195,6 +186,53 @@ function AddressItem({
                             line={3}
                         >
                             {data?.address}
+                        </Text>
+                    </Col>
+                    <Col span={9}>
+                        <Text bold color={COLORS.TITLE} fontSize={15}>
+                            {router.locale === "ar" ? "ألمنطقة" : "Area"}
+                        </Text>
+                    </Col>
+                    <Col span={15}>
+                        <Text
+                            bold
+                            color={COLORS.TEXT_PRIMARY}
+                            fontSize={15}
+                            line={3}
+                        >
+                            {data?.area}
+                        </Text>
+                    </Col>
+                    <Col span={9}>
+                        <Text bold color={COLORS.TITLE} fontSize={15}>
+                            {router.locale === "ar"
+                                ? "رقم ألمنزل"
+                                : "House number"}
+                        </Text>
+                    </Col>
+                    <Col span={15}>
+                        <Text
+                            bold
+                            color={COLORS.TEXT_PRIMARY}
+                            fontSize={15}
+                            line={3}
+                        >
+                            {data?.house}
+                        </Text>
+                    </Col>
+                    <Col span={9}>
+                        <Text bold color={COLORS.TITLE} fontSize={15}>
+                            {router.locale === "ar" ? "ألشارع" : "Street"}
+                        </Text>
+                    </Col>
+                    <Col span={15}>
+                        <Text
+                            bold
+                            color={COLORS.TEXT_PRIMARY}
+                            fontSize={15}
+                            line={3}
+                        >
+                            {data?.strret}
                         </Text>
                     </Col>
                     <Col span={9}>
