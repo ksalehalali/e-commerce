@@ -25,17 +25,18 @@ const StyledTag = styled(Tag)`
 export const FavoriteIcon = styled.span`
     position: absolute;
     width: 30px;
+    height: 30px;
     top: 20px;
     left: 20px;
     z-index: 1000;
     opacity: 1;
     transition: opacity ease 0.3s;
     cursor: pointer;
-    height: 30px;
     background-color: #fff;
     border-radius: 50%;
-    text-align: center;
-    line-height: ${(props) => (props.lang === "ar" ? "39px" : "33px")};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
         background-color: #ff3939b5;

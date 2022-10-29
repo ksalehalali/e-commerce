@@ -11,7 +11,6 @@ import { NavLink } from "layouts/default/components/navbar/delivery-to";
 // import LinkButton from "./link-tag";
 
 const StyledLink = styled.a`
-    padding: 0 8px;
     display: flex;
     color: ${(props) => (props.color ? `${props.color} !important` : "")};
     white-space: nowrap;
@@ -48,7 +47,7 @@ export const IconSpan = styled.span`
 
 const NavItemTitle = styled.h3`
     font-weight: 600;
-    font-size: 15.6px;
+    font-size: 13.6px;
     text-transform: uppercase;
 
     color: ${COLORS.TEXT_PRIMARY};
