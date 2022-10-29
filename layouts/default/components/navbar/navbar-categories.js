@@ -42,13 +42,7 @@ const categories = [
         id: "d115a1f7-2407-4446-9caa-dc9744e5bfa8",
         hasChildren: true,
     },
-    {
-        catNameAR: "ملتزمات رجالية",
-        catName: "Men's stuff",
-        imagePath: "assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg",
-        id: "bdd1e12a-ffa7-4b9c-93a5-b4180fb33675",
-        hasChildren: true,
-    },
+
     {
         catNameAR: "الموبايل وإكسسواراته",
         catName: "Mobiles & Accessories",
@@ -63,35 +57,7 @@ const categories = [
         id: "d2a67fba-9070-4687-ae75-fb74f25e7924",
         hasChildren: true,
     },
-    {
-        catNameAR: "ماركات",
-        catName: "Brands",
-        imagePath: "assets/images/zara-outlet.jpg",
-        id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
-        hasChildren: true,
-    },
 
-    {
-        catNameAR: "احذية رجالية",
-        catName: "Men's shoes",
-        imagePath: "assets/images/iman-ameli-XNWBOKpYgYE-unsplash.jpg",
-        id: "7ff2c840-1f34-4f76-9fe9-07c123265c1e",
-        hasChildren: true,
-    },
-    {
-        catNameAR: "احذية نسائية",
-        catName: "Women's shoes",
-        imagePath: "assets/images/mohammad-metri-E-0ON3VGrBc-unsplash.jpg",
-        id: "3ca11af3-e200-4898-8eb9-30f1bf3b8347",
-        hasChildren: true,
-    },
-    {
-        catNameAR: "احذية أطفال",
-        catName: "Kids shoes",
-        imagePath: "assets/images/lefteris-kallergis-j1GiPlvSGWI-unsplash.jpg",
-        id: "33739903-d8c5-4604-9f27-4e52273110e8",
-        hasChildren: true,
-    },
     {
         catNameAR: "ألبسة الأطفال",
         catName: "Children's Clothing",
@@ -104,7 +70,7 @@ const categories = [
 // styled components
 const NavCategories = styled.div`
     background-color: ${COLORS.BG_COLOR_GRAY};
-    padding: 0 40px;
+    padding: 0 10px;
 `;
 
 const CategoriesContainer = styled.div`
@@ -113,14 +79,13 @@ const CategoriesContainer = styled.div`
 `;
 
 const AllCategories = styled.div`
-    width: 170px;
-    font-size: 17px;
+    width: 100px;
+    font-size: 14px;
 `;
 
 const CategoriesContainerInner = styled.div`
     display: flex;
     overflow: auto;
-    font-size: 17px;
     scroll-snap-type: x mandatory;
     &::-webkit-scrollbar {
         display: none;
@@ -152,7 +117,7 @@ function NavbarCategories({ t }) {
             <FlexDiv gap={10}>
                 <AllCategories>
                     <IconTitleItem
-                        title={t("navbar.allCategories")}
+                        title={router.locale === "ar" ? "ألجميع" : "All"}
                         icon={<DownOutlined />}
                         block
                         color={
@@ -161,7 +126,7 @@ function NavbarCategories({ t }) {
                                 : ""
                         }
                         href="/categories"
-                        justify={"space-evenly"}
+                        justify={"center"}
                         rowReverse={true}
                         padding={8}
                     />
@@ -175,7 +140,7 @@ function NavbarCategories({ t }) {
                                         ? item.catNameAR
                                         : item.catName
                                 }
-                                padding={PADDINGS.categories_item_x_y}
+                                padding={6}
                                 hoverColor={COLORS.PRIMARY}
                                 onClick={clearInputValue}
                                 hoverEffect="under-line"

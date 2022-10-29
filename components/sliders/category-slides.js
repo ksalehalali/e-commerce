@@ -158,7 +158,7 @@ function CategorySlideItem({ src, alt, title, title_ar, id, locale }) {
                               </Text>
                           )
                         : title && (
-                              <Text align="center" fontSize={16} line={2} bold>
+                              <Text align="center" fontSize={14} line={2} bold>
                                   {titleWords[0]} {titleWords[1]}
                                   <br />
                                   {titleWords[2]}

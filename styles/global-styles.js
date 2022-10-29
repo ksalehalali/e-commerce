@@ -90,8 +90,10 @@ input.ant-input {
   padding-top: 2px;
   font-size: 15px;
 }
-
-
+.kgUYeq {
+  display: flex;
+  margin-right: 7px;
+}
 .ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {
   padding-bottom: 4px;
 }
