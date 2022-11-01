@@ -135,6 +135,7 @@ function NavbarCategories({ t }) {
                     <CategoriesContainerInner>
                         {categories?.map((item) => (
                             <IconTitleItem
+                                locale={router.locale}
                                 title={
                                     router.locale === "ar"
                                         ? item.catNameAR

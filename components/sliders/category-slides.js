@@ -22,6 +22,9 @@ import home from "public/images/home.jpeg";
 import brands from "public/images/brands.jpeg";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const data = [
     {
         id: "4774bfdb-5dca-47e7-a43b-0a8acb659305",
@@ -136,16 +139,17 @@ const Cont = styled.a`
 `;
 
 function CategorySlideItem({ src, alt, title, title_ar, id, locale }) {
-    const titleWords = title.split(" ");
-    const arTitleWords = title_ar.split(" ");
-    // const titleWords_ar = title.split(" ");
+    const titleWords = title?.split(" ");
+    const arTitleWords = title_ar?.split(" ");
+
     return (
         <Link href={`/categories/${id}`}>
             <Cont>
                 <FlexDiv column style={{ marginRight: 20 }} alignCenter>
                     <ImgContainer>
+                        {/* <StyledImage alt={alt} width={80} height={80} /> */}
                         <StyledImage
-                            src={src}
+                            src={`https://dashcommerce.click68.com/${src}`}
                             alt={alt}
                             width={80}
                             height={80}
@@ -172,6 +176,7 @@ function CategorySlideItem({ src, alt, title, title_ar, id, locale }) {
 
 function CategorySlide({ router }) {
     const locale = router.locale;
+    const [mainCategories, setMainCategories] = useState([]);
     const settings = {
         dots: false,
         infinite: true,
@@ -213,17 +218,40 @@ function CategorySlide({ router }) {
         ],
     };
 
+    useEffect(async () => {
+        await axios
+            .get(
+                process.env.NEXT_PUBLIC_HOST_API +
+                    process.env.NEXT_PUBLIC_LIST_CATEGORY,
+                {
+                    headers: {
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lIjoiU3VwZXJBZG1pbiIsIlJvbGUiOiJzdXBlckFkbWluIiwiZXhwIjoxNjQ5MzUzNzQzLCJpc3MiOiJJbnZlbnRvcnlBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6IkludmVudG9yeVNlcnZpY2VQb3RtYW5DbGllbnQifQ.keJ0rTOxWXShaCPpJbFCG0EfiZnvJT2lIiyHrUT3tdA`,
+                    },
+                }
+            )
+            .then((response) => {
+                console.log(response.data);
+                if (response?.data.status) {
+                    response.data.description?.map((item) => {
+                        if (item.category === null) {
+                            mainCategories.push(item);
+                        }
+                    });
+                }
+            });
+    }, []);
+
     return (
         <>
-            {data?.length > 0 && (
+            {mainCategories?.length > 0 && (
                 <>
                     <Slider {...settings}>
-                        {data.map((item) => (
+                        {mainCategories?.map((item) => (
                             <CategorySlideItem
-                                src={item.src}
+                                src={item.image}
                                 alt={item.alt}
-                                title={item.title}
-                                title_ar={item.title_ar}
+                                title={item.name_EN}
+                                title_ar={item.name_AR}
                                 id={item.id}
                                 key={item.id}
                                 locale={locale}

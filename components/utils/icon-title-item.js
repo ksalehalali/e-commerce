@@ -47,10 +47,10 @@ export const IconSpan = styled.span`
 
 const NavItemTitle = styled.h3`
     font-weight: 600;
-    font-size: 13.6px;
+    font-size: ${(props) => (props.locale === "ar" ? "14.8px" : "13px")};
     text-transform: uppercase;
 
-    color: ${COLORS.TEXT_PRIMARY};
+    color: #3b3b3b;
 `;
 
 const IconTitleItem = ({
@@ -107,7 +107,7 @@ const IconTitleItem = ({
             >
                 <IconItem justify={justify} rowReverse={rowReverse}>
                     {icon && <IconSpan>{icon}</IconSpan>}
-                    <NavItemTitle>{title}</NavItemTitle>
+                    <NavItemTitle locale={locale}>{title}</NavItemTitle>
                 </IconItem>
             </StyledLink>
         </Link>

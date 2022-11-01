@@ -4,6 +4,8 @@ import adsImg from "/public/images/shutterstock_456779230.jpg";
 import Slider from "react-slick";
 //static
 import { NextArrow, PrevArrow } from "components/utils/slide-arrows";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function LastAdsSlide() {
     const settings = {
@@ -19,6 +21,17 @@ function LastAdsSlide() {
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
     };
+    const [bannerPath, setBannetPath] = useState();
+
+    useEffect(async () => {
+        await axios
+            .get(process.env.NEXT_PUBLIC_HOST_API + "api/ListBanner1", {})
+            .then((response) => {
+                console.log("banner", response.data);
+                setBannetPath(response.data.description[0].banner);
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <Slider {...settings}>

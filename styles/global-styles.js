@@ -118,7 +118,9 @@ input.ant-input {
   height: 5px;
 }
 
-
+.caBPjs {
+  padding: 0;
+} 
 .ant-pagination {
   display: flex;
   padding: 10px 0;

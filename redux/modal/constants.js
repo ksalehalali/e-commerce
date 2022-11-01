@@ -6,6 +6,7 @@ export const SEARCH_ACTION = "SEARCH_ACTION";
 export const SEARCH_RESULT_NUMBER = "SEARCH_RESULT_NUMBER";
 export const SEARCH_LOADING = "SEARCH_LOADING";
 export const SHOW_MAP = "SHOW_MAP";
+export const AFTER_CODE_CONFIRM = "AFTER_CODE_CONFIRM";
 
 // modal types
 export const modalType_Login = 1;

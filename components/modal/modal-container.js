@@ -1,23 +1,22 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import * as constants from "../../redux/modal/constants";
-import { closeModal, openModal } from "redux/modal/action";
+import { closeModal, codeConfirm, openModal } from "redux/modal/action";
 //components
 import LoginModal from "./login/login-modal";
 import RegisterModal from "./register/register-modal";
 import DeliveryAddressModal from "./delivery-address/delivery-address";
 import DeliveryAddressConfirmModal from "./delivery-address/confirm";
 import ChargeWalletModal from "./charge-wallet/charge-wallet-modal";
+import { Input, Modal } from "antd";
 
 function ModalContainer() {
-    const { visible, modalType, successAction } = useSelector(
+    const { visible, modalType, successAction, afterCodeConfirm } = useSelector(
         (state) => state.modal
     );
     const dispatch = useDispatch();
-
     const onClose = useCallback(() => dispatch(closeModal()), []);
-
     const toggleModal = useCallback(
         (targetClose, targetOpen) => {
             console.log("target open", targetOpen);
