@@ -177,46 +177,6 @@ function CategorySlideItem({ src, alt, title, title_ar, id, locale }) {
 function CategorySlide({ router }) {
     const locale = router.locale;
     const [mainCategories, setMainCategories] = useState([]);
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: data.length < 10 ? data.length : 10,
-        slidesToScroll: 1,
-        arrows: true,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
-        responsive: [
-            {
-                breakpoint: 1700,
-                settings: {
-                    slidesToShow: data.length < 9 ? data.length : 9,
-                    variableWidth: true,
-                },
-            },
-            {
-                breakpoint: 1218,
-                settings: {
-                    slidesToShow: data.length < 8 ? data.length : 8,
-                    variableWidth: true,
-                },
-            },
-            {
-                breakpoint: 885,
-                settings: {
-                    slidesToShow: data.length < 7 ? data.length : 7,
-                    variableWidth: true,
-                },
-            },
-            {
-                breakpoint: 605,
-                settings: {
-                    slidesToShow: data.length < 4 ? data.length : 4,
-                    variableWidth: true,
-                },
-            },
-        ],
-    };
 
     useEffect(async () => {
         await axios
@@ -240,6 +200,55 @@ function CategorySlide({ router }) {
                 }
             });
     }, []);
+
+    var settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 10,
+        slidesToScroll: 10,
+        initialSlide: 0,
+        arrows: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1170,
+                settings: {
+                    slidesToShow: 9,
+                    slidesToScroll: 9,
+                    infinite: false,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 7,
+                    infinite: false,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                    initialSlide: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                },
+            },
+        ],
+    };
+
+    console.log("maincats", mainCategories);
 
     return (
         <>

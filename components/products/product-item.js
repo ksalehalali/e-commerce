@@ -56,11 +56,14 @@ const StyledProdcutItem = styled(FlexDiv)`
     position: relative;
     border: 1px solid ${COLORS.BG_COLOR_GRAY};
     ${(props) => props.lang === "ar" && "direction: rtl;"}
-    border-right: none;
+    // width: 220px;
     padding: 8px;
     &:hover > ${FavoriteIcon} {
     }
-    @media (max-width: 1441px) {
+    @media (min-width: 1269px) {
+        width: 200px;
+    }
+    @media (max-width: 1241px) {
         width: 220px;
     }
     @media (max-width: 1000px) {

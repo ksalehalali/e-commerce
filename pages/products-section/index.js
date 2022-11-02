@@ -2,13 +2,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 // components
 import CategoriesPageContent from "components/views/categories";
-import CategoriesLayout from "layouts/categories/categories-layout";
 // modules
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import CategoriesLayout from "layouts/categories/categories-layout";
 
-function CategoriesPage(props) {
+function productsSection(props) {
     const router = useRouter();
+    console.log(router);
 
     return (
         <>
@@ -25,8 +26,8 @@ function CategoriesPage(props) {
         </>
     );
 }
-CategoriesPage.layout = "main";
-// CategoriesPage.nested = "category";
+
+productsSection.layout = "main";
 
 export async function getServerSideProps(context) {
     const { req, res } = context;
@@ -84,4 +85,4 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default CategoriesPage;
+export default productsSection;

@@ -25,10 +25,11 @@ function LastAdsSlide() {
 
     useEffect(async () => {
         await axios
-            .get(process.env.NEXT_PUBLIC_HOST_API + "api/ListBanner1", {})
+            .get(process.env.NEXT_PUBLIC_HOST_API + "api/ListBanner3", {})
             .then((response) => {
-                console.log("banner", response.data);
-                setBannetPath(response.data.description[0].banner);
+                if (response.data.description.length > 0) {
+                    setBannetPath(response.data.description);
+                }
             })
             .catch((err) => console.error(err));
     }, []);
