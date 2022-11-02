@@ -17,6 +17,38 @@
     box-sizing: border-box;
   }
   
+  .red-border {
+    border: 1px solid red !important;
+    position: relative;
+  }
+
+.confirm-warn {
+  margin: 4px 0 0;
+  color: red;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.slick-list {
+  padding-top: 22px !important;
+}
+
+.resend-text {
+  right: 30px;
+  font-weight: 400;
+  font-size: 12px;
+  position: absolute;
+
+  a {
+    color: #4c4c9c;
+    text-decoration: underline;
+    
+    &:hover {
+      color: #4c4c9c;
+      text-decoration: underline;
+    }
+  }
+}
 
 .title{
     font-size: 3em;

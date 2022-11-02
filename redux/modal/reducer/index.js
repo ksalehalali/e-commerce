@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     searchAction: "",
     searchResultNumber: 0,
     loadingState: false,
+    afterCodeConfirm: false,
 };
 
 export const modalReducer = (state = INITIAL_STATE, action) => {
@@ -74,6 +75,11 @@ export const modalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 visible: action.value,
+            };
+        case constants.AFTER_CODE_CONFIRM:
+            return {
+                ...state,
+                afterCodeConfirm: action.value,
             };
 
         default:

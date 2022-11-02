@@ -42,10 +42,36 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
     const [isLoading, setIsloading] = useState(false);
     const dispatch = useDispatch();
     const { successAction, mPayloads } = useSelector((state) => state.modal);
+    const { afterCodeConfirm } = useSelector((state) => state.modal);
     const router = useRouter();
     const { locale } = router;
     const [form] = Form.useForm();
     const { data: cockies } = useSession();
+    const [confirmCode, setConfirmCode] = useState("");
+    const [codeIsValid, setCodeIsValid] = useState(false);
+
+    // modal functions
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = (e) => {
+        console.log("coms from confirm", e);
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        if (confirmCode == "") {
+            setCodeIsValid(true);
+            return false;
+        } else {
+            setCodeIsValid(false);
+        }
+        setIsModalOpen(false);
+        console.log(confirmCode);
+        addAddress();
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        dispatch(closeModal());
+    };
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -90,7 +116,8 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         false
     );
 
-    const handleFormOnFinish = async () => {
+    const addAddress = async () => {
+        console.log("it is true");
         setIsloading(true);
         await form.validateFields();
         const values = form.getFieldsValue();
@@ -141,6 +168,22 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         }
     };
 
+    const handleFormOnFinish = async () => {
+        const values = form.getFieldsValue();
+        await form.validateFields();
+        if (
+            values.Area &&
+            values.NameAddress &&
+            values.Phone &&
+            values.Street
+        ) {
+            console.log("validate");
+            setIsModalOpen(true);
+        } else {
+            console.log("not validate");
+        }
+    };
+
     // get data address by id
     useEffect(() => {
         if (getData?.status === true) {
@@ -158,16 +201,6 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         }
     }, [getData]);
 
-    // add aata
-    useEffect(() => {
-        if (false) {
-            message.success(t("common:messages.addressAdd200"));
-            setSelected(addressList.at(-1));
-            dispatch(closeModal());
-            if (router.pathname !== "/delivery-address")
-                router.push("/delivery-address");
-        }
-    }, []);
     useEffect(() => {
         if (editData?.status === true && !editLoading) {
             message.success(t("common:messages.addressEdit200"));
@@ -180,146 +213,182 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
     }, [editData, editLoading, editError]);
 
     return (
-        <Modal
-            visible={visible}
-            destroyOnClose={true}
-            onCancel={() => {
-                // clear unsaved address from our context
-                if (!mPayloads?.id) {
-                    setAddressList((prev) => {
-                        let newList = prev;
-                        newList.pop();
-                        return [...newList];
-                    });
-                }
-                onClose();
-            }}
-            okButtonProps={{
-                onClick: handleFormOnFinish,
-                loading: isLoading || editLoading,
-            }}
-            okText={t("common:okTxt")}
-            cancelText={t("common:cancelTxt")}
-            title={t("forms:confirmAddress.title")}
-        >
-            {getLoading && <Skeleton />}
-            {!getLoading && (
-                <Form form={form} layout="vertical">
-                    <Row gutter={[24, 24]}>
-                        {false && (
-                            <Col span={24}>
-                                <Alert
-                                    description={addData?.error}
-                                    showIcon
-                                    type="error"
-                                />
-                            </Col>
-                        )}
-                    </Row>
-                    <Form.Item
-                        name="Address"
-                        label={locale === "ar" ? "ألعنوان" : "Address"}
-                        rules={[
-                            {
-                                required: false,
-                                message: "Address",
-                            },
-                        ]}
-                    >
-                        {currentAddress ? "" : <Spin style={{ top: "7px" }} />}
-                        <Input
-                            disabled
-                            value={currentAddress}
-                            size="large"
-                            placeholder={currentAddress}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="Phone"
-                        label={t("forms:confirmAddress.phone")}
-                        rules={[
-                            {
-                                required: true,
-                                message: t("common:validations.required"),
-                            },
-                        ]}
-                    >
-                        <Input
-                            size="large"
-                            placeholder={t("forms:confirmAddress.phone")}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="NameAddress"
-                        label={t("forms:confirmAddress.name")}
-                        rules={[
-                            {
-                                required: true,
-                                message: t("common:validations.required"),
-                            },
-                        ]}
-                    >
-                        <Input
-                            size="large"
-                            placeholder={
-                                locale === "ar" ? "مثال: منزلي" : "Ex: My home"
-                            }
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="Area"
-                        label={locale == "ar" ? "أسم المنطقة" : "Area name"}
-                        rules={[
-                            {
-                                required: false,
-                                message:
-                                    locale == "ar"
-                                        ? "أسم المنطقة"
-                                        : "Area name",
-                            },
-                        ]}
-                    >
-                        <Input
-                            size="large"
-                            placeholder={
-                                locale == "ar" ? "أسم المنطقة" : "Area name"
-                            }
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="Street"
-                        label={locale == "ar" ? "ألشارع" : "Street"}
-                        rules={[
-                            {
-                                required: false,
-                                message: locale == "ar" ? "ألشارع" : "Street",
-                            },
-                        ]}
-                    >
-                        <Input
-                            size="large"
-                            placeholder={locale == "ar" ? "ألشارع" : "Street"}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        name="House"
-                        label={locale == "ar" ? "رقم ألمنزل" : "House Number"}
-                        rules={[
-                            {
-                                required: false,
-                            },
-                        ]}
-                    >
-                        <Input
-                            size="large"
-                            placeholder={
+        <>
+            <Modal
+                title="Please enter confirm code!"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                closable={false}
+            >
+                <Input
+                    className={codeIsValid && "red-border"}
+                    required={true}
+                    onChange={(e) => setConfirmCode(e.target.value)}
+                />
+                {codeIsValid && (
+                    <span className="confirm-warn">
+                        Please Enter Confirm Code!
+                    </span>
+                )}
+                <span className="resend-text">
+                    Did'nt recieve? <a>Resend the code</a>
+                </span>
+            </Modal>
+            <Modal
+                visible={visible}
+                destroyOnClose={true}
+                onCancel={() => {
+                    // clear unsaved address from our context
+                    if (!mPayloads?.id) {
+                        setAddressList((prev) => {
+                            let newList = prev;
+                            newList.pop();
+                            return [...newList];
+                        });
+                    }
+                    onClose();
+                }}
+                okButtonProps={{
+                    onClick: handleFormOnFinish,
+                    loading: isLoading || editLoading,
+                }}
+                okText={t("common:okTxt")}
+                cancelText={t("common:cancelTxt")}
+                title={t("forms:confirmAddress.title")}
+            >
+                {getLoading && <Skeleton />}
+                {!getLoading && (
+                    <Form form={form} layout="vertical">
+                        <Row gutter={[24, 24]}>
+                            {false && (
+                                <Col span={24}>
+                                    <Alert
+                                        description={addData?.error}
+                                        showIcon
+                                        type="error"
+                                    />
+                                </Col>
+                            )}
+                        </Row>
+                        <Form.Item
+                            name="Address"
+                            label={locale === "ar" ? "ألعنوان" : "Address"}
+                            rules={[
+                                {
+                                    required: false,
+                                    message: "Address",
+                                },
+                            ]}
+                        >
+                            {currentAddress ? (
+                                ""
+                            ) : (
+                                <Spin style={{ top: "7px" }} />
+                            )}
+                            <Input
+                                disabled
+                                value={currentAddress}
+                                size="large"
+                                placeholder={currentAddress}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="Phone"
+                            label={t("forms:confirmAddress.phone")}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: t("common:validations.required"),
+                                },
+                            ]}
+                        >
+                            <Input
+                                size="large"
+                                placeholder={t("forms:confirmAddress.phone")}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="NameAddress"
+                            label={t("forms:confirmAddress.name")}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: t("common:validations.required"),
+                                },
+                            ]}
+                        >
+                            <Input
+                                size="large"
+                                placeholder={
+                                    locale === "ar"
+                                        ? "مثال: منزلي"
+                                        : "Ex: My home"
+                                }
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="Area"
+                            label={locale == "ar" ? "أسم المنطقة" : "Area name"}
+                            rules={[
+                                {
+                                    required: true,
+                                    message:
+                                        locale == "ar"
+                                            ? "أسم المنطقة"
+                                            : "Area name",
+                                },
+                            ]}
+                        >
+                            <Input
+                                size="large"
+                                placeholder={
+                                    locale == "ar" ? "أسم المنطقة" : "Area name"
+                                }
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="Street"
+                            label={locale == "ar" ? "ألشارع" : "Street"}
+                            rules={[
+                                {
+                                    required: true,
+                                    message:
+                                        locale == "ar" ? "ألشارع" : "Street",
+                                },
+                            ]}
+                        >
+                            <Input
+                                size="large"
+                                placeholder={
+                                    locale == "ar" ? "ألشارع" : "Street"
+                                }
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="House"
+                            label={
                                 locale == "ar" ? "رقم ألمنزل" : "House Number"
                             }
-                        />
-                    </Form.Item>
-                </Form>
-            )}
-        </Modal>
+                            rules={[
+                                {
+                                    required: false,
+                                },
+                            ]}
+                        >
+                            <Input
+                                size="large"
+                                placeholder={
+                                    locale == "ar"
+                                        ? "رقم ألمنزل"
+                                        : "House Number"
+                                }
+                            />
+                        </Form.Item>
+                    </Form>
+                )}
+            </Modal>
+        </>
     );
 }
 

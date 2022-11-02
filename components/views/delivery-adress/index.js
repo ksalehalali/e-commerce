@@ -14,7 +14,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import Text from "components/utils/text";
 import MainAdress from "components/delivery-adress/address-item";
 import NewAdress from "components/delivery-adress/new-adress";
-import { Button, Empty } from "antd";
+import { Button, Empty, Modal } from "antd";
 // hooks
 import useFetch from "hooks/useFetch";
 import { COLORS } from "styles/variables";
@@ -56,6 +56,7 @@ function DeliveryPageContent() {
 
     useEffect(async () => {
         getData();
+        console.log("delevery page rendern");
     }, [router]);
     const dispatch = useDispatch();
 

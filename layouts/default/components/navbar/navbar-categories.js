@@ -79,7 +79,6 @@ const CategoriesContainer = styled.div`
 `;
 
 const AllCategories = styled.div`
-    width: 100px;
     font-size: 14px;
 `;
 
@@ -117,7 +116,11 @@ function NavbarCategories({ t }) {
             <FlexDiv gap={10}>
                 <AllCategories>
                     <IconTitleItem
-                        title={router.locale === "ar" ? "ألجميع" : "All"}
+                        title={
+                            router.locale === "ar"
+                                ? "جميع الفئات"
+                                : "All categories"
+                        }
                         icon={<DownOutlined />}
                         block
                         color={
@@ -135,6 +138,7 @@ function NavbarCategories({ t }) {
                     <CategoriesContainerInner>
                         {categories?.map((item) => (
                             <IconTitleItem
+                                locale={router.locale}
                                 title={
                                     router.locale === "ar"
                                         ? item.catNameAR

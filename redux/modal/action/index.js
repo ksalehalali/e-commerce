@@ -60,3 +60,10 @@ export const showMap = (value) => {
         value: value,
     };
 };
+export const codeConfirm = (value) => {
+    console.log("in action", value);
+    return {
+        type: constants.AFTER_CODE_CONFIRM,
+        value: value,
+    };
+};

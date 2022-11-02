@@ -6,7 +6,7 @@ import Text from "components/utils/text";
 import { PlusCircleTwoTone } from "@ant-design/icons/lib/icons";
 // redux
 import { useDispatch } from "react-redux";
-import { openModal, showMap } from "redux/modal/action";
+import { codeConfirm, openModal, showMap } from "redux/modal/action";
 import * as constants from "redux/modal/constants";
 // styles
 import { COLORS } from "styles/variables";
@@ -22,6 +22,7 @@ function NewAdress({ modalSuccessAction }) {
         (e) => {
             e.preventDefault();
             dispatch(openModal(4));
+            dispatch(codeConfirm(false));
         },
         [modalSuccessAction, dispatch]
     );

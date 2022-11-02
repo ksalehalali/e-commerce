@@ -15,6 +15,7 @@ import {
     STACKS_INDEX,
     STANDARD_SCREENS,
 } from "styles/variables";
+import { useRouter } from "next/router";
 
 const Header = styled.header`
     position: fixed;
@@ -45,13 +46,17 @@ const HomeText = styled.h3`
 `;
 
 function DefaultLayoutNavbar(props) {
+    const router = useRouter();
+
     return (
         <Header>
             <FlexDiv column>
                 <Nav>
                     <StyledFlexDiv spaceBetween gap={20} alignCenter>
                         <Link href="/">
-                            {props.locale === "ar" ? (
+                            {router.pathname === "/" ? (
+                                ""
+                            ) : router.locale === "ar" ? (
                                 <HomeText>الصفحة الرئيسية</HomeText>
                             ) : (
                                 <HomeText>Home</HomeText>
