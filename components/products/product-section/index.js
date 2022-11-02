@@ -35,7 +35,6 @@ const Viewall = styled.span`
 
 function ProductSectionPart({ title, list }) {
     const router = useRouter();
-    console.log("section is", title);
     return (
         <ProductSection>
             <ProductSectionHeader>
