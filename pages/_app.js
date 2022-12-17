@@ -15,30 +15,17 @@ import { useStore } from "../redux/index";
 import ModalContainer from "components/modal/modal-container";
 
 // redux persist
-// import PersistWrapper from "next-persist/lib/NextPersistWrapper";
-
 import GlobalStyles from "../styles/global-styles";
 import { getCookie } from "cookies-next";
-
 import Checkers from "components/checkers";
 // contexts
-// import { AddressesContext } from "context/address-context";
 import AddressContext from "context/address-context";
 import ActionContext from "context/action-context";
 import PaymentContextProvider from "context/payment-context";
-
 // auth
 import { SessionProvider } from "next-auth/react";
 import AuthGuard from "components/auth-guard";
 import Theme from "config/theme";
-import PaymentAlert from "components/payment-alert";
-
-const npConfig = {
-    method: "cookies",
-    allowList: {
-        test: ["testText"],
-    },
-};
 
 const layouts = {
     main: DefaultLayout,

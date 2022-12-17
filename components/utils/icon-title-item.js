@@ -3,12 +3,8 @@ import styled from "styled-components";
 // components
 import Text from "./text";
 import { Badge } from "antd";
-
 import PropTypes from "prop-types";
 import { COLORS } from "styles/variables";
-import { NavLink } from "layouts/default/components/navbar/delivery-to";
-
-// import LinkButton from "./link-tag";
 
 const StyledLink = styled.a`
     display: flex;
@@ -35,6 +31,7 @@ const StyledLink = styled.a`
 export const IconItem = styled.div`
     display: flex;
     align-items: center;
+    column-gap: 7px;
     width: 100%;
     height: 100%;
     justify-content: ${(props) =>
@@ -49,7 +46,6 @@ const NavItemTitle = styled.h3`
     font-weight: 600;
     font-size: ${(props) => (props.locale === "ar" ? "14.8px" : "13px")};
     text-transform: uppercase;
-
     color: #3b3b3b;
 `;
 

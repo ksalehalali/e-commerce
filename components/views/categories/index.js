@@ -38,7 +38,6 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
             );
             if (typeof data.description === "string") {
                 dispatch(searchLoading(false));
-                dispatch(searchResultNumber(data.description.length));
             } else {
                 dispatch(searchLoading(false));
                 setFiltredProducts(data.description);
@@ -69,13 +68,11 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
                         dispatch(
                             searchResultNumber(result.data.description.length)
                         );
-                        console.log(result.data.description.length);
+
                         setFiltredProducts(result.data.description);
                     }
                 })
                 .catch((err) => console.error(err));
-        } else {
-            console.log("side list is empty");
         }
     }, [sideList]);
 
@@ -83,6 +80,12 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
         dispatch(searchResultNumber(productList.length));
         setFiltredProducts(productList);
     }, [id]);
+
+    const emptyPage = () => {
+        if (filtredProducts?.length === 0 && productList?.length === 0) {
+            return <Empty />;
+        }
+    };
 
     return (
         <FlexDiv
@@ -114,7 +117,7 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
                     ))}
                 </>
             ) : (
-                productList.map((item) => (
+                productList?.map((item) => (
                     <ProdcutItem
                         key={item.id}
                         title={item[`name_${locale.toUpperCase()}`]}
@@ -130,7 +133,7 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
                     />
                 ))
             )}
-            {(filtredProducts?.length === 0 || !productList) && <Empty />}
+            {emptyPage()}
         </FlexDiv>
     );
 }

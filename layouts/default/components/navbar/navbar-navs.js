@@ -14,15 +14,11 @@ import {
     OrderedListOutlined,
 } from "@ant-design/icons/lib/icons";
 import { StyledLink } from "./delivery-to";
-import IconTitleItem, {
-    IconItem,
-    IconSpan,
-} from "components/utils/icon-title-item";
+import { IconItem, IconSpan } from "components/utils/icon-title-item";
 import Text from "components/utils/text";
 // modules
-import { removeCookies } from "cookies-next";
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // actions
 import { openModal } from "redux/modal/action";
 import { resetShoopingCart } from "redux/cart/action";
@@ -67,11 +63,7 @@ const CartContainer = styled.div`
 function NavbarNavs({ t }) {
     const dispatch = useDispatch();
     const router = useRouter();
-
     const { data, status } = useSession();
-
-    const { sum } = useSelector((state) => state.cart);
-
     const { resetAddresses } = useContext(AddressesContext);
 
     const handleLogout = useCallback(
@@ -162,14 +154,16 @@ function NavbarNavs({ t }) {
         onClick={() => console.log("clicked")}
       /> */}
             <StyledLink
-                href={`/${router.locale === "ar" ? "en" : "ar"}${router.asPath
-                    }`}
+                href={`/${router.locale === "ar" ? "en" : "ar"}${
+                    router.asPath
+                }`}
             >
                 <IconItem>
-                    {router.locale === "ar" ? <Text>
-                        English    </Text> : <Text>
-                        العربية  </Text>}
-
+                    {router.locale === "ar" ? (
+                        <Text>English </Text>
+                    ) : (
+                        <Text>العربية </Text>
+                    )}
                 </IconItem>
             </StyledLink>
             <Divider
@@ -206,10 +200,12 @@ function NavbarNavs({ t }) {
 
             <Link href="/cart">
                 <CartContainer>
-                {router.locale === "ar" ? <Text>
-                           السلة </Text> : <Text>
-                        Cart  </Text>}
-                   
+                    {router.locale === "ar" ? (
+                        <Text>السلة </Text>
+                    ) : (
+                        <Text>Cart </Text>
+                    )}
+
                     <ShoppingCartOutlined className="cart-icon" />
                 </CartContainer>
             </Link>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 // components
 import { DownOutlined } from "@ant-design/icons/lib/icons";
-import Container from "components/utils/container";
 import FlexDiv from "components/utils/flex-div";
 import IconTitleItem from "components/utils/icon-title-item.js";
 // import Swiper, { SwiperChild } from "components/utils/swiper";
@@ -9,9 +8,8 @@ import IconTitleItem from "components/utils/icon-title-item.js";
 // css
 import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { searchAction } from "redux/modal/action";
-import { memo } from "react";
 
 const categories = [
     {
@@ -102,12 +100,6 @@ function NavbarCategories({ t }) {
     const dispatch = useDispatch();
 
     const clearInputValue = () => {
-        const categoryItems = document.querySelectorAll(".sidebar-item");
-        if (categoryItems.length > 0) {
-            categoryItems.forEach((item) => {
-                // item.classList.remove("active");
-            });
-        }
         dispatch(searchAction(""));
     };
 

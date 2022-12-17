@@ -1,18 +1,17 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import * as constants from "../../redux/modal/constants";
-import { closeModal, codeConfirm, openModal } from "redux/modal/action";
+import { closeModal, openModal } from "redux/modal/action";
 //components
 import LoginModal from "./login/login-modal";
 import RegisterModal from "./register/register-modal";
 import DeliveryAddressModal from "./delivery-address/delivery-address";
 import DeliveryAddressConfirmModal from "./delivery-address/confirm";
 import ChargeWalletModal from "./charge-wallet/charge-wallet-modal";
-import { Input, Modal } from "antd";
 
 function ModalContainer() {
-    const { visible, modalType, successAction, afterCodeConfirm } = useSelector(
+    const { visible, modalType, successAction } = useSelector(
         (state) => state.modal
     );
     const dispatch = useDispatch();
@@ -25,12 +24,9 @@ function ModalContainer() {
         },
         [dispatch, successAction]
     );
-
     return (
         <>
-            {modalType === constants.modalType_Login && (
-                <LoginModal visible={visible} onClose={onClose} />
-            )}
+            <LoginModal visible={visible} onClose={onClose} />
             {modalType === constants.modalType_register && (
                 <RegisterModal visible={visible} onClose={onClose} />
             )}

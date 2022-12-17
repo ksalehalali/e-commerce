@@ -1,8 +1,9 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ads from "../public/images/Event_02.jpeg";
 import { COLORS } from "styles/variables";
+import axios from "axios";
 
 // Styled element
 const AdsElement = styled.div`
@@ -35,13 +36,26 @@ const AdText = styled.p`
     margin: 0;
 `;
 function AdsArea() {
+    const [adsBanner, setAdsBanner] = useState([]);
+
+    useEffect(async () => {
+        await axios
+            .get(process.env.NEXT_PUBLIC_HOST_API + "api/ListBanner2", {})
+            .then((response) => {
+                if (response.data.description.length > 0) {
+                    setAdsBanner(response.data.description);
+                }
+            })
+            .catch((err) => console.error(err));
+    }, []);
+
     return (
         <AdsElement>
             <Image
                 layout="responsive"
                 width="100%"
                 height={20}
-                src={ads}
+                src={`https://dashcommerce.click68.com/${adsBanner[0]?.banner}`}
                 alt="Image 2"
             />
             <CaptionImg>

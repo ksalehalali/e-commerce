@@ -2,12 +2,10 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 // components
 import { Input, Spin } from "antd";
-import { SearchOutlined } from "@ant-design/icons/lib/icons";
 import { FiSearch } from "react-icons/fi";
 import { COLORS } from "styles/variables";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchAction, searchLoading } from "redux/modal/action";
+import { searchAction } from "redux/modal/action";
 
 const StyledNavSearch = styled.div`
     flex: 1;
@@ -27,12 +25,9 @@ const StyledInput = styled(Input)`
 function NavSearch({ t }) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { id } = router.query;
-    const {
-        searchResultNumber,
-        loadingState,
-        searchAction: inputValue,
-    } = useSelector((state) => state.modal);
+    const { loadingState, searchAction: inputValue } = useSelector(
+        (state) => state.modal
+    );
 
     const handleSearch = (e) => {
         dispatch(searchAction(e.target.value));

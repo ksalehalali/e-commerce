@@ -2,19 +2,13 @@ import Link from "next/link";
 import styled from "styled-components";
 
 // components
-import Container from "components/utils/container";
 import NavbarNavs from "./navbar-navs";
 import FlexDiv from "components/utils/flex-div";
 import NavSearch from "./nav-search";
 import DeliveryTo from "./delivery-to";
 import NavbarCategories from "./navbar-categories";
 // variables
-import {
-    COLORS,
-    PADDINGS,
-    STACKS_INDEX,
-    STANDARD_SCREENS,
-} from "styles/variables";
+import { COLORS, PADDINGS, STANDARD_SCREENS } from "styles/variables";
 import { useRouter } from "next/router";
 
 const Header = styled.header`

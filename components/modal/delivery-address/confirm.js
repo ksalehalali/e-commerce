@@ -1,17 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState, useCallback } from "react";
 // components
-import {
-    Divider,
-    Modal,
-    Form,
-    Row,
-    Col,
-    message,
-    Alert,
-    Skeleton,
-    Spin,
-} from "antd";
+import { Modal, Form, Row, Col, message, Alert, Skeleton, Spin } from "antd";
 // contexts
 import { AddressesContext } from "context/address-context";
 // modules
@@ -47,31 +37,6 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
     const { locale } = router;
     const [form] = Form.useForm();
     const { data: cockies } = useSession();
-    const [confirmCode, setConfirmCode] = useState("");
-    const [codeIsValid, setCodeIsValid] = useState(false);
-
-    // modal functions
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = (e) => {
-        console.log("coms from confirm", e);
-        setIsModalOpen(true);
-    };
-    const handleOk = () => {
-        if (confirmCode == "") {
-            setCodeIsValid(true);
-            return false;
-        } else {
-            setCodeIsValid(false);
-        }
-        setIsModalOpen(false);
-        console.log(confirmCode);
-        addAddress();
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-        dispatch(closeModal());
-    };
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -116,14 +81,12 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
         false
     );
 
-    const addAddress = async () => {
-        console.log("it is true");
+    const handleFormOnFinish = async () => {
         setIsloading(true);
         await form.validateFields();
         const values = form.getFieldsValue();
         if (!mPayloads?.id) {
             // Adding new address mode
-            console.log("add mode");
             await axios
                 .post(
                     process.env.NEXT_PUBLIC_HOST_API +
@@ -145,8 +108,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                     }
                 )
                 .then((res) => {
-                    console.log("res", res);
-                    if (res?.data?.description?.status) {
+                    if (res?.data?.status) {
                         setIsloading(false);
                         dispatch(closeModal());
                         router.push("/delivery-address");
@@ -165,22 +127,6 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
                 House: values.House,
                 id: mPayloads?.id,
             });
-        }
-    };
-
-    const handleFormOnFinish = async () => {
-        const values = form.getFieldsValue();
-        await form.validateFields();
-        if (
-            values.Area &&
-            values.NameAddress &&
-            values.Phone &&
-            values.Street
-        ) {
-            console.log("validate");
-            setIsModalOpen(true);
-        } else {
-            console.log("not validate");
         }
     };
 
@@ -215,28 +161,7 @@ function DeliveryAddressConfirmModal({ visible, onClose }) {
     return (
         <>
             <Modal
-                title="Please enter confirm code!"
-                open={isModalOpen}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                closable={false}
-            >
-                <Input
-                    className={codeIsValid && "red-border"}
-                    required={true}
-                    onChange={(e) => setConfirmCode(e.target.value)}
-                />
-                {codeIsValid && (
-                    <span className="confirm-warn">
-                        Please Enter Confirm Code!
-                    </span>
-                )}
-                <span className="resend-text">
-                    Did'nt recieve? <a>Resend the code</a>
-                </span>
-            </Modal>
-            <Modal
-                visible={visible}
+                open={visible}
                 destroyOnClose={true}
                 onCancel={() => {
                     // clear unsaved address from our context

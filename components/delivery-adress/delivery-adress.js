@@ -2,7 +2,7 @@
 import FlexDiv from "components/utils/flex-div";
 import styled from "styled-components";
 import Text from "components/utils/text";
-import { Button, Row, Col, Tag, Breadcrumb } from "antd";
+import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import MainAdress from "./address-item";
 import NewAdress from "./new-adress";

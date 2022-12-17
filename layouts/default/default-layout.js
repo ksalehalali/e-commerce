@@ -7,12 +7,11 @@ import GlobalLoading from "components/loadings/global-loading";
 import CategoriesLayout from "layouts/categories/categories-layout";
 import ProfileLayout from "layouts/profile/profile-layout";
 // variables
-import { POSITIONS, STACKS_INDEX, STANDARD_SCREENS } from "styles/variables";
+import { POSITIONS, STANDARD_SCREENS } from "styles/variables";
 import PaymentAlert from "components/payment-alert";
 import { useContext } from "react";
 import { ActionRequiredContext } from "context/action-context";
 import useTranslation from "next-translate/useTranslation";
-import GoogleMapComp from "pages/GoogleMapComp";
 import { useSelector } from "react-redux";
 
 const Main = styled.div`
@@ -36,9 +35,6 @@ const Main = styled.div`
     }
 `;
 
-const layout = styled.div`
-    position: apsolute;
-`;
 const nestedLayouts = {
     category: CategoriesLayout,
     profile: ProfileLayout,

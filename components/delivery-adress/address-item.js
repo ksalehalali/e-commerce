@@ -7,7 +7,6 @@ import { Menu, Dropdown, Space, Row, Col } from "antd";
 import {
     EllipsisOutlined,
     CheckCircleTwoTone,
-    EditOutlined,
     DeleteOutlined,
 } from "@ant-design/icons";
 // redux

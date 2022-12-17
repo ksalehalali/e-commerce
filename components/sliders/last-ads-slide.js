@@ -21,14 +21,14 @@ function LastAdsSlide() {
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
     };
-    const [bannerPath, setBannetPath] = useState();
+    const [banners, setBanners] = useState([]);
 
     useEffect(async () => {
         await axios
             .get(process.env.NEXT_PUBLIC_HOST_API + "api/ListBanner3", {})
             .then((response) => {
                 if (response.data.description.length > 0) {
-                    setBannetPath(response.data.description);
+                    setBanners(response.data.description);
                 }
             })
             .catch((err) => console.error(err));
@@ -36,48 +36,18 @@ function LastAdsSlide() {
 
     return (
         <Slider {...settings}>
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 1"
-            />
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 2"
-            />
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 3"
-            />
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 4"
-            />
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 5"
-            />
-            <Image
-                layout="responsive"
-                width="100%"
-                height={20}
-                src={adsImg}
-                alt="Image 6"
-            />
+            {banners?.map((ban, index) => {
+                return (
+                    <Image
+                        layout="responsive"
+                        width="100%"
+                        height={30}
+                        src={`https://dashcommerce.click68.com/${ban.banner}`}
+                        alt="Image 1"
+                        key={index}
+                    />
+                );
+            })}
         </Slider>
     );
 }

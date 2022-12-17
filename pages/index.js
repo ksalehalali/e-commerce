@@ -2,9 +2,6 @@ import Head from "next/head";
 // components
 import HomePage from "components/views";
 import axios from "axios";
-import { useEffect } from "react";
-import { reciveAllProducts } from "redux/modal/action";
-import { useDispatch } from "react-redux";
 
 Home.layout = "main";
 export default function Home(props) {

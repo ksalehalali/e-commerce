@@ -8,34 +8,18 @@ import { ShoppingCartOutlined, StopOutlined } from "@ant-design/icons";
 import { GrDeliver } from "react-icons/gr";
 import { Button, Tag, Breadcrumb, message, Alert } from "antd";
 import ProductItemSum from "./product-item-sum";
-import { StarFilled, HeartFilled } from "@ant-design/icons";
+import { HeartFilled } from "@ant-design/icons";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addItemToShoopingCart,
-    setGettedShoopingCart,
-    loadingShoopingCart,
-} from "redux/cart/action";
+import { setGettedShoopingCart } from "redux/cart/action";
 // hooks
 import useFetch from "hooks/useFetch";
 // styles
 import { COLORS } from "styles/variables";
-import { checkCookies } from "cookies-next";
 import { useSession } from "next-auth/react";
 import { FavoriteIcon } from "./product-item";
 import { addProduct } from "redux/modal/action";
-import { useRouter } from "next/router";
 import axios from "axios";
-const StyledTag = styled(FlexDiv)`
-    border-radius: 5px;
-    font-size: 0.9em;
-    width: 80px;
-    height: 30px;
-    color: ${COLORS.TITLE};
-    border: 2px solid ${COLORS.GRAY};
-    padding: 0 5px;
-`;
-
 const StyledDateSquare = styled.span`
     border: 1px solid ${COLORS.GRAY};
     padding: 3px;

@@ -42,9 +42,9 @@ function ProductSectionPart({ title, list }) {
                     {title ? title : "Title Required !"}
                 </Text>
                 <Viewall
-                // onClick={() => {
-                //     router.push(`/products-section/${title}`);
-                // }}
+                    onClick={() => {
+                        router.push(`/products-section/${title}`);
+                    }}
                 >
                     View all
                 </Viewall>

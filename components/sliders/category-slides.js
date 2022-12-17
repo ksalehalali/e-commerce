@@ -140,7 +140,6 @@ const Cont = styled.a`
 
 function CategorySlideItem({ src, alt, title, title_ar, id, locale }) {
     const titleWords = title?.split(" ");
-    const arTitleWords = title_ar?.split(" ");
 
     return (
         <Link href={`/categories/${id}`}>
@@ -190,7 +189,6 @@ function CategorySlide({ router }) {
                 }
             )
             .then((response) => {
-                console.log(response.data);
                 if (response?.data.status) {
                     response.data.description?.map((item) => {
                         if (item.category === null) {
@@ -247,8 +245,6 @@ function CategorySlide({ router }) {
             },
         ],
     };
-
-    console.log("maincats", mainCategories);
 
     return (
         <>

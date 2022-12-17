@@ -89,7 +89,6 @@ function ProdcutItem({ src, alt, title, offer, price, modelID, model, id }) {
     // Handle like click
     const handleLike = async (e) => {
         const likedItem = e.target;
-
         likedItem.classList.toggle("liked");
         const userToken = data.user.token;
         const productId = id;
@@ -100,7 +99,7 @@ function ProdcutItem({ src, alt, title, offer, price, modelID, model, id }) {
         });
 
         try {
-            const { data } = await axios.post(
+            await axios.post(
                 `https://dashcommerce.click68.com/api/AddFavourite`,
                 {
                     ProdID: productId,

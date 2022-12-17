@@ -1,17 +1,22 @@
-import { DownOutlined } from "@ant-design/icons";
-import Item from "antd/lib/list/Item";
+import { MinusSquareTwoTone, PlusSquareOutlined } from "@ant-design/icons";
+
 import axios from "axios";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import SidebarItemChild from "./SidebarItemChild";
 
-function SidebarItem({ index, item, changeSelectedItem }) {
+function SidebarItem({
+    index,
+    item,
+    changeSelectedItem,
+    childNumber,
+    setActive,
+}) {
     const [open, setOpen] = useState(false);
     const [childrens, setChildren] = useState([]);
     const router = useRouter();
 
+    // Get categories if the item has children
     useEffect(() => {
         if (item.children) {
             axios
@@ -22,7 +27,6 @@ function SidebarItem({ index, item, changeSelectedItem }) {
                     },
                     {
                         headers: {
-                            // Authorization: `Bearer ${cookies?.token}`,
                             lang: router.locale,
                         },
                     }
@@ -30,8 +34,6 @@ function SidebarItem({ index, item, changeSelectedItem }) {
                 .then((result) => {
                     if (result.data.description.length > 0) {
                         setChildren(result?.data.description);
-                    } else {
-                        console.log("No categories!!");
                     }
                 })
                 .catch((err) => console.error("Get categories:", err));
@@ -45,33 +47,28 @@ function SidebarItem({ index, item, changeSelectedItem }) {
         categoryItems.forEach((item) => {
             item.classList.remove("active");
         });
-        // categoryItems[0].classList.add("active");
         e.target.classList.add("active");
     };
 
-    const setOpenClass = (e) => {
-        setOpen(!open);
-        const father = e.target.parentElement.parentElement;
-
-        // if (index === 0) {
-        //     father.classList.add("open");
-        // }
-    };
-
+    // Seting open class while the item has children or not
     useEffect(() => {
-        if (index === 0) {
-            setOpen(true);
+        if (item.children) setOpen(true);
+        if (childNumber == 2) setOpen(false);
+    }, []);
+
+    // To remove active class from first side item
+    useEffect(() => {
+        if (setActive) {
+            const categoryItems = document.querySelectorAll(".sidebar-item");
+            categoryItems.forEach((item) => {
+                item.classList.remove("active");
+            });
         }
     }, []);
 
     if (item.children) {
         return (
             <>
-                <Head>
-                    <title>E-commerce</title>
-                    <meta name="description" content="E-commerce Site" />
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
                 <div
                     className={open ? `sidebar-item open` : `sidebar-item`}
                     onClick={(e) => clickedItem(e)}
@@ -82,17 +79,28 @@ function SidebarItem({ index, item, changeSelectedItem }) {
                                 ? item.name_AR
                                 : item.name_EN}
                         </span>
-                        <DownOutlined
-                            className="bi-chevron-down toggle-btn"
-                            onClick={() => setOpen(!open)}
-                        />
+                        {open ? (
+                            <MinusSquareTwoTone
+                                className="show-icon"
+                                onClick={() => setOpen(!open)}
+                            />
+                        ) : (
+                            <PlusSquareOutlined
+                                className="show-icon"
+                                onClick={() => setOpen(!open)}
+                            />
+                        )}
                     </div>
                     <div className="sidebar-content">
                         {childrens.map((child, index) => (
-                            <SidebarItemChild
+                            <SidebarItem
+                                childNumber={2}
+                                index={index}
                                 key={index}
                                 item={child}
-                                index={index}
+                                changeSelectedItem={() =>
+                                    changeSelectedItem(child)
+                                }
                             />
                         ))}
                     </div>
@@ -102,16 +110,11 @@ function SidebarItem({ index, item, changeSelectedItem }) {
     } else {
         return (
             <>
-                <Head>
-                    <title>E-commerce</title>
-                    <meta name="description" content="E-commerce Site" />
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
                 <Link href={`/categories/${item.id}`}>
                     <a
                         onClick={(e) => clickedItem(e)}
-                        className={`sidebar-item plain hover ${
-                            index === 0 ? "active" : ""
+                        className={`sidebar-item plain ${
+                            index === 0 && "active"
                         }`}
                     >
                         {router.locale === "ar" ? item.name_AR : item.name_EN}

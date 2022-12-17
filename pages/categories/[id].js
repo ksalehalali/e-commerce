@@ -32,8 +32,6 @@ OneCategoryPage.layout = "main";
 export async function getServerSideProps(context) {
     const { req, res } = context;
     const { id } = context.params;
-    console.log("id in source", id);
-
     let categories = [];
     let products = [];
 
@@ -74,9 +72,6 @@ export async function getServerSideProps(context) {
                 }
             ),
         ]);
-
-        console.log("categoryData");
-        console.log(categoryData);
 
         if (categoryData?.status === true) {
             categories = categoryData?.description;
