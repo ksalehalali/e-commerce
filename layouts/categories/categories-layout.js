@@ -10,9 +10,11 @@ import { AppstoreFilled, DownOutlined } from "@ant-design/icons";
 // modules
 import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import SidebarItem from "./SidebarItem";
+import useFetch from "hooks/useFetch";
+import { stopLoading } from "redux/loading/actions";
 const { Panel } = Collapse;
 
 // styles
@@ -34,44 +36,24 @@ function CategoriesLayout({ children, sideList }) {
     const { t } = useTranslation("common");
     const { searchResultNumber } = useSelector((state) => state.modal);
     const router = useRouter();
-    const { id } = router.query;
-    const [categoriesList, setCategoriesList] = useState();
+    const id = router;
+    const [categoriesList, setCategoriesList] = useState([]);
     const { locale } = router;
     const [selectedItem, setSelectedItem] = useState();
-
-    // fetch category by category
+    const dispatch = useDispatch();
     useEffect(() => {
-        if (id.split(" ").length == 1) {
-            axios
-                .post(
-                    "https://dashcommerce.click68.com/api/ListCategoryByCategory",
-                    {
-                        id: id,
-                    },
-                    {
-                        headers: {
-                            lang: router.locale,
-                        },
-                    }
-                )
-                .then((result) => {
-                    if (result.data.description.length > 0) {
-                        setCategoriesList(result?.data.description);
-                    }
-                })
-                .catch((err) => console.error("Get categories:", err));
-        } else {
+        if (id.query.from !== "side") {
             setCategoriesList(sideList);
+            setSelectedItem("");
         }
-    }, [id]);
-
-    useEffect(() => {
-        setSelectedItem("");
-    }, [categoriesList]);
+    }, [sideList]);
 
     const changeSelectedItem = (item) => {
         setSelectedItem(item);
     };
+
+    console.log("categoriesList", categoriesList);
+    console.log("sideList", sideList);
 
     return (
         <Container>
@@ -82,7 +64,7 @@ function CategoriesLayout({ children, sideList }) {
                             {t("navbar.home")}
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            {/* {categoriesList && categoriesList[0]?.category} */}
+                            {categoriesList && categoriesList[0]?.category}
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
                             {locale === "ar"

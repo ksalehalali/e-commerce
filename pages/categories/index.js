@@ -6,6 +6,7 @@ import CategoriesLayout from "layouts/categories/categories-layout";
 // modules
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
 
 function CategoriesPage(props) {
     const router = useRouter();
@@ -55,7 +56,10 @@ export async function getServerSideProps(context) {
             }),
             axios.post(
                 "https://dashcommerce.click68.com/api/ListProduct",
-                {},
+                {
+                    PageNumber: 2,
+                    PageSize: 30,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${cookies?.token}`,

@@ -112,7 +112,7 @@ function HomePage({ list }) {
             <Container>
                 <ProductSectionPart
                     list={offerProductsData?.description}
-                    title={t("offersTxt")}
+                    title="Last Offers"
                 />
             </Container>
 

@@ -41,7 +41,6 @@ function MyApp({ Component, pageProps, cookies, ...rest }) {
 
     // redux store
     const store = useStore(pageProps.initialReduxState);
-    console.log("initialReduxState", store);
 
     const Layout =
         layouts[Component.layout || "none"] || ((children) => <>{children}</>);

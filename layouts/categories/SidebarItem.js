@@ -1,9 +1,12 @@
 import { MinusSquareTwoTone, PlusSquareOutlined } from "@ant-design/icons";
 
 import axios from "axios";
+import useFetch from "hooks/useFetch";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { startLoading } from "redux/loading/actions";
 
 function SidebarItem({
     index,
@@ -15,30 +18,30 @@ function SidebarItem({
     const [open, setOpen] = useState(false);
     const [childrens, setChildren] = useState([]);
     const router = useRouter();
+    const dispatch = useDispatch();
+
+    const {
+        data: data,
+        error: error,
+        loading: loading,
+        executeFetch: executeFetch,
+    } = useFetch(
+        `${process.env.NEXT_PUBLIC_HOST_API}api/ListCategoryByCategory`,
+        "post",
+        {},
+        false
+    );
 
     // Get categories if the item has children
     useEffect(() => {
         if (item.children) {
-            axios
-                .post(
-                    "https://dashcommerce.click68.com/api/ListCategoryByCategory",
-                    {
-                        id: item.id,
-                    },
-                    {
-                        headers: {
-                            lang: router.locale,
-                        },
-                    }
-                )
-                .then((result) => {
-                    if (result.data.description.length > 0) {
-                        setChildren(result?.data.description);
-                    }
-                })
-                .catch((err) => console.error("Get categories:", err));
+            executeFetch({ id: item.id });
         }
     }, [item]);
+
+    useEffect(() => {
+        setChildren(data?.description);
+    }, [data]);
 
     // This tow functions To set and empty Selected category
     const clickedItem = (e) => {
@@ -49,12 +52,6 @@ function SidebarItem({
         });
         e.target.classList.add("active");
     };
-
-    // Seting open class while the item has children or not
-    useEffect(() => {
-        if (item.children) setOpen(true);
-        if (childNumber == 2) setOpen(false);
-    }, []);
 
     // To remove active class from first side item
     useEffect(() => {
@@ -69,16 +66,16 @@ function SidebarItem({
     if (item.children) {
         return (
             <>
-                <div
-                    className={open ? `sidebar-item open` : `sidebar-item`}
-                    onClick={(e) => clickedItem(e)}
-                >
+                <div className={open ? `sidebar-item open` : `sidebar-item`}>
                     <div className="sidebar-title hover">
-                        <span>
+                        <Link
+                            href={`/categories/${item.id}?from=side`}
+                            onClick={(e) => clickedItem(e)}
+                        >
                             {router.locale === "ar"
                                 ? item.name_AR
                                 : item.name_EN}
-                        </span>
+                        </Link>
                         {open ? (
                             <MinusSquareTwoTone
                                 className="show-icon"
@@ -92,7 +89,7 @@ function SidebarItem({
                         )}
                     </div>
                     <div className="sidebar-content">
-                        {childrens.map((child, index) => (
+                        {childrens?.map((child, index) => (
                             <SidebarItem
                                 childNumber={2}
                                 index={index}
@@ -110,7 +107,7 @@ function SidebarItem({
     } else {
         return (
             <>
-                <Link href={`/categories/${item.id}`}>
+                <Link href={`/categories/${item.id}?from=side`}>
                     <a
                         onClick={(e) => clickedItem(e)}
                         className={`sidebar-item plain ${

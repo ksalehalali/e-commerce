@@ -16,7 +16,7 @@ function OneCategoryPage(props) {
             <Head>
                 <title>One Categories</title>
             </Head>
-            <CategoriesLayout>
+            <CategoriesLayout sideList={props.categories}>
                 <CategoriesPageContent
                     id={id}
                     productList={props.products}

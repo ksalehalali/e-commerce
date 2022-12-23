@@ -56,18 +56,14 @@ function CategoriesPageContent({ id, locale, productList, sideList }) {
             await axios
                 .post(
                     "https://dashcommerce.click68.com/api/ListProductByCategory",
-                    { id: sideList[0]?.id },
                     {
-                        headers: {
-                            lang: locale,
-                        },
+                        id: sideList[0]?.id,
+                        PageNumber: 1,
                     }
                 )
                 .then((result) => {
                     if (result.data.status) {
-                        dispatch(
-                            searchResultNumber(result.data.description.length)
-                        );
+                        dispatch(searchResultNumber(result.data.total));
 
                         setFiltredProducts(result.data.description);
                     }

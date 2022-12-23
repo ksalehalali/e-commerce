@@ -18,12 +18,14 @@ function ProductsSection(props) {
     const [chosienSection, setChosienSection] = useState([]);
     const { data: user } = useSession();
 
+    console.log("products section", section);
+
     useEffect(() => {
         switch (section) {
             case "Suggested":
                 getProducts("ListProductByLastOrder");
                 break;
-            case "Offers":
+            case "Last":
                 getProducts("ListProductOffer");
                 break;
             case "Latest":
@@ -39,12 +41,13 @@ function ProductsSection(props) {
             .post(
                 `https://dashcommerce.click68.com/api/${endpoint}`,
                 {
-                    PageSize: 10,
-                    PageNumber: 2,
+                    PageSize: 20,
+                    PageNumber: 1,
                 },
                 {}
             )
             .then((res) => {
+                console.log(res.data);
                 if (res?.data.status) {
                     setChosienSection(res?.data.description);
                     dispatch(searchResultNumber(res?.data.total));
